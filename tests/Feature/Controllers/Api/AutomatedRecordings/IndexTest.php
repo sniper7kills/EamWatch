@@ -1,0 +1,79 @@
+<?php
+
+namespace Tests\Feature\Controllers\Api\AutomatedRecordings;
+
+use App\Models\Guest;
+use App\Models\Message;
+use App\Models\Recording;
+use App\Models\User;
+use Tests\TestCase;
+
+class IndexTest extends TestCase
+{
+    public function test_index_unavailable_for_banned_users()
+    {
+        $user = factory(User::class)->create();
+        $user->banned = true;
+        $user->save();
+        $recording = factory(Recording::class)->make();
+        $recording->user = $user;
+        $recording->save();
+
+        $this->actingAs($user);
+        $this->json('get', route('automatedRecordings.index'))
+            ->assertStatus(403)
+            ->assertSee('You are banned.');
+    }
+
+    public function test_index_unavailable_for_banned_guests()
+    {
+        $user = Guest::current();
+        $user->banned = true;
+        $user->save();
+        $recording = factory(Recording::class)->make();
+        $recording->user = $user;
+        $recording->save();
+
+        $this->json('get', route('automatedRecordings.index'))
+            ->assertStatus(403)
+            ->assertSee('You are banned.');
+    }
+
+    public function test_index_displays_paginated_data()
+    {
+        $user = Guest::current();
+        $recording = factory(Recording::class)->make(['automated'=>true]);
+        $recording->user = $user;
+        $recording->save();
+
+        $this->json('get', route('automatedRecordings.index'))
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    [
+                        'id' => $recording->id,
+                        'time' => $recording->time,
+                        'frequency' => $recording->frequency,
+                        'receiver' => $recording->receiver,
+                        'link' => $recording->link,
+                    ]
+                ],
+                'links' => [
+                    'first' => route('automatedRecordings.index')."?page=1",
+                    'last' => route('automatedRecordings.index')."?page=1",
+                    'next' => null,
+                    'prev' => null,
+
+                ],
+                'meta' => [
+                    'current_page' => 1,
+                    'from' => 1,
+                    'last_page' => 1,
+                    'path' => route('automatedRecordings.index'),
+                    'per_page' => 15,
+                    'to' => 1,
+                    'total' => 1
+                ]
+            ]);
+    }
+}

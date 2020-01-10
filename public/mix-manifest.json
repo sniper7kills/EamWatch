@@ -1,0 +1,9 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/messages/add.js": "/messages/add.js",
+    "/messages/listing.js": "/messages/listing.js",
+    "/messages/view.js": "/messages/view.js",
+    "/partials/pagination.js": "/partials/pagination.js",
+    "/vendors~messages/view.js": "/vendors~messages/view.js"
+}
