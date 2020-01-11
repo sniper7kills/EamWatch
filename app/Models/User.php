@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use App\Models\Concerns\GeneratesUUID;
+use App\Models\Concerns\GeneratesUuid;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;

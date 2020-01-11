@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.2",
+        "laravel/telescope": "^2.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
         "laravel/vapor-cli": "^1.4",

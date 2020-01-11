@@ -49,7 +49,6 @@ abstract class AbstractRecording extends Model
         'receiver' => 'string',
         'automated' => 'boolean',
         'automated_reviewed' => 'boolean',
-        'link' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime'
@@ -63,8 +62,7 @@ abstract class AbstractRecording extends Model
     protected $fillable = [
         'broadcasted_at',
         'frequency',
-        'receiver',
-        'link'
+        'receiver'
     ];
     
     public function message()

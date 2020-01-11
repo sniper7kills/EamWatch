@@ -27,7 +27,8 @@ class RecordingResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->recording->id
+            'id' => $this->recording->id,
+            'link' => $this->recording->link
         ];
     }
 }

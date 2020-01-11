@@ -8,14 +8,20 @@ require('./bootstrap');
 
 //window.Vue = require('vue');
 import Vue from 'vue';
-import VueRouter from "vue-router";
-
 window.Vue = Vue;
+
+import VueRouter from "vue-router";
 Vue.use(VueRouter);
+import router from './routes';
+
+window.Vapor = require('laravel-vapor');
 
 import VueLoading from 'vue-loading-template'
 Vue.use(VueLoading);
-import router from './routes';
+
+import LaravelVueValidator from 'laravel-vue2-validator'
+Vue.use(LaravelVueValidator);
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -28,7 +34,6 @@ import router from './routes';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('pagination', () => import(/* webpackChunkName: "partials/pagination" */ './components/pagination'));
 
 /**

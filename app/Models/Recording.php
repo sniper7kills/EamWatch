@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Models\Concerns\GeneratesUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Recording extends \App\Models\AbstractModels\AbstractRecording
 {
@@ -43,5 +44,20 @@ class Recording extends \App\Models\AbstractModels\AbstractRecording
     public function setTimeAttribute($time)
     {
         $this->attributes['broadcasted_at'] = Carbon::make($time);
+    }
+
+    /**
+     *
+     */
+    public function getLinkAttribute()
+    {
+        $rootPath = '';
+        if(!$this->automated)
+            $rootPath.='recordings/'.$this->message_id.'/';
+        else
+            $rootPath.='automated/';
+        $rootPath.=$this->id;
+
+        return Storage::url($rootPath);
     }
 }

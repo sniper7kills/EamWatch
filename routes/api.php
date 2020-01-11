@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->group(function(){
     Route::apiResource('messages', 'MessageController');
+    Route::apiResource('skykings', 'SkykingController')->only('index');
     Route::apiResource('recordings', 'RecordingController')->except('index');
     Route::apiResource('automatedRecordings', 'AutomatedRecordingController')->except(['delete','show']);
 });

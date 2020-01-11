@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RecordingStoreRequest;
+use App\Http\Resources\Stub\RecordingResource;
+use App\Models\Guest;
+use App\Models\Message;
 use App\Models\Recording;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecordingController extends Controller
 {
@@ -17,11 +23,32 @@ class RecordingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return RecordingResource
      */
-    public function store(Request $request)
+    public function store(RecordingStoreRequest $request)
     {
-        //
+        $request = $request->validated();
+
+        if(Auth::guest())
+            $user = Guest::current();
+        else
+            $user = Auth::user();
+
+        $message = Message::find($request['message_id']);
+
+        $recording = new Recording($request);
+        $recording->message = $message;
+        $recording->user = $user;
+        $recording->save();
+
+        Storage::copy(
+            $request['key'],
+            '/recordings/'.$message->id."/".$recording->id
+        );
+
+        Storage::setVisibility('/recordings/'.$message->id."/".$recording->id, 'public');
+
+        return RecordingResource::make($recording);
     }
 
     /**

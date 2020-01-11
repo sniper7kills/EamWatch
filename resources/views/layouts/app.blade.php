@@ -14,7 +14,11 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @if (app()->environment('local'))
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @endif
 
 </head>
 <body class="hold-transition sidebar-mini dark sidebar-collapse">
@@ -42,7 +46,11 @@
 <!-- ./wrapper -->
 
 <!-- Scripts -->
-<script src="{{ mix('js/app.js') }}"></script>
+@if (app()->environment('local'))
+    <script src="{{ mix('js/app.js') }}"></script>
+@else
+    <script src="{{ asset('js/app.js') }}" defer></script>
+@endif
 </body>
 
 </html>

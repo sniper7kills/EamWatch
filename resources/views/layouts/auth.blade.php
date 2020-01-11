@@ -4,12 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
+    <title>Eam.Watch</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @if (app()->environment('local'))
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @endif
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -21,7 +25,12 @@
 </div>
 <!-- /.login-box -->
 
-<script src="{{ mix('js/app.js') }}"></script>
+<!-- Scripts -->
+@if (app()->environment('local'))
+    <script src="{{ mix('js/app.js') }}"></script>
+@else
+    <script src="{{ asset('js/app.js') }}" defer></script>
+@endif
 
 </body>
 </html>

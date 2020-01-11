@@ -8,6 +8,11 @@ let routes = [
         component: () => import(/* webpackChunkName: "messages/listing" */ './components/messages/listing')
     },
     {
+        path: '/skyking',
+        name: 'skyking-listing',
+        component: () => import(/* webpackChunkName: "messages/listing" */ './components/messages/skyking')
+    },
+    {
         path: '/view/:message_id',
         name: 'message-view',
         component: () => import(/* webpackChunkName: "messages/view" */ './components/messages/view')

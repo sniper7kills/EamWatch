@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="/images/logo.jpg" alt="Eam.Watch Logo" class="brand-image img-circle elevation-3"
+        <img src="{{asset('/images/logo.jpg')}}" alt="Eam.Watch Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">Eam.Watch</span>
     </a>
@@ -43,7 +43,7 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link tag="a" class="nav-link" :to="{ name: 'message-listing'}">
+                    <router-link tag="a" class="nav-link" :to="{ name: 'skyking-listing'}">
                         <i class="nav-icon fas fa-fighter-jet"></i>
                         <p>Skyking Messages</p>
                     </router-link>
