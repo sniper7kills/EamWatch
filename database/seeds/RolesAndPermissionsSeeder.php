@@ -20,6 +20,15 @@ class RolesAndPermissionsSeeder extends Seeder
         $moderatorRole = Role::create(['name' => 'moderator']);
 
         /**
+         * Telescope Permissions
+         */
+        $telescopePermissions = [
+            'view' => Permission::create(['name' => 'view telescope']),
+        ];
+
+        $adminRole->givePermissionTo($telescopePermissions['view']);
+
+        /**
          * Message Permissions
          */
         $messagePermissions = [
@@ -48,5 +57,20 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $adminRole->givePermissionTo($recordingPermissions['delete']);
         $moderatorRole->givePermissionTo($recordingPermissions['delete']);
+
+        /**
+         * Comment Permissions
+         */
+        $commentPermissions = [
+            'update' => Permission::create(['name' => 'update comments']),
+            'delete' => Permission::create(['name' => 'delete comments'])
+        ];
+
+        $adminRole->givePermissionTo($commentPermissions['update']);
+        $moderatorRole->givePermissionTo($commentPermissions['delete']);
+
+        $adminRole->givePermissionTo($commentPermissions['delete']);
+        $moderatorRole->givePermissionTo($commentPermissions['delete']);
+
     }
 }

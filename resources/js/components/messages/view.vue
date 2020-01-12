@@ -45,7 +45,13 @@
                 </div>
                 <div class="card-footer clearfix" >
                     <div class="text-sm float-right">
-                        <b>Submitted By:</b> {{this.message.user.name}}
+                        <b>Submitted By:</b>
+                        <router-link v-if="this.message.user.type === 'user'" tag="a" :to="{ name: 'user-view', params: { user_id: this.message.user.id } }">
+                            {{this.message.user.name}}
+                        </router-link>
+                        <router-link v-if="this.message.user.type === 'guest'" tag="a" :to="{ name: 'guest-view', params: { guest_id: this.message.user.id } }">
+                            {{this.message.user.name}}
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -75,60 +81,23 @@
 
         </div>
         <div class="col-12 col-md-12 col-lg-12">
-            <div class="card">
+            <div v-if="this.loading" class="card">
                 <div class="card-header">
-                    Message Comments
+                    Comments
                 </div>
                 <div class="card-body">
-                    <vue-loading v-if="this.loading" type="bubbles" color="#d9544e" :size="{ width: '50px', height: '50px' }" />
-                    <div v-if="!this.loading">
-                        <div class="post clearfix">
-                            <div class="user-block">
-                                <!--<img class="img-circle img-bordered-sm" src="https://adminlte.io/themes/v3/dist/img/user4-128x128.jpg" alt="User Image">-->
-                                <span class="username">
-                                    <a href="#">Sarah Ross</a>
-                                </span>
-                                <span class="description">2020-01-09 06:47:14</span>
-                            </div>
-                            <!-- /.user-block -->
-                            <p>
-                                Lorem ipsum represents a long-held tradition for designers,
-                                typographers and the like. Some people hate it and argue for
-                                its demise, but others ignore the hate as they create awesome
-                                tools to help create filler text for everyone from bacon lovers
-                                to Charlie Sheen fans.
-                            </p>
-
-                            <!--<form class="form-horizontal">
-                                <div class="input-group input-group-sm mb-0">
-                                    <textarea class="form-control form-control-sm" placeholder="Response"></textarea>
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-danger">Reply</button>
-                                    </div>
-                                </div>
-                            </form>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer clearfix" v-if="!this.loading">
-                    <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                            <textarea class="form-control form-control-sm" placeholder="New Comment" />
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-danger">Add Comment</button>
-                            </div>
-                        </div>
-                    </form>
+                    <vue-loading type="bubbles" color="#d9544e" :size="{ width: '50px', height: '50px' }" />
                 </div>
             </div>
+            <comment-listing v-if="!this.loading" v-bind:message_id="message.id" v-bind:comments="this.message.comments" />
         </div>
     </div>
 </template>
 
 <script>
-    import VuePlyr from 'vue-plyr';
     import RecordingListStub from '../recording/stub/list';
     import RecordingAddStub from '../recording/stub/add';
+    import CommentListing from '../comment/listing';
     export default {
         name: "message-view",
         data: function() {
@@ -152,9 +121,9 @@
             this.loadMessage()
         },
         components: {
-            VuePlyr,
             RecordingListStub,
-            RecordingAddStub
+            RecordingAddStub,
+            CommentListing
         }
     }
 </script>

@@ -3,7 +3,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    Skyking Messages
+                    <p class="float-left">Skyking Messages</p>
+                    <b class="float-right">Per Page:</b>
+                    <select class="form-control float-right" v-model="this.pagination.per_page">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="75">75</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
                 <!-- /.card-header -->
                 <div class="table-responsive">

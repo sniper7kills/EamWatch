@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <input v-on:click="uploadRecording" class="btn btn-primary float-right" type="submit" value="Add Recording">
+            <input :disabled="submitting === true" v-on:click="uploadRecording" class="btn btn-primary float-right" type="submit" value="Add Recording">
         </div>
     </div>
 </template>

@@ -5,9 +5,12 @@ namespace App\Http\Resources;
 use App\Models\Guest;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class UserResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * @var User | Guest
      */

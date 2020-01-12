@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
 use App\Models\Guest;
 use App\Models\Message;
 use App\Models\Recording;
 use App\Models\User;
+use App\Policies\CommentPolicy;
 use App\Policies\Concerns\BanCheck;
+use App\Policies\GuestPolicy;
 use App\Policies\MessagePolicy;
 use App\Policies\RecordingPolicy;
 use App\Policies\UserPolicy;
@@ -22,10 +25,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        null => UserPolicy::class,
+        Guest::class => GuestPolicy::class,
         User::class => UserPolicy::class,
         Message::class => MessagePolicy::class,
         Recording::class => RecordingPolicy::class,
+        Comment::class => CommentPolicy::class
     ];
 
     /**
@@ -46,9 +50,7 @@ class AuthServiceProvider extends ServiceProvider
          * Ability to view Telescope
          */
         Gate::define('viewTelescope', function (User $user) {
-            return in_array($user->email, [
-                'taylor@laravel.com',
-            ]);
+            return $user->can('view telescope');
         });
         $this->registerPolicies();
     }

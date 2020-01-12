@@ -11,8 +11,16 @@
 |
 */
 
-Auth::routes();
+use App\Http\Middleware\BannedMiddleware;
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/banned', function(){
+    return view('banned');
+});
 
-Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+Route::middleware(BannedMiddleware::class)->group(function(){
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+});

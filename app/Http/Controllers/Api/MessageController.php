@@ -21,11 +21,12 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $messages = Message::where('visible',true)->orderBy('broadcast_ts','DESC')->paginate();
+        $messages = Message::where('visible',true)->orderBy('broadcast_ts','DESC')->paginate($request->get('paginate',15));
         return MessageResource::collection($messages);
     }
 
@@ -68,7 +69,7 @@ class MessageController extends Controller
      *
      * @param  MessageUpdateRequest  $request
      * @param  Message  $message
-     * @return \Illuminate\Http\Response
+     * @return MessageResource
      */
     public function update(MessageUpdateRequest $request, Message $message)
     {

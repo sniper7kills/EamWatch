@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"messages/add":"messages/add","messages/listing":"messages/listing","partials/pagination":"partials/pagination","vendors~messages/view":"vendors~messages/view","messages/view":"messages/view"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"automated/list":"automated/list","guest/view":"guest/view","messages/add":"messages/add","messages/listing":"messages/listing","partials/pagination":"partials/pagination","vendors~messages/view~recordings/view":"vendors~messages/view~recordings/view","messages/view":"messages/view","recordings/view":"recordings/view"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -57331,7 +57331,21 @@ window.Vapor = __webpack_require__(/*! laravel-vapor */ "./node_modules/laravel-
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_loading_template__WEBPACK_IMPORTED_MODULE_3___default.a);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(laravel_vue2_validator__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(laravel_vue2_validator__WEBPACK_IMPORTED_MODULE_4__["default"]); // Add a response interceptor
+
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status === 403) {
+    if (error.response.data.message === "You are banned.") {
+      window.location.href = '/banned';
+      window.location.assign("/banned");
+      console.log("YOU ARE BANNED!");
+    }
+  }
+
+  return Promise.reject(error);
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -57432,13 +57446,37 @@ var routes = [{
   path: '/view/:message_id',
   name: 'message-view',
   component: function component() {
-    return Promise.all(/*! import() | messages/view */[__webpack_require__.e("vendors~messages/view"), __webpack_require__.e("messages/view")]).then(__webpack_require__.bind(null, /*! ./components/messages/view */ "./resources/js/components/messages/view.vue"));
+    return Promise.all(/*! import() | messages/view */[__webpack_require__.e("vendors~messages/view~recordings/view"), __webpack_require__.e("messages/view")]).then(__webpack_require__.bind(null, /*! ./components/messages/view */ "./resources/js/components/messages/view.vue"));
   }
 }, {
   path: '/add',
   name: 'message-add',
   component: function component() {
     return __webpack_require__.e(/*! import() | messages/add */ "messages/add").then(__webpack_require__.bind(null, /*! ./components/messages/add */ "./resources/js/components/messages/add.vue"));
+  }
+}, {
+  path: '/recording/:recording_id',
+  name: 'recording-view',
+  component: function component() {
+    return Promise.all(/*! import() | recordings/view */[__webpack_require__.e("vendors~messages/view~recordings/view"), __webpack_require__.e("recordings/view")]).then(__webpack_require__.bind(null, /*! ./components/recording/view */ "./resources/js/components/recording/view.vue"));
+  }
+}, {
+  path: '/automated-recordings',
+  name: 'automated-listing',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | automated/list */ "automated/list").then(__webpack_require__.bind(null, /*! ./components/automated/list */ "./resources/js/components/automated/list.vue"));
+  }
+}, {
+  path: '/guest/:guest_id',
+  name: 'guest-view',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | guest/view */ "guest/view").then(__webpack_require__.bind(null, /*! ./components/guest/view */ "./resources/js/components/guest/view.vue"));
+  }
+}, {
+  path: '/user/:user_id',
+  name: 'user-view',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | guest/view */ "guest/view").then(__webpack_require__.bind(null, /*! ./components/user/view */ "./resources/js/components/user/view.vue"));
   }
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({

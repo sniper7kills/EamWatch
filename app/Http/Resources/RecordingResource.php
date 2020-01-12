@@ -6,7 +6,7 @@ use App\Models\Recording;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
 
-class AutomatedRecordingResource extends JsonResource
+class RecordingResource extends JsonResource
 {
     use HasLinks;
 
@@ -31,10 +31,11 @@ class AutomatedRecordingResource extends JsonResource
     {
         return [
             'id' => $this->recording->id,
-            'time' => $this->recording->time,
+            'link' => $this->recording->link,
             'frequency' => $this->recording->frequency,
             'receiver' => $this->recording->receiver,
-            'link' => $this->recording->link,
+            'time' => $this->recording->time,
+            'message' => \App\Http\Resources\Stub\MessageResource::make($this->recording->message),
             'user' => \App\Http\Resources\Stub\UserResource::make($this->recording->userable),
         ];
     }

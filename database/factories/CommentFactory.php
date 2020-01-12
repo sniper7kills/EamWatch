@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Models\Recording;
+use App\Models\Comment;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -16,10 +16,8 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Recording::class, function (Faker $faker) {
+$factory->define(Comment::class, function (Faker $faker) {
     return [
-        'broadcasted_at' => \Carbon\Carbon::now(),
-        'frequency' => $faker->numberBetween(),
-        'automated' => false,
+        'message' => $faker->paragraph
     ];
 });

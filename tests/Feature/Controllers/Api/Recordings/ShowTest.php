@@ -46,4 +46,36 @@ class ShowTest extends TestCase
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
+
+    public function test_recording_show()
+    {
+        $user = Guest::current();
+        $message = factory(Message::class)->make();
+        $message->user = $user;
+        $message->save();
+        $recording = factory(Recording::class)->make();
+        $recording->message = $message;
+        $recording->user = $user;
+        $recording->save();
+
+        $this->json('get', route('recordings.show',['recording'=>$recording]))
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'id' => $recording->id,
+                    'link' => $recording->link,
+                    'frequency' => $recording->frequency,
+                    'receiver' => $recording->receiver,
+                    'time' => $recording->time,
+                    'message' => [
+                        'id' => $message->id,
+                        'type' => $message->type,
+                        'time' => $message->time
+                    ],
+                    'user' => [
+                        'name' => $user->id
+                    ]
+                ]
+            ]);
+    }
 }

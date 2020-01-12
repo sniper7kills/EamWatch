@@ -11,6 +11,7 @@ environments:
             - 'composer install --no-dev'
             - 'php artisan event:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
+            - 'php artisan db:seed --class=RolesAndPermissionsSeeder'
     staging:
         database: EamWatch-DB
         storage: eamwatch-staging
@@ -24,3 +25,4 @@ environments:
         deploy:
             - 'php artisan migrate:fresh'
             - 'php artisan db:seed --class=StagingSeeder'
+            - 'php artisan db:seed --class=RolesAndPermissionsSeeder'

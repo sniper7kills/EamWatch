@@ -5,6 +5,7 @@
             <p class="login-box-msg">{{ __('Register') }}</p>
 
             <form method="POST" action="{{ route('register') }}">
+                @csrf
                 <div class="input-group mb-3">
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="{{ __('Name') }}" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                     <div class="input-group-append">

@@ -30,9 +30,13 @@ class UserResource extends JsonResource
         return [
             $this->mergeWhen($this->user->getMorphClass() == User::class,[
                 'name' => $this->user->name,
+                'id' => $this->user->id,
+                'type' => 'user'
             ]),
             $this->mergeWhen($this->user->getMorphClass() == Guest::class,[
-                'name' => $this->user->id
+                'name' => $this->user->id,
+                'id' => $this->user->id,
+                'type' => 'guest'
             ])
         ];
     }

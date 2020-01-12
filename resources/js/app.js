@@ -22,6 +22,19 @@ Vue.use(VueLoading);
 import LaravelVueValidator from 'laravel-vue2-validator'
 Vue.use(LaravelVueValidator);
 
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    if(error.response.status === 403) {
+        if(error.response.data.message === "You are banned."){
+            window.location.href = '/banned';
+            window.location.assign("/banned");
+            console.log("YOU ARE BANNED!");
+        }
+    }
+    return Promise.reject(error);
+});
 
 /**
  * The following block of code may be used to automatically register your

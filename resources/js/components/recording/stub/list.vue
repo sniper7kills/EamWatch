@@ -2,7 +2,9 @@
     <div>
         <div class="text-muted" v-for="recording in recordings">
             <p class="text-sm">
-                <a href="#">{{recording.id}}</a>
+                <router-link tag="a" :to="{ name: 'recording-view', params: { recording_id: recording.id } }">
+                    {{recording.id}}
+                </router-link>
             </p>
             <vue-plyr>
                 <audio>
@@ -14,9 +16,13 @@
 </template>
 
 <script>
+    import VuePlyr from 'vue-plyr';
     export default {
         name: "RecordingListStub",
-        props: ['recordings']
+        props: ['recordings'],
+        components: {
+            VuePlyr
+        }
     }
 </script>
 

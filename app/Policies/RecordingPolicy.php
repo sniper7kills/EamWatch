@@ -66,7 +66,7 @@ class RecordingPolicy
      */
     public function delete(User $user, Recording $recording)
     {
-        //
+        return $user->can('delete recordings');
     }
 
     /**

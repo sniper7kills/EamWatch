@@ -17,6 +17,12 @@ class StagingSeeder extends Seeder
             $message = factory(\App\Models\Message::class)->make();
             $message->user = $user;
             $message->save();
+            for($c = 0; $c < 5; $c++)
+            {
+                $comment = factory(\App\Models\Comment::class)->make();
+                $comment->user = factory(\App\Models\User::class)->create();
+                $message->comments()->save($comment);
+            }
         }
     }
 }

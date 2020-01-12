@@ -22,6 +22,26 @@ let routes = [
         name: 'message-add',
         component: () => import(/* webpackChunkName: "messages/add" */ './components/messages/add')
     },
+    {
+        path: '/recording/:recording_id',
+        name: 'recording-view',
+        component: () => import(/* webpackChunkName: "recordings/view" */ './components/recording/view')
+    },
+    {
+        path: '/automated-recordings',
+        name: 'automated-listing',
+        component: () => import(/* webpackChunkName: "automated/list" */ './components/automated/list')
+    },
+    {
+        path: '/guest/:guest_id',
+        name: 'guest-view',
+        component: () => import(/* webpackChunkName: "guest/view" */ './components/guest/view')
+    },
+    {
+        path: '/user/:user_id',
+        name: 'user-view',
+        component: () => import(/* webpackChunkName: "guest/view" */ './components/user/view')
+    },
 ];
 
 
