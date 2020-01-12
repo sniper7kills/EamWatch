@@ -95,6 +95,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "message-listing",
   data: function data() {
@@ -110,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
         last_page: 0,
         // required
         from: 1,
-        to: 12
+        to: 15
       },
       paginationOptions: {
         offset: 4,
@@ -127,8 +130,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     perPage: function perPage(oldPerPage, newPerPage) {
-      this.pagination.current_page = 1;
-      this.loadMessages();
+      this.pagination.current_page = 1; //this.loadMessages();
     }
   },
   methods: {
@@ -517,7 +519,22 @@ var render = function() {
                 )
               : _vm._e()
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-footer clearfix" },
+          [
+            _c("pagination", {
+              attrs: {
+                pagination: _vm.pagination,
+                callback: _vm.loadMessages,
+                options: _vm.paginationOptions
+              }
+            })
+          ],
+          1
+        )
       ])
     ])
   ])

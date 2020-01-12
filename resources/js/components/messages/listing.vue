@@ -78,6 +78,9 @@
                     </table>
                 </div>
                 <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    <pagination :pagination="pagination" :callback="loadMessages" :options="paginationOptions" />
+                </div>
             </div>
             <!-- /.card -->
         </div>
@@ -97,7 +100,7 @@
                     current_page: 1, // required
                     last_page: 0,    // required
                     from: 1,
-                    to: 12
+                    to: 15
                 },
                 paginationOptions: {
                     offset: 4,
@@ -115,7 +118,7 @@
         watch: {
             perPage: function (oldPerPage, newPerPage) {
                 this.pagination.current_page = 1;
-                this.loadMessages();
+                //this.loadMessages();
             }
         },
         methods: {

@@ -15,6 +15,7 @@ environments:
     staging:
         database: EamWatch-DB
         storage: eamwatch-staging
+        domain: dev.eam.watch
         memory: 1024
         cli-memory: 512
         runtime: php-7.4

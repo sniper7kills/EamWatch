@@ -47,20 +47,14 @@ abstract class AbstractUser extends \Illuminate\Foundation\Auth\User
     ];
     
     /**  
-     * The guarded property should contain an array of attributes that you do not want to be mass assignable.
-     * 
-     * @var array
-     */
-    protected $guarded = ['password'];
-    
-    /**  
      * The attributes that are mass assignable.
      * 
      * @var array
      */
     protected $fillable = [
         'name',
-        'email'
+        'email',
+        'password'
     ];
     
     public function relayProviders()
