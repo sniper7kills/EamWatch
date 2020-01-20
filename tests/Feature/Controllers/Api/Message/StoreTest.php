@@ -276,4 +276,32 @@ class StoreTest extends TestCase
                 ]
             ]);
     }
+
+    public function test_radiocheck_does_not_require_a_receiver()
+    {
+        $guest = Guest::current();
+        $ts = Carbon::now()->toDateTimeString();
+
+        $messageData = [
+            'type' => 'radiocheck',
+            'sender' => 'sender',
+            'receiver' => null,
+            'time' => $ts,
+            'message' => 'this is a test message'
+        ];
+
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(201)
+            ->assertJson([
+                'data' => [
+                    'type' => 'RADIOCHECK',
+                    'sender' => 'SENDER',
+                    'time' => $ts,
+                    'message' => 'THIS IS A TEST MESSAGE',
+                    'user' => [
+                        'name' => $guest->id
+                    ]
+                ]
+            ]);
+    }
 }

@@ -24,7 +24,7 @@ class DeleteTest extends TestCase
         $message->save();
 
         $this->json('delete', route('messages.destroy', ['message'=>$message]))
-            ->assertStatus(403);
+            ->assertStatus(401);
     }
 
     public function test_users_can_not_delete_messages()
@@ -34,7 +34,7 @@ class DeleteTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user,'api');
         $this->json('delete', route('messages.destroy', ['message'=>$message]))
             ->assertStatus(403);
     }
@@ -48,7 +48,7 @@ class DeleteTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('messages.destroy', ['message'=>$message]))
             ->assertStatus(204);
     }

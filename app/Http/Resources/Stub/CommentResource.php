@@ -30,7 +30,7 @@ class CommentResource extends JsonResource
             'id' => $this->comment->id,
             'message' => $this->comment->message,
             'time' => $this->comment->time,
-            'user' => UserResource::make($this->comment->userable)
+            'user' => UserResource::make($this->comment->userable),
         ];
     }
 }

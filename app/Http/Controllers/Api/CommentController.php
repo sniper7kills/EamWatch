@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentIndexRequest;
 use App\Http\Requests\CommentStoreRequest;
 use App\Http\Requests\CommentUpdateRequest;
 use App\Http\Resources\CommentResource;
@@ -15,9 +17,33 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    use GetCurrentUserOrGuest;
+
     public function __construct()
     {
         $this->authorizeResource(Comment::class, 'comment');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function index(CommentIndexRequest $request)
+    {
+        $request = $request->validated();
+        $commentable = null;
+        if(key_exists('message_id',$request))
+            $commentable = Message::find($request['message_id']);
+        else if(key_exists('recording_id',$request))
+            $commentable = Recording::find($request['recording_id']);
+
+        if(!key_exists('paginate', $request))
+            $request['paginate'] = 15;
+
+        $messages = $commentable->comments()->orderBy('created_at','DESC')->paginate($request['paginate']);
+        return CommentResource::collection($messages);
     }
 
     /**
@@ -31,12 +57,7 @@ class CommentController extends Controller
         $request = $request->validated();
         $comment = new Comment($request);
 
-        if(Auth::guest())
-            $user = Guest::current();
-        else
-            $user = Auth::user();
-
-        $comment->user = $user;
+        $comment->user = $this->currentUserOrGuest();
 
         if(key_exists('message_id', $request))
         {
@@ -47,6 +68,17 @@ class CommentController extends Controller
             $recording->comments()->save($comment);
         }
 
+        return CommentResource::make($comment);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Comment $comment
+     * @return CommentResource
+     */
+    public function show(Comment $comment)
+    {
         return CommentResource::make($comment);
     }
 

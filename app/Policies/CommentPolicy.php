@@ -61,16 +61,9 @@ class CommentPolicy
             return Response::allow();
         }
 
-        //Ensure the creator of the message is the same person looking to edit the message.
-        if(!is_null($user)){
-            if($user->id != $comment->userable->id || $user->getMorphClass() != $comment->userable->getMorphClass()){
-                return Response::deny('You did not create this comment');
-            }
-        } else {
-            if(Guest::current()->id != $comment->userable->id || $comment->userable->getMorphClass() != Guest::class){
-                return Response::deny('You did not create this comment');
-            }
-        }
+        if(!$this->userOwnsComment($user,$comment))
+            return Response::deny('You did not create this comment');
+
         return $this->checkBan($user);
     }
 
@@ -86,16 +79,9 @@ class CommentPolicy
         if(!is_null($user) && $user->hasPermissionTo('delete comments'))
             return Response::allow();
 
-        //Ensure the creator of the message is the same person looking to edit the message.
-        if(!is_null($user)){
-            if($user->id != $comment->userable->id || $user->getMorphClass() != $comment->userable->getMorphClass()){
-                return Response::deny('You did not create this comment');
-            }
-        } else {
-            if(Guest::current()->id != $comment->userable->id || $comment->userable->getMorphClass() != Guest::class){
-                return Response::deny('You did not create this comment');
-            }
-        }
+        if(!$this->userOwnsComment($user,$comment))
+            return Response::deny('You did not create this comment');
+
         return $this->checkBan($user);
     }
 
@@ -121,5 +107,21 @@ class CommentPolicy
     public function forceDelete(User $user, Comment $comment)
     {
         //
+    }
+
+    private function userOwnsComment(?User $user, Comment $comment)
+    {
+        //Ensure the creator of the message is the same person looking to edit the message.
+        if(!is_null($user)){
+            if($user->id != $comment->userable->id || $user->getMorphClass() != $comment->userable->getMorphClass()){
+                return false;
+            }
+        } else {
+            if(Guest::current()->id != $comment->userable->id || $comment->userable->getMorphClass() != Guest::class){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

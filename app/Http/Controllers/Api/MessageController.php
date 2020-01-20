@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\MessageUpdateRequest;
@@ -13,8 +14,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    use GetCurrentUserOrGuest;
+
     public function __construct()
     {
+        $this->middleware('auth:api')->only('destroy');
         $this->authorizeResource(Message::class, 'message');
     }
 
@@ -26,7 +30,7 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        $messages = Message::where('visible',true)->orderBy('broadcast_ts','DESC')->paginate($request->get('paginate',15));
+        $messages = Message::where('visible',true)->orderBy('broadcast_ts','DESC')->orderBy('created_at','DESC')->paginate($request->get('paginate',15));
         return MessageResource::collection($messages);
     }
 
@@ -41,12 +45,7 @@ class MessageController extends Controller
         $request = $request->validated();
         $message = new Message($request);
 
-        if(Auth::guest())
-            $user = Guest::current();
-        else
-            $user = Auth::user();
-
-        $message->user = $user;
+        $message->user = $this->currentUserOrGuest();
 
         $message->save();
 

@@ -2,19 +2,21 @@
 
 namespace App\Http\Resources;
 
+use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Resources\Stub\CommentResource as CommentResourceStub;
 use App\Http\Resources\Stub\RecordingResource as RecordingResourceStub;
 use App\Http\Resources\Stub\UserResource as UserResourceStub;
 
+use App\Models\Guest;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Spatie\ResourceLinks\HasLinks;
-use Spatie\ResourceLinks\HasMeta;
+use Illuminate\Support\Facades\Auth;
 
 class MessageResource extends JsonResource
 {
-    use HasLinks, HasMeta;
+    use GetCurrentUserOrGuest;
 
     /**
      * @var Message
@@ -35,6 +37,24 @@ class MessageResource extends JsonResource
      */
     public function toArray($request)
     {
+        $canUpdate = false;
+
+        $user = $this->currentUserOrGuest();
+
+        if ($user->getMorphClass() === Guest::class){
+            if ($this->message->userable == $user){
+                $canUpdate = true;
+            }
+        }else{
+            $canUpdate = $user->can('update', $this->message);
+        }
+
+        $canDelete = false;
+
+        if($user->getMorphClass() === User::class)
+            $canDelete = $user->can('delete', $this->message);
+
+
         return [
             'id' => $this->message->id,
             'type' => $this->message->type,
@@ -46,8 +66,12 @@ class MessageResource extends JsonResource
             'recording_count' => $this->message->recordings()->count(),
             'rating' => $this->message->ratings()->average('score'),
             'user' => UserResourceStub::make($this->message->userable),
-            'comments' => CommentResourceStub::collection($this->message->comments()->paginate()),
+            'comments' => CommentResourceStub::collection($this->message->lastFiveComments),
             'recordings' => RecordingResourceStub::collection($this->message->recordings()->paginate()),
+            'permissions' => [
+                'update' => $canUpdate,
+                'delete' => $canDelete
+            ]
         ];
     }
 /*

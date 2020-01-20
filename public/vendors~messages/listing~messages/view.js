@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["vendors~messages/view"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["vendors~messages/listing~messages/view"],{
 
 /***/ "./node_modules/css-loader/lib/css-base.js":
 /*!*************************************************!*\

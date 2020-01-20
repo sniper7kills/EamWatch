@@ -6,10 +6,18 @@ use App\Models\Guest;
 use App\Models\Message;
 use App\Models\Recording;
 use App\Models\User;
+use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        Permission::create(['name' => 'update comments']);
+        Permission::create(['name' => 'delete comments']);
+    }
+
     public function test_banned_guests_can_not_create_comment()
     {
         $guest = Guest::current();

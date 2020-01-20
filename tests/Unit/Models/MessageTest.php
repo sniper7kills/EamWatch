@@ -98,11 +98,4 @@ class MessageTest extends TestCase
         $message->save();
         $this->assertEquals('BACKEND',$message->type);
     }
-
-    public function test_message_breaks_all_station_messages_into_30_chars()
-    {
-        $message = factory(Message::class)->make(['type' => 'allstations', 'message' => 'A56DA89A4V5D3A1C5D6A4D8A6A4D5AA56DA89A4V5D3A1C5D6A4D8A6A4D5A']);
-
-        $this->assertEquals('A56DA89A4V5D3A1C5D6A4D8A6A4D5A\nA56DA89A4V5D3A1C5D6A4D8A6A4D5A', $message->message);
-    }
 }

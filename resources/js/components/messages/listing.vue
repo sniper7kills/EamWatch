@@ -27,12 +27,12 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>Type</th>
                                 <th>Time</th>
                                 <th>Sender/Receiver</th>
                                 <th>Message</th>
                                 <th>Counts/Submitter</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody v-if="loading === true">
@@ -44,11 +44,6 @@
                         </tbody>
                         <tbody v-if="loading === false">
                             <tr v-for="message in messages" v-bind:key="message.id">
-                                <td>
-                                    <router-link tag="a" :to="{ name: 'message-view', params: { message_id: message.id } }">
-                                        <i class="fa fa-eye" />
-                                    </router-link>
-                                </td>
                                 <td>{{message.type}}</td>
                                 <td>{{message.time}}</td>
                                 <td>
@@ -58,7 +53,7 @@
                                     </p>
                                 </td>
                                 <td>
-                                    <pre v-html="formatMessage(message.message, message.type)"></pre>
+                                    <span class="message" v-html="formatMessage(message.message, message.type)"></span>
                                 </td>
                                 <td>
                                     <p class="text-muted text-sm">
@@ -72,6 +67,17 @@
                                             {{message.user.name}}
                                         </router-link>
                                     </p>
+                                </td>
+                                <td>
+                                    <router-link tag="a" :to="{ name: 'message-view', params: { message_id: message.id } }">
+                                        <i class="fa fa-eye" />
+                                    </router-link>
+                                    <router-link tag="a" v-if="message.permissions.update" :to="{ name: 'message-edit', params: { message_id: message.id } }">
+                                        <i class="fa fa-edit" />
+                                    </router-link>
+                                    <router-link tag="a" v-if="message.permissions.delete" :to="{ name: 'message-delete', params: { message_id: message.id } }">
+                                        <i class="fa fa-trash" />
+                                    </router-link>
                                 </td>
                             </tr>
                         </tbody>
@@ -152,5 +158,8 @@
 </script>
 
 <style scoped>
-
+    .message {
+        unicode-bidi: embed;
+        font-family: monospace;
+    }
 </style>

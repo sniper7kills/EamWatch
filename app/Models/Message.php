@@ -80,4 +80,24 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     {
         $this->attributes['broadcast_ts'] = Carbon::make($time);
     }
+
+    /**
+     * Returns the 5 newest comments
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getLastFiveCommentsAttribute()
+    {
+        return $this->comments()->orderBy('created_at','DESC')->limit(5)->get();
+    }
+
+    /**
+     * Returns the 5 newest recordings
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getLastFiveRecordingsAttribute()
+    {
+        return $this->recordings()->orderBy('created_at','DESC')->limit(5)->get();
+    }
 }

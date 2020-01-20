@@ -18,6 +18,16 @@ let routes = [
         component: () => import(/* webpackChunkName: "messages/view" */ './components/messages/view')
     },
     {
+        path: '/edit/:message_id',
+        name: 'message-edit',
+        component: () => import(/* webpackChunkName: "messages/edit" */ './components/messages/edit')
+    },
+    {
+        path: '/delete/:message_id',
+        name: 'message-delete',
+        component: () => import(/* webpackChunkName: "messages/delete" */ './components/messages/delete')
+    },
+    {
         path: '/add',
         name: 'message-add',
         component: () => import(/* webpackChunkName: "messages/add" */ './components/messages/add')

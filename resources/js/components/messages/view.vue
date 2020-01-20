@@ -8,7 +8,15 @@
             </div>
             <div class="card" v-if="!this.loading">
                 <div class="card-header">
-                    Message {{this.message.id}}
+                    <h3 class="card-title">Message {{this.message.id}}</h3>
+                    <div class="card-tools">
+                        <router-link tag="a" v-if="message.permissions.update" :to="{ name: 'message-edit', params: { message_id: message.id } }">
+                            <i class="fa fa-edit" />
+                        </router-link>
+                        <router-link tag="a" v-if="message.permissions.delete" :to="{ name: 'message-delete', params: { message_id: message.id } }">
+                            <i class="fa fa-trash" />
+                        </router-link>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -83,13 +91,13 @@
         <div class="col-12 col-md-12 col-lg-12">
             <div v-if="this.loading" class="card">
                 <div class="card-header">
-                    Comments
+                    <p class="card-title">Comments</p>
                 </div>
                 <div class="card-body">
                     <vue-loading type="bubbles" color="#d9544e" :size="{ width: '50px', height: '50px' }" />
                 </div>
             </div>
-            <comment-listing v-if="!this.loading" v-bind:message_id="message.id" v-bind:comments="this.message.comments" />
+            <comment-listing v-if="!this.loading" v-bind:message_id="message.id" />
         </div>
     </div>
 </template>
@@ -129,5 +137,12 @@
 </script>
 
 <style scoped>
-
+    pre {
+        overflow-x: auto;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
 </style>

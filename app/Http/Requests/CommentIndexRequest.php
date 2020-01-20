@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\NotSpamRule;
-use App\Rules\ValidMessageTypeRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MessageStoreRequest extends FormRequest
+class CommentIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +24,10 @@ class MessageStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['required', new ValidMessageTypeRule()],
-            'sender' => ['required', 'string'],
-            'receiver' => ['required_unless:type,radiocheck,RADIOCHECK', 'string', 'nullable'],
-            'time' => ['required', 'date'],
-            'message' => ['required', 'string', new NotSpamRule()]
+            'paginate' => ['nullable','numeric'],
+            'page' => ['nullable','numeric'],
+            'message_id' => ['exists:messages,id', 'required_without:recording_id'],
+            'recording_id' => ['exists:recordings,id', 'required_without:message_id']
         ];
     }
 }

@@ -83,7 +83,10 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message)
     {
-        return $user->can('delete messages');
+        if($user->can('delete messages'))
+            return Response::allow();
+
+        return Response::deny('No Permission to delete messages');
     }
 
     /**

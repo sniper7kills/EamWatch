@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"automated/list":"automated/list","guest/view":"guest/view","messages/add":"messages/add","messages/listing":"messages/listing","partials/pagination":"partials/pagination","vendors~messages/view~recordings/view":"vendors~messages/view~recordings/view","messages/view":"messages/view","recordings/view":"recordings/view"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"automated/list":"automated/list","guest/view":"guest/view","messages/add":"messages/add","messages/delete":"messages/delete","messages/edit":"messages/edit","partials/pagination":"partials/pagination","vendors~messages/listing~messages/view":"vendors~messages/listing~messages/view","messages/listing":"messages/listing","vendors~messages/view~recordings/view":"vendors~messages/view~recordings/view","recordings/view":"recordings/view","messages/view":"messages/view"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -57434,19 +57434,31 @@ var routes = [{
   path: '/',
   name: 'message-listing',
   component: function component() {
-    return __webpack_require__.e(/*! import() | messages/listing */ "messages/listing").then(__webpack_require__.bind(null, /*! ./components/messages/listing */ "./resources/js/components/messages/listing.vue"));
+    return Promise.all(/*! import() | messages/listing */[__webpack_require__.e("vendors~messages/listing~messages/view"), __webpack_require__.e("messages/listing")]).then(__webpack_require__.bind(null, /*! ./components/messages/listing */ "./resources/js/components/messages/listing.vue"));
   }
 }, {
   path: '/skyking',
   name: 'skyking-listing',
   component: function component() {
-    return __webpack_require__.e(/*! import() | messages/listing */ "messages/listing").then(__webpack_require__.bind(null, /*! ./components/messages/skyking */ "./resources/js/components/messages/skyking.vue"));
+    return Promise.all(/*! import() | messages/listing */[__webpack_require__.e("vendors~messages/listing~messages/view"), __webpack_require__.e("messages/listing")]).then(__webpack_require__.bind(null, /*! ./components/messages/skyking */ "./resources/js/components/messages/skyking.vue"));
   }
 }, {
   path: '/view/:message_id',
   name: 'message-view',
   component: function component() {
-    return Promise.all(/*! import() | messages/view */[__webpack_require__.e("vendors~messages/view~recordings/view"), __webpack_require__.e("messages/view")]).then(__webpack_require__.bind(null, /*! ./components/messages/view */ "./resources/js/components/messages/view.vue"));
+    return Promise.all(/*! import() | messages/view */[__webpack_require__.e("vendors~messages/view~recordings/view"), __webpack_require__.e("vendors~messages/listing~messages/view"), __webpack_require__.e("messages/view")]).then(__webpack_require__.bind(null, /*! ./components/messages/view */ "./resources/js/components/messages/view.vue"));
+  }
+}, {
+  path: '/edit/:message_id',
+  name: 'message-edit',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | messages/edit */ "messages/edit").then(__webpack_require__.bind(null, /*! ./components/messages/edit */ "./resources/js/components/messages/edit.vue"));
+  }
+}, {
+  path: '/delete/:message_id',
+  name: 'message-delete',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | messages/delete */ "messages/delete").then(__webpack_require__.bind(null, /*! ./components/messages/delete */ "./resources/js/components/messages/delete.vue"));
   }
 }, {
   path: '/add',

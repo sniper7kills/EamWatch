@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecordingStoreRequest;
 use App\Http\Resources\RecordingResource;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 
 class RecordingController extends Controller
 {
+    use GetCurrentUserOrGuest;
+
     public function __construct()
     {
         $this->authorizeResource(Recording::class, 'recording');
@@ -29,17 +32,12 @@ class RecordingController extends Controller
     {
         $request = $request->validated();
 
-        if(Auth::guest())
-            $user = Guest::current();
-        else
-            $user = Auth::user();
-
         $message = Message::find($request['message_id']);
 
         $recording = new Recording($request);
         $recording->time = $message->time;
         $recording->message = $message;
-        $recording->user = $user;
+        $recording->user = $this->currentUserOrGuest();
         $recording->save();
 
         Storage::copy(

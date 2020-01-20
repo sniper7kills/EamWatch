@@ -4,9 +4,13 @@
     "/automated/list.js": "/automated/list.js",
     "/guest/view.js": "/guest/view.js",
     "/messages/add.js": "/messages/add.js",
+    "/messages/edit.js": "/messages/edit.js",
     "/messages/listing.js": "/messages/listing.js",
     "/messages/view.js": "/messages/view.js",
     "/partials/pagination.js": "/partials/pagination.js",
     "/recordings/view.js": "/recordings/view.js",
-    "/vendors~messages/view~recordings/view.js": "/vendors~messages/view~recordings/view.js"
+    "/vendors~messages/view~recordings/view.js": "/vendors~messages/view~recordings/view.js",
+    "/vendors~messages/view.js": "/vendors~messages/view.js",
+    "/vendors~messages/listing~messages/view.js": "/vendors~messages/listing~messages/view.js",
+    "/messages/delete.js": "/messages/delete.js"
 }

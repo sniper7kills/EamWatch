@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Concerns\GetCurrentUserOrGuest;
 use App\Models\Comment;
+use App\Models\Guest;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class CommentResource extends JsonResource
 {
+    use GetCurrentUserOrGuest;
     /**
      * @var Comment
      */
@@ -26,10 +30,36 @@ class CommentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $canUpdate = false;
+
+        $user = $this->currentUserOrGuest();
+
+
+        if ($user->getMorphClass() === Guest::class){
+            if ($this->comment->userable == $user){
+                $canUpdate = true;
+            }
+        }else{
+            $canUpdate = $user->can('update', $this->comment);
+        }
+
+        $canDelete = false;
+        if ($user->getMorphClass() === Guest::class){
+            if ($this->comment->userable == $user){
+                $canDelete = true;
+            }
+        }else{
+            $canDelete = $user->can('delete', $this->comment);
+        }
+
         return [
             'id' => $this->comment->id,
             'message' => $this->comment->message,
-            'user' => \App\Http\Resources\Stub\UserResource::make($this->comment->userable)
+            'user' => \App\Http\Resources\Stub\UserResource::make($this->comment->userable),
+            'permissions' => [
+                'update' => $canUpdate,
+                'delete' => $canDelete
+            ]
         ];
     }
 }
