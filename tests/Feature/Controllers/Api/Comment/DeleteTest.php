@@ -46,7 +46,7 @@ class DeleteTest extends TestCase
         $comment->user = $user;
         $message->comments()->save($comment);
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
@@ -88,7 +88,7 @@ class DeleteTest extends TestCase
         $comment->user = factory(User::class)->create();
         $message->comments()->save($comment);
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(403);
     }
@@ -103,7 +103,7 @@ class DeleteTest extends TestCase
         $comment->user = factory(Guest::class)->create();
         $message->comments()->save($comment);
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(403);
     }
@@ -118,7 +118,7 @@ class DeleteTest extends TestCase
         $comment->user = $user;
         $message->comments()->save($comment);
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(204);
     }
@@ -148,7 +148,7 @@ class DeleteTest extends TestCase
         $comment->user = factory(User::class)->create();
         $message->comments()->save($comment);
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(204);
     }

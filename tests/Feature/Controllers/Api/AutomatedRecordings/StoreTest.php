@@ -24,7 +24,7 @@ class StoreTest extends TestCase
             'message' => 'this is a test message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->post(route('automatedRecordings.store'),$recordingData)
             ->assertStatus(403)
             ->assertSee('You are banned.');

@@ -13,15 +13,14 @@ trait GetCurrentUserOrGuest
      */
     protected function currentUserOrGuest()
     {
-        $guard = 'web';
-        if(Auth::user() == null && Auth::guard('api')->user() != null)
-            $guard = 'api';
-
-        if(Auth::guard($guard)->guest())
-            $user = Guest::current();
-        else
-            $user = Auth::guard($guard)->user();
-
-        return $user;
+        if(Auth::guest() && Auth::guard('api')->guest())
+        {
+            return Guest::current();
+        }else{
+            if(!Auth::guest())
+                return Auth::user();
+            else
+                return Auth::guard('api')->user();
+        }
     }
 }

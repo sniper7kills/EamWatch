@@ -23,9 +23,9 @@ class SkykingController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $messages = Message::where('type','SKYKING')->where('visible',true)->orderBy('broadcast_ts','DESC')->paginate();
+        $messages = Message::where('type','SKYKING')->where('visible',true)->orderBy('broadcast_ts','DESC')->paginate($request->get('paginate',15));
         return MessageResource::collection($messages);
     }
 

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers\Api\Message;
 
 use App\Models\Guest;
+use App\Models\Message;
 use App\Models\User;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Permission;
@@ -31,7 +32,7 @@ class StoreTest extends TestCase
             'message' => 'this is a test message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->post(route('messages.store'),$messageData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
@@ -99,7 +100,7 @@ class StoreTest extends TestCase
             'message' => 'this is a test message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->post(route('messages.store'),$messageData)
             ->assertStatus(201)
             ->assertJson([
@@ -237,7 +238,7 @@ class StoreTest extends TestCase
             'message' => 'this is a test message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('post', route('messages.store'),$messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
@@ -260,7 +261,7 @@ class StoreTest extends TestCase
             'message' => 'this is a test message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->post(route('messages.store'),$messageData)
             ->assertStatus(201)
             ->assertJson([
@@ -303,5 +304,30 @@ class StoreTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    public function test_message_can_not_be_the_same_within_3_min()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'this is a test message'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(201);
+
+        $messageData['time'] = $ts->addMinutes(2)->toDateTimeString();
+
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(303);
+
+        $this->assertCount(1, Message::all());
     }
 }

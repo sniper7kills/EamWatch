@@ -53,7 +53,7 @@ class StoreTest extends TestCase
             'message_id' => $message->id
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('post', route('comments.store'), $messageData)
             ->assertStatus(403);
     }
@@ -66,7 +66,7 @@ class StoreTest extends TestCase
             'message' => 'This is a test comment',
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('post', route('comments.store'), $messageData)
             ->assertStatus(422);
     }
@@ -101,7 +101,7 @@ class StoreTest extends TestCase
             'message_id' => $message->id
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('post', route('comments.store'), $messageData)
             ->assertStatus(201);
     }
@@ -146,7 +146,7 @@ class StoreTest extends TestCase
             'recording_id' => $recording->id
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('post', route('comments.store'), $messageData)
             ->assertStatus(201);
     }

@@ -47,12 +47,6 @@ class AuthServiceProvider extends ServiceProvider
             return $this->checkBan($user);
         });
 
-        /**
-         * Ability to view Telescope
-         */
-        Gate::define('viewTelescope', function (User $user) {
-            return $user->can('view telescope');
-        });
         $this->registerPolicies();
 
         Passport::routes();

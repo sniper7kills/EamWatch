@@ -95,9 +95,13 @@
                     message: this.message
                 })
                     .then(response => {
-                        this.$router.push({ name: 'message-view', params: { message_id: this.message_id } })
+                        console.log("THEN");
+                        this.$router.push({ name: 'message-view', params: { message_id: response.data.data.id } })
                     })
-                    .catch(response => {
+                    .catch(error => {
+                        if(error.response.status === 303){
+                            this.$router.push({ name: 'message-view', params: { message_id: error.response.data.data.id } })
+                        }
                         this.submitting = false;
                     })
             },

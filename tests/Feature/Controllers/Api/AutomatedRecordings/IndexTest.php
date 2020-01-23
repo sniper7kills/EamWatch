@@ -19,7 +19,7 @@ class IndexTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('get', route('automatedRecordings.index'))
             ->assertStatus(403)
             ->assertSee('You are banned.');

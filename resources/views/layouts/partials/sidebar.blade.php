@@ -73,6 +73,12 @@
                         </a>
                     </li>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="https://discord.gg/YaK4vK8">
+                        <i class="nav-icon fab fa-discord"></i>
+                        <p>Discord</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -5,6 +5,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Messages</h3>
                     <div class="card-tools">
+                        <a v-on:click="loadMessages" href="" class="float-right pl-2"><i class="fa fa-sync" /></a>
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Per Page</span>
@@ -47,13 +48,16 @@
                                 <td>{{message.type}}</td>
                                 <td>{{message.time}}</td>
                                 <td>
-                                    <p class="text-muted text-sm">
+                                    <p v-if="message.receiver === '' " class="text-muted text-sm">
+                                        <b>Sender: </b> {{message.sender}}
+                                    </p>
+                                    <p v-else class="text-muted text-sm">
                                         <b>Sender: </b> {{message.sender}} <br/>
                                         <b>Receiver: </b> {{message.receiver}}
                                     </p>
                                 </td>
                                 <td>
-                                    <span class="message" v-html="formatMessage(message.message, message.type)"></span>
+                                    <span style="font-family: monospace" v-html="formatMessage(message.message, message.type)"></span>
                                 </td>
                                 <td>
                                     <p class="text-muted text-sm">
@@ -145,8 +149,15 @@
             },
             formatMessage: function(message, type) {
                 if(type === "ALLSTATIONS") {
+                    var messageLength = message.length;
                     var chunks = message.match(/.{1,30}/g);
-                    return chunks.join("<br />")
+                    var formatted =  chunks.join("<br />")
+                    if(messageLength !== 30){
+                        return "["+messageLength+" CHAR]<br />"+formatted;
+                    }
+                    return formatted;
+                }else if(type === "OTHER") {
+                    return message.replace(/(?:\r\n|\r|\n)/g, '<br />');
                 }
                 return message;
             }
@@ -158,8 +169,5 @@
 </script>
 
 <style scoped>
-    .message {
-        unicode-bidi: embed;
-        font-family: monospace;
-    }
+
 </style>

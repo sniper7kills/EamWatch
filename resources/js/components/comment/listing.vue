@@ -3,6 +3,7 @@
         <div class="card-header">
             <p class="card-title">Comments</p>
             <div class="card-tools">
+                <a v-on:click="loadComments" href="" class="float-right pl-2"><i class="fa fa-sync" /></a>
                 <div class="input-group input-group-sm" style="width: 150px;">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Per Page</span>
@@ -38,15 +39,9 @@
 </template>
 
 <script>
-    import CommentViewStub from './stub/view';
-    import CommentAddStub from './stub/add';
     export default {
         name: "CommentListing",
         props: ['message_id', 'recording_id'],
-        components: {
-            CommentViewStub,
-            CommentAddStub
-        },
         data: function() {
             return {
                 loading: false,

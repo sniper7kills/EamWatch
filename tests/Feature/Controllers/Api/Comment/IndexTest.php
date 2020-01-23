@@ -56,7 +56,7 @@ class IndexTest extends TestCase
                 'data' => [
                     [
                         'id' => $comment->id,
-                        'message' => $comment->message,
+                        'comment' => $comment->message,
                         'user' => [
                             'name' => $user->name
                         ],
@@ -67,7 +67,7 @@ class IndexTest extends TestCase
                     ],
                     [
                         'id' => $comment2->id,
-                        'message' => $comment2->message,
+                        'comment' => $comment2->message,
                         'user' => [
                             'name' => $user->name
                         ],

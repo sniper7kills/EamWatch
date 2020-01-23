@@ -47,7 +47,13 @@ axios.interceptors.response.use(function (response) {
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('pagination', () => import(/* webpackChunkName: "partials/pagination" */ './components/pagination'));
+Vue.component('pagination', () => import(/* webpackChunkName: "js/chunks/partials/pagination" */ './components/pagination'));
+
+Vue.component('recording-list-stub', () => import(/* webpackChunkName: "js/chunks/recording/stub/list" */ './components/recording/stub/list'));
+Vue.component('recording-add-stub', () => import(/* webpackChunkName: "js/chunks/recording/stub/add" */'./components/recording/stub/add'));
+Vue.component('comment-listing', () => import(/* webpackChunkName: "js/chunks/comment/listing" */ './components/comment/listing'));
+Vue.component('comment-view-stub', () => import(/* webpackChunkName: "js/chunks/comment/stub/view" */'./components/comment/stub/view'));
+Vue.component('comment-add-stub', () => import(/* webpackChunkName: "js/chunks/comment/stub/add" */'./components/comment/stub/add'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

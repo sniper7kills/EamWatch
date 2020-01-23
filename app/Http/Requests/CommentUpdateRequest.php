@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\NotSpamRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentUpdateRequest extends FormRequest
@@ -13,7 +14,7 @@ class CommentUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class CommentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'message' => ['required', 'string', new NotSpamRule()],
         ];
     }
 }

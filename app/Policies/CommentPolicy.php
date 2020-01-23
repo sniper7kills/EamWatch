@@ -6,12 +6,14 @@ use App\Models\Comment;
 use App\Models\Guest;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
+use App\Policies\Concerns\UserOwnsResource;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CommentPolicy
 {
-    use HandlesAuthorization, BanCheck;
+    use HandlesAuthorization, BanCheck, UserOwnsResource;
 
     /**
      * Determine whether the user can view any comments.
@@ -56,12 +58,15 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment)
     {
+        if(is_null($user) && !Auth::guard('api')->guest())
+            $user = Auth::guard('api')->user();
+
         if(!is_null($user) && $user->can('update comments'))
         {
             return Response::allow();
         }
 
-        if(!$this->userOwnsComment($user,$comment))
+        if(!$this->userOwnsResource($user,$comment))
             return Response::deny('You did not create this comment');
 
         return $this->checkBan($user);
@@ -76,10 +81,13 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment)
     {
+        if(is_null($user) && !Auth::guard('api')->guest())
+            $user = Auth::guard('api')->user();
+
         if(!is_null($user) && $user->hasPermissionTo('delete comments'))
             return Response::allow();
 
-        if(!$this->userOwnsComment($user,$comment))
+        if(!$this->userOwnsResource($user,$comment))
             return Response::deny('You did not create this comment');
 
         return $this->checkBan($user);
@@ -107,21 +115,5 @@ class CommentPolicy
     public function forceDelete(User $user, Comment $comment)
     {
         //
-    }
-
-    private function userOwnsComment(?User $user, Comment $comment)
-    {
-        //Ensure the creator of the message is the same person looking to edit the message.
-        if(!is_null($user)){
-            if($user->id != $comment->userable->id || $user->getMorphClass() != $comment->userable->getMorphClass()){
-                return false;
-            }
-        } else {
-            if(Guest::current()->id != $comment->userable->id || $comment->userable->getMorphClass() != Guest::class){
-                return false;
-            }
-        }
-
-        return true;
     }
 }

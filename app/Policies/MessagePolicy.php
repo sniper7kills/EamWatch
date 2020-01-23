@@ -6,12 +6,14 @@ use App\Models\Guest;
 use App\Models\Message;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
+use App\Policies\Concerns\UserOwnsResource;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class MessagePolicy
 {
-    use HandlesAuthorization, BanCheck;
+    use HandlesAuthorization, BanCheck, UserOwnsResource;
 
     /**
      * Determine whether the user can view any messages.
@@ -56,21 +58,18 @@ class MessagePolicy
      */
     public function update(?User $user, Message $message)
     {
+        if(is_null($user) && !Auth::guard('api')->guest())
+            $user = Auth::guard('api')->user();
+
         if(!is_null($user) && $user->can('update messages'))
         {
             return Response::allow();
         }
 
-        //Ensure the creator of the message is the same person looking to edit the message.
-        if(!is_null($user)){
-            if($user->id != $message->userable->id || $user->getMorphClass() != $message->userable->getMorphClass()){
-                return Response::deny('You did not create this message');
-            }
-        } else {
-            if(Guest::current()->id != $message->userable->id || $message->userable->getMorphClass() != Guest::class){
-                return Response::deny('You did not create this message');
-            }
+        if(!$this->userOwnsResource($user, $message)){
+            return Response::deny('You did not create this message');
         }
+
         return $this->checkBan($user);
     }
 

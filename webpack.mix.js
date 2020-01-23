@@ -14,6 +14,8 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
 
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 if (mix.inProduction()) {
     const ASSET_URL = process.env.ASSET_URL + "/";
 

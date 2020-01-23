@@ -34,7 +34,7 @@ class ShowTest extends TestCase
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
-                    'message' => $comment->message,
+                    'comment' => $comment->message,
                     'user' => [
                         'name' => $guest->id
                     ],
@@ -57,13 +57,13 @@ class ShowTest extends TestCase
         $comment->user = $user;
         $comment->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->get(route('comments.show',['comment'=>$comment]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
-                    'message' => $comment->message,
+                    'comment' => $comment->message,
                     'user' => [
                         'name' => $user->name
                     ],
@@ -95,7 +95,7 @@ class ShowTest extends TestCase
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
-                    'message' => $comment->message,
+                    'comment' => $comment->message,
                     'user' => [
                         'name' => $user->name
                     ],
@@ -127,7 +127,7 @@ class ShowTest extends TestCase
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
-                    'message' => $comment->message,
+                    'comment' => $comment->message,
                     'user' => [
                         'name' => $user->name
                     ],

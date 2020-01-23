@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Concerns\GetCurrentUserOrGuest;
+use App\Http\Resources\Stub\MessageResource;
 use App\Models\Comment;
 use App\Models\Guest;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -54,8 +55,9 @@ class CommentResource extends JsonResource
 
         return [
             'id' => $this->comment->id,
-            'message' => $this->comment->message,
+            'comment' => $this->comment->message,
             'user' => \App\Http\Resources\Stub\UserResource::make($this->comment->userable),
+            'message' => MessageResource::make($this->comment->messages()->first()),
             'permissions' => [
                 'update' => $canUpdate,
                 'delete' => $canDelete

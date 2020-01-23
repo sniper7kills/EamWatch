@@ -3,54 +3,93 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <p class="float-left">Skyking Messages</p>
-                    <b class="float-right">Per Page:</b>
-                    <select class="form-control float-right" v-model="this.pagination.per_page">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="75">75</option>
-                        <option value="100">100</option>
-                    </select>
+                    <h3 class="card-title">Skyking Messages</h3>
+                    <div class="card-tools">
+                        <a v-on:click="loadMessages" href="" class="float-right pl-2"><i class="fa fa-sync" /></a>
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Per Page</span>
+                            </div>
+                            <select :disabled="loading === true" class="form-control float-right" v-model="pagination.per_page">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="table-responsive">
+                <div class="card-body table-responsive p-0">
                     <table class="table table-hover">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Time</th>
-                                <th>Type</th>
-                                <th>Message</th>
-                                <th>Sender</th>
-                                <th>Receiver</th>
-                                <th>Submitter</th>
-                            </tr>
+                        <tr>
+                            <th>Type</th>
+                            <th>Time</th>
+                            <th>Sender/Receiver</th>
+                            <th>Message</th>
+                            <th>Counts/Submitter</th>
+                            <th>Actions</th>
+                        </tr>
                         </thead>
-                        <tbody v-if="!this.loading">
-                            <tr v-for="message in messages">
-                                <td>
-                                    <router-link tag="a" :to="{ name: 'message-view', params: { message_id: message.id } }">
-                                        {{message.id}}
+                        <tbody v-if="loading === true">
+                        <tr>
+                            <td colspan="6">
+                                <vue-loading type="bubbles" color="#d9544e" :size="{ width: '50px', height: '50px' }" />
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody v-if="loading === false">
+                        <tr v-for="message in messages" v-bind:key="message.id">
+                            <td>{{message.type}}</td>
+                            <td>{{message.time}}</td>
+                            <td>
+                                <p v-if="message.receiver === '' " class="text-muted text-sm">
+                                    <b>Sender: </b> {{message.sender}}
+                                </p>
+                                <p v-else class="text-muted text-sm">
+                                    <b>Sender: </b> {{message.sender}} <br/>
+                                    <b>Receiver: </b> {{message.receiver}}
+                                </p>
+                            </td>
+                            <td>
+                                <span style="font-family: monospace">{{message.message}}</span>
+                            </td>
+                            <td>
+                                <p class="text-muted text-sm">
+                                    <b>Recordings: </b> {{message.recording_count}} <br/>
+                                    <b>Comments: </b> {{message.comment_count}} <br />
+                                    <b>Submitter: </b>
+                                    <router-link v-if="message.user.type === 'user'" tag="a" :to="{ name: 'user-view', params: { user_id: message.user.id } }">
+                                        {{message.user.name}}
                                     </router-link>
-                                </td>
-                                <td>{{message.time}}</td>
-                                <td>{{message.type}}</td>
-                                <td>{{message.message}}</td>
-                                <td>{{message.sender}}</td>
-                                <td>{{message.receiver}}</td>
-                                <td>{{message.user.name}}</td>
-                            </tr>
+                                    <router-link v-if="message.user.type === 'guest'" tag="a" :to="{ name: 'guest-view', params: { guest_id: message.user.id } }">
+                                        {{message.user.name}}
+                                    </router-link>
+                                </p>
+                            </td>
+                            <td>
+                                <router-link tag="a" :to="{ name: 'message-view', params: { message_id: message.id } }">
+                                    <i class="fa fa-eye" />
+                                </router-link>
+                                <router-link tag="a" v-if="message.permissions.update" :to="{ name: 'message-edit', params: { message_id: message.id } }">
+                                    <i class="fa fa-edit" />
+                                </router-link>
+                                <router-link tag="a" v-if="message.permissions.delete" :to="{ name: 'message-delete', params: { message_id: message.id } }">
+                                    <i class="fa fa-trash" />
+                                </router-link>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
-                    <vue-loading v-if="this.loading" type="bubbles" color="#d9544e" :size="{ width: '50px', height: '50px' }"></vue-loading>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                    <pagination :pagination="pagination" :callback="loadMessages" :options="paginationOptions"></pagination>
+                    <pagination :pagination="pagination" :callback="loadMessages" :options="paginationOptions" />
                 </div>
             </div>
             <!-- /.card -->
@@ -67,11 +106,11 @@
                 loading: true,
                 pagination: {
                     total: 0,
-                    per_page: 12,    // required
+                    per_page: 15,    // required
                     current_page: 1, // required
                     last_page: 0,    // required
                     from: 1,
-                    to: 12
+                    to: 15
                 },
                 paginationOptions: {
                     offset: 4,

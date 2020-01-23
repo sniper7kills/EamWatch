@@ -23,7 +23,7 @@ class ShowTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('get', route('recordings.show',['recording'=>$recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');

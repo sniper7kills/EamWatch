@@ -127,7 +127,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([
@@ -178,7 +178,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You are banned.');
@@ -198,7 +198,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([
@@ -230,7 +230,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message'
         ];
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([

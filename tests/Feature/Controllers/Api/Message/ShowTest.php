@@ -57,7 +57,7 @@ class ShowTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->get(route('messages.show',['message'=>$message]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
@@ -119,7 +119,7 @@ class ShowTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->get(route('messages.show',['message'=>$message]))
             ->assertStatus(200)
             ->assertJson([

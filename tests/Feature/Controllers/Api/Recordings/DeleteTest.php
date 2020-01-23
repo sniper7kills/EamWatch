@@ -43,7 +43,7 @@ class DeleteTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('recordings.destroy', ['recording'=>$recording]))
             ->assertStatus(403);
     }
@@ -60,7 +60,7 @@ class DeleteTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'api');
         $this->json('delete', route('recordings.destroy', ['recording'=>$recording]))
             ->assertStatus(204);
     }

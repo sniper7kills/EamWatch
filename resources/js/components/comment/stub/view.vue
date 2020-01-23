@@ -15,19 +15,19 @@
                     <span class="description">{{comment.time}}</span>
                 </div>
                 <div class="col-1 float-right">
-                    <a v-if="this.comment.permissions.update" href="#">
+                    <router-link tag="a" v-if="this.comment.permissions.update" :to="{ name: 'comment-edit', params: { message_id: this.comment.message.id, comment_id:this.comment.id } }">
                         <i class="fa fa-edit" />
-                    </a>
-                    <a v-if="this.comment.permissions.delete" href="#">
+                    </router-link>
+                    <router-link tag="a" v-if="this.comment.permissions.delete" :to="{ name: 'comment-delete', params: { message_id: this.comment.message.id, comment_id:this.comment.id } }">
                         <i class="fa fa-trash" />
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <!--<img class="img-circle img-bordered-sm" src="https://adminlte.io/themes/v3/dist/img/user4-128x128.jpg" alt="User Image">-->
         </div>
         <!-- /.user-block -->
         <p>
-            {{comment.message}}
+            {{comment.comment}}
         </p>
 
         <!--<form class="form-horizontal">

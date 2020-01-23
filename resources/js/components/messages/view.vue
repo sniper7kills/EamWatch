@@ -44,7 +44,7 @@
                             <div class="info-box bg-light">
                                 <div class="info-box-content">
                                     <span class="info-box-number text-center text-muted mb-0">
-                                        <pre>{{this.message.message}}</pre>
+                                        <pre style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;" v-html="formatMessage(message.message, message.type)"></pre>
                                     </span>
                                 </div>
                             </div>
@@ -103,9 +103,6 @@
 </template>
 
 <script>
-    import RecordingListStub from '../recording/stub/list';
-    import RecordingAddStub from '../recording/stub/add';
-    import CommentListing from '../comment/listing';
     export default {
         name: "message-view",
         data: function() {
@@ -122,27 +119,28 @@
                         this.message = response.data.data;
                         this.loading = false;
                     });
+            },
+            formatMessage: function(message, type) {
+                if(type === "ALLSTATIONS") {
+                    var messageLength = message.length;
+                    var chunks = message.match(/.{1,30}/g);
+                    var formatted =  chunks.join('\r\n');
+
+                    if(messageLength !== 30){
+                        return "["+messageLength+" CHAR]"+'\r\n'+formatted;
+                    }
+                    return formatted;
+                }
+                return message;
             }
         },
         mounted() {
             this.message_id = this.$route.params.message_id;
             this.loadMessage()
-        },
-        components: {
-            RecordingListStub,
-            RecordingAddStub,
-            CommentListing
         }
     }
 </script>
 
 <style scoped>
-    pre {
-        overflow-x: auto;
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
-    }
+
 </style>

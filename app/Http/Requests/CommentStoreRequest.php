@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\NotSpamRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentStoreRequest extends FormRequest
@@ -24,7 +25,7 @@ class CommentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => ['required', 'string'],
+            'message' => ['required', 'string', new NotSpamRule()],
             'message_id' => ['exists:messages,id', 'required_without:recording_id'],
             'recording_id' => ['exists:recordings,id', 'required_without:message_id']
         ];

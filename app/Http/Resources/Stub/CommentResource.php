@@ -28,9 +28,10 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => $this->comment->id,
-            'message' => $this->comment->message,
+            'comment' => $this->comment->message,
             'time' => $this->comment->time,
             'user' => UserResource::make($this->comment->userable),
+            'message' => MessageResource::make($this->comment->messages()->first()),
         ];
     }
 }

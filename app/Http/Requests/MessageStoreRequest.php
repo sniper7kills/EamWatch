@@ -28,7 +28,7 @@ class MessageStoreRequest extends FormRequest
         return [
             'type' => ['required', new ValidMessageTypeRule()],
             'sender' => ['required', 'string'],
-            'receiver' => ['required_unless:type,radiocheck,RADIOCHECK', 'string', 'nullable'],
+            'receiver' => ['string', 'nullable'],
             'time' => ['required', 'date'],
             'message' => ['required', 'string', new NotSpamRule()]
         ];

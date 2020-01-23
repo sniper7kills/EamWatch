@@ -17,6 +17,7 @@
         "laravel/ui": "^1.1",
         "laravel/vapor-cli": "^1.4",
         "laravel/vapor-core": "^2.2",
+        "league/csv": "^8.0",
         "spatie/laravel-permission": "^3.5",
         "spatie/laravel-resource-links": "^1.0"
     },
