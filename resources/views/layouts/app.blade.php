@@ -21,7 +21,7 @@
     @endif
 
 </head>
-<body class="hold-transition sidebar-mini dark sidebar-collapse">
+<body class="hold-transition sidebar-mini dark sidebar-collapse layout-fixed">
 
 <!-- wrapper -->
 <div class="wrapper" id="app">
