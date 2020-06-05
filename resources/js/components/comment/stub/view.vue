@@ -12,7 +12,7 @@
                             {{this.comment.user.name}}
                         </router-link>
                     </span>
-                    <span class="description">{{comment.time}}</span>
+                    <span class="description">{{this.comment.message.time}}</span>
                 </div>
                 <div class="col-1 float-right">
                     <router-link tag="a" v-if="this.comment.permissions.update" :to="{ name: 'comment-edit', params: { message_id: this.comment.message.id, comment_id:this.comment.id } }">

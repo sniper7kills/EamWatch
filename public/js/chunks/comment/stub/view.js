@@ -139,7 +139,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("span", { staticClass: "description" }, [
-            _vm._v(_vm._s(_vm.comment.time))
+            _vm._v(_vm._s(this.comment.message.time))
           ])
         ]),
         _vm._v(" "),
