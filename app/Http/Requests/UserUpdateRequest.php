@@ -38,7 +38,8 @@ class UserUpdateRequest extends FormRequest
             ],
             'email' => [
                 'nullable',
-                'email'
+                'email',
+                'unique:users,email'
             ],
             'password' => [
                 'nullable',
