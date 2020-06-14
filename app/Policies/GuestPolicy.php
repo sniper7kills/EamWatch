@@ -4,11 +4,13 @@ namespace App\Policies;
 
 use App\Models\Guest;
 use App\Models\User;
+use App\Policies\Concerns\BanCheck;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class GuestPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, BanCheck;
 
     /**
      * Determine whether the user can view any guests.
@@ -28,9 +30,9 @@ class GuestPolicy
      * @param  \App\Models\Guest  $guest
      * @return mixed
      */
-    public function view(User $user, Guest $guest)
+    public function view(?User $user, Guest $guest)
     {
-        //
+        return $this->checkBan($user);
     }
 
     /**
@@ -53,7 +55,14 @@ class GuestPolicy
      */
     public function update(User $user, Guest $guest)
     {
-        //
+        $response = $this->checkBan($user);
+        if($response->denied())
+            return $response;
+
+        if($user->hasAnyPermission(['ban guests', 'unban guests']))
+            return Response::allow();
+
+        return Response::deny('No Permission to Edit Guest');
     }
 
     /**

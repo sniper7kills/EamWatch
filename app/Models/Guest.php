@@ -13,4 +13,9 @@ class Guest extends \App\Models\AbstractModels\AbstractGuest
             'ip' => request()->getClientIp()
         ]);
     }
+
+    public function displayRole()
+    {
+        return "Guest";
+    }
 }

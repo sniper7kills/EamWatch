@@ -25,6 +25,5 @@ environments:
             - 'php artisan event:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
         deploy:
-            - 'php artisan migrate:fresh'
-            - 'php artisan db:seed --class=RolesAndPermissionsSeeder'
-            - 'php artisan db:seed --class=DefaultAdminSeeder'
+            - 'php artisan migrate'
+            - 'php artisan db:seed --class=UserRolesAndPermissionsSeeder'

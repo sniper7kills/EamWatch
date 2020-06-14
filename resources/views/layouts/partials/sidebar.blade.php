@@ -57,6 +57,12 @@
 
                 @auth
                     <li class="nav-item">
+                        <router-link tag="a" class="nav-link" :to="{ name: 'user-edit', params: { user_id: '{{ Auth::user()->id }}' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Profile</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout-form').submit();">
                             <i class="nav-icon fas fa-key"></i>
                             <p>Logout</p>

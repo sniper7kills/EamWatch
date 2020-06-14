@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -28,9 +29,9 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(?User $user, User $model)
     {
-        //
+        return $this->checkBan($user);
     }
 
     /**
@@ -53,7 +54,17 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        $response = $this->checkBan($user);
+        if($response->denied())
+            return $response;
+
+        if($user->id === $model->id)
+            return Response::allow();
+
+        if($user->hasAnyPermission(['edit users', 'ban users', 'unban users']))
+            return Response::allow();
+
+        return Response::deny('No Permission to Edit User');
     }
 
     /**

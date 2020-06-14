@@ -1,0 +1,1103 @@
+<?xml version="1.0"?>
+<skipper version="3.2.24.1651" mvc="Laravel" orm="Laravel" name="EamWatch" uuid="ab12086c-4faa-4130-8bf1-67dca202af24">
+  <module name="\Application module" local-name="Application module" namespace="\App\Models" local-namespace="App\Models" export-format="Laravel" export-path="." uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b">
+    <region namespace="\App\Models" caption="Users" uuid="eaecb150-f796-45f3-b6ee-ba4614796880">
+      <entity name="\App\Models\User" local-name="User" namespace="\App\Models" uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="3cad1be4-7925-4460-8e42-a6d9fb8cf580"/>
+        <field name="name" type="string" required="true" uuid="89b99d28-acb7-4617-8609-d2551a6a3c67">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="email" type="string" required="true" unique="true" uuid="97936466-df05-410b-827b-6098e5a1c3b7">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="email_verified_at" type="timestamp" uuid="98b94fdf-92fc-45a8-813c-ce7c3348ebe9"/>
+        <field name="password" type="string" required="true" uuid="6649c261-e4e5-40be-bb13-992ef5fa6e1b">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="remember_token" type="string" size="100" uuid="10e35f97-94e0-4ee4-9ebd-2f129c0e397d"/>
+        <field name="banned" type="boolean" default="False" required="true" uuid="39729f82-4305-4a3a-91d7-3971e797e887"/>
+        <field name="created_at" type="timestamp" uuid="7961be99-2baa-44c5-a920-04c3b3e19523"/>
+        <field name="updated_at" type="timestamp" uuid="0f167683-deba-4c4d-a0e4-67eca8e7529d"/>
+        <orm-attributes>
+          <attribute name="extends">\Illuminate\Foundation\Auth\User</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\App\Models\Guest" local-name="Guest" namespace="\App\Models" uuid="b4057db5-9d60-4004-b154-cae7750a220f">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="d08bd11e-1460-41c5-9e8c-1bbd124d7c26"/>
+        <field name="ip" type="ipAddress" required="true" uuid="608f9b70-e7d7-407f-9a7b-1877e3c240f9">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="banned" type="boolean" default="False" required="true" uuid="59e5b802-8f36-440a-a83a-6ace72704b3b"/>
+        <field name="created_at" type="timestamp" uuid="692e3fc6-87c0-4f31-a6ad-2abab92805a2"/>
+        <field name="updated_at" type="timestamp" uuid="c68d6fff-0ed2-4518-86b8-ad62d971a8eb"/>
+      </entity>
+    </region>
+    <region namespace="\App\Models" caption="System" uuid="50e2d8ea-fab2-4c41-9dc7-24f9a267b7d2">
+      <entity name="\App\Models\Setting" local-name="Setting" namespace="\App\Models" uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973">
+        <field name="id" type="bigInteger" required="true" unique="true" primary="true" unsigned="true" auto-increment="true" uuid="7a8f8652-40d4-4b44-a9de-815f98117004"/>
+        <field name="user_id" type="uuid" uuid="91587e4b-3c44-4b12-aab3-e569f219ca68"/>
+        <field name="key" type="string" required="true" unique="true" uuid="707c799a-669c-4beb-bff7-e67043319ae1"/>
+        <field name="value" type="string" required="true" uuid="b4ba696f-059d-492c-9995-74118dd65c31"/>
+        <field name="created_at" type="timestamp" uuid="531dbb79-4bac-43e4-a3d6-2bae186ab6d1"/>
+        <field name="updated_at" type="timestamp" uuid="98d85f07-efe7-4236-850d-744d201b72ad"/>
+        <field name="deleted_at" type="timestamp" uuid="7af78c69-cb2e-492f-a412-32b2579ae1e7"/>
+      </entity>
+      <entity name="\App\Models\Commentable" local-name="Commentable" namespace="\App\Models" uuid="13e298b3-c080-44e7-9298-ac5033e9300d">
+        <field name="comment_id" type="uuid" required="true" uuid="85aaf344-0fac-49c7-b7df-c003a1024383"/>
+        <field name="commentable_id" type="uuid" required="true" uuid="71e6754c-77f3-4766-82e6-48b53ac7ec15"/>
+        <field name="commentable_type" type="string" required="true" uuid="a79f4034-2489-4b73-a6c4-602a2c8f09f8"/>
+        <orm-attributes>
+          <attribute name="model-disabled">true</attribute>
+        </orm-attributes>
+      </entity>
+      <entity name="\App\Models\Ratingable" local-name="Ratingable" namespace="\App\Models" uuid="d8aa3340-32de-43d1-aa9c-d5bbbc2e35bd">
+        <field name="rating_id" type="uuid" required="true" uuid="7fbf79a3-5537-4ff9-a59c-fcc4ad67f022"/>
+        <field name="ratingable_id" type="uuid" required="true" uuid="98a36b00-d00b-4b2a-a99a-b44838028ae2"/>
+        <field name="ratingable_type" type="string" required="true" uuid="febf2ca2-6df2-4049-8b78-dbf1f485429c"/>
+        <orm-attributes>
+          <attribute name="model-disabled">true</attribute>
+        </orm-attributes>
+      </entity>
+    </region>
+    <many-to-many mn-entity="\App\Models\Commentable" caption="Message to Comment" uuid="eb48d49e-bbc8-4c9d-a1c9-ec0ba9284aee">
+      <many-to-many-entity name="\App\Models\Comment" owning-side="true" alias="comments" uuid="8390bc2c-b3ae-4441-88cd-fb094a2560ca">
+        <many-to-many-field from="comment_id" to="id" uuid="7ff1a186-161a-4520-8d9c-bb81bd959b41"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\Models\Message" owning-side="false" alias="messages" uuid="6ff8505b-f372-45ec-9014-1b405897e661"/>
+      <many-to-many-polymorph id-field="commentable_id" type-field="commentable_type" name="commentable" uuid="5737a8fe-6b0f-4f0b-abf3-873b32ba0043"/>
+    </many-to-many>
+    <many-to-many mn-entity="\App\Models\Commentable" caption="Recording to Comment" uuid="8f681a3c-741b-4a41-a4a3-0f43137abba9">
+      <many-to-many-entity name="\App\Models\Comment" owning-side="true" alias="comments" uuid="7f743766-efb6-4012-9d71-4067d3b3f2b3">
+        <many-to-many-field from="comment_id" to="id" uuid="854f4786-1ed9-4c8f-879c-5f04fd17b8fd"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\Models\Recording" owning-side="false" alias="recordings" uuid="0d8443ca-2a2b-4096-aa10-5acb0afce16f"/>
+      <many-to-many-polymorph id-field="commentable_id" type-field="commentable_type" name="commentable" uuid="f3a4d229-36a5-45f9-bb56-08809855e16f"/>
+    </many-to-many>
+    <many-to-many mn-entity="\App\Models\Ratingable" caption="Message to Rating" uuid="372cb668-3e64-482b-a2bb-580dd0d17a2b">
+      <many-to-many-entity name="\App\Models\Rating" owning-side="true" alias="ratings" uuid="1ce9a348-f14a-4bf8-9564-ed355edb0150">
+        <many-to-many-field from="rating_id" to="id" uuid="fdb7f8ae-4e73-40cf-ad7c-a4dcaf4755e3"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\Models\Message" owning-side="false" alias="messages" uuid="4c57006c-c5f1-463f-98c2-09c62c412b29"/>
+      <many-to-many-polymorph id-field="ratingable_id" type-field="ratingable_type" name="ratingable" uuid="6ecb9bdf-a17b-4864-8316-7f5702201ff7"/>
+    </many-to-many>
+    <many-to-many mn-entity="\App\Models\Ratingable" caption="Recording to Rating" uuid="0a153a63-3f91-4dff-8010-1c18bbf4a0ef">
+      <many-to-many-entity name="\App\Models\Rating" owning-side="true" alias="ratings" uuid="40debbd1-76c4-4cd1-b263-ec2e35970bfc">
+        <many-to-many-field from="rating_id" to="id" uuid="d8a5214a-0ff8-4270-ac35-b39cfec196e6"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\App\Models\Recording" owning-side="false" alias="recordings" uuid="3538d033-3992-486e-882c-673b8d7c836e"/>
+      <many-to-many-polymorph id-field="ratingable_id" type-field="ratingable_type" name="ratingable" uuid="a3990061-24c7-4265-8a1e-62985fcf3c27"/>
+    </many-to-many>
+    <region namespace="\App\Models" caption="Relays" uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a">
+      <entity name="\App\Models\Relay" local-name="Relay" namespace="\App\Models" uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="b07cc5fa-51d8-45ed-a529-bd9374e05e82"/>
+        <field name="message_id" type="uuid" required="true" uuid="01afdcac-5fa7-451e-8f2d-4758e00b4e18"/>
+        <field name="relay_provider_id" type="uuid" required="true" uuid="aae9fdb1-efa5-494a-a521-52a53b246899"/>
+        <field name="response" type="text" uuid="78e98fac-6304-43b3-8bb3-e63161999e69">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="created_at" type="timestamp" uuid="dd004bc7-b443-422b-ba72-bfbd9c364dac"/>
+        <field name="updated_at" type="timestamp" uuid="20db1c4a-9286-4473-8926-c082b69dd0ed"/>
+        <field name="deleted_at" type="timestamp" uuid="2b4b6420-7c93-41f2-8328-7d60d981210d"/>
+      </entity>
+      <entity name="\App\Models\RelayProvider" local-name="RelayProvider" namespace="\App\Models" uuid="558f6aac-4717-4166-8398-b60c6d0ac13d">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="46d89f2d-038e-4b21-8cc2-fd09f428589d"/>
+        <field name="user_id" type="uuid" required="true" uuid="a905f239-3e60-4514-a16f-7ac8f6f24817"/>
+        <field name="name" type="string" required="true" uuid="2c45191f-9396-4593-a23d-5d629c57aeb2">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="type" type="enum" enum-values="&quot;Twitter&quot;,&quot;Discord&quot;" uuid="df9d1039-1431-46cb-8489-274808095a8b">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="details" type="text" required="true" uuid="05b1c0f4-7cc4-4dc1-9b7b-9b28bb93cfc2">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="enabled" type="boolean" uuid="4c998866-00d3-48e1-aaa0-3d8313f47e90">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="circuit_closed_at" type="timestamp" uuid="529b9e0b-f667-487d-bd3a-42a66df1c9e1"/>
+        <field name="created_at" type="timestamp" uuid="232ec89f-6ac5-47c2-82ea-ea680814f82c"/>
+        <field name="updated_at" type="timestamp" uuid="6edded4f-8038-4920-a44b-cf81d64e027d"/>
+        <field name="deleted_at" type="timestamp" uuid="f891e53d-d95a-4abc-95c8-fd431818dd2f"/>
+      </entity>
+      <comment caption="Relays" description="Relay Providers are destinations for messages (Twitter/Discord)&#10;&#10;When a message is sent to one of these destinations a relay entry is created so that they can be deleted when/if the entry is deleted from the site." uuid="8855429f-4f5d-4269-a750-ee2cb75315cf"/>
+    </region>
+    <association from="\App\Models\Relay" to="\App\Models\Message" caption="Message Relays" owner-alias="relays" inverse-alias="message" many-owner="true" many-inverse="false" parent-required="true" uuid="b2168256-97a5-47ba-8b77-ced9da8a1630">
+      <association-field from="message_id" to="id" uuid="33ff7579-8ea9-463a-a50c-eb9c400c3100"/>
+    </association>
+    <association from="\App\Models\Relay" to="\App\Models\RelayProvider" caption="Relay Provider Relays" owner-alias="relays" inverse-alias="relay Provider" many-owner="true" many-inverse="false" parent-required="true" uuid="2d286086-6662-4c2f-bbad-42b7ef749dd2">
+      <association-field from="relay_provider_id" to="id" uuid="81c7b07d-87b7-4728-a24a-b56a5bd713c6"/>
+    </association>
+    <association from="\App\Models\RelayProvider" to="\App\Models\User" caption="User RelayProviders" owner-alias="relayProviders" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="b8b7e79d-a2dd-4510-aca6-6f7ad59897d6">
+      <association-field from="user_id" to="id" uuid="fbd75841-51bb-4e9a-a784-ede7df00988c"/>
+    </association>
+    <region namespace="\App\Models" caption="Core" uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2">
+      <entity name="\App\Models\Comment" local-name="Comment" namespace="\App\Models" uuid="f8b2e723-148d-4511-bc7f-c427aab915d5">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="b08616ab-70f1-445f-b192-70bd78592302"/>
+        <field name="userable_id" type="uuid" required="true" uuid="33a1d8a2-af68-494b-a2fd-009a187b4f20"/>
+        <field name="userable_type" type="string" required="true" uuid="fad68a23-76b5-4e03-889c-41ffa712183f"/>
+        <field name="parent_comment_id" type="uuid" uuid="f06dd333-3f8b-422e-bdf4-d476549f1c2e"/>
+        <field name="message" type="text" required="true" uuid="bbcf57d6-d0cc-45dd-96e0-3ca28ac68935">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="created_at" type="timestamp" uuid="1123871f-ab5a-4e28-9971-59d1894cf9f1"/>
+        <field name="updated_at" type="timestamp" uuid="cd6c6aa5-c835-4563-9aca-041b7094f9b4"/>
+        <field name="deleted_at" type="timestamp" uuid="564bdb92-d8e8-4b4e-8a0a-6fffeea2ae69"/>
+      </entity>
+      <entity name="\App\Models\Message" local-name="Message" namespace="\App\Models" uuid="db471b16-5221-4d39-b8d4-1311ecb5b520">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="fc95b467-2335-4c8b-9b55-2f784d0229ec"/>
+        <field name="userable_id" type="uuid" required="true" uuid="018cbac1-6db3-42b7-8fa6-b6b20cdb9768"/>
+        <field name="userable_type" type="string" required="true" uuid="79e56273-7cd4-4f8e-aa92-4cdcb48c2514"/>
+        <field name="message" type="text" required="true" uuid="c46ebc25-c330-4a04-8d40-965e341b44ac">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="type" type="enum" enum-values="&quot;BACKEND&quot;, &quot;SKYKING&quot;, &quot;ALLSTATIONS&quot;, &quot;RADIOCHECK&quot;, &quot;SKYMASTER&quot;, &quot;SKYBIRD&quot;, &quot;DISREGARDED&quot;, &quot;OTHER&quot;" required="true" uuid="a62f13c4-9f61-409d-b5a3-f94721ae63d6">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="sender" type="string" required="true" uuid="70a7818f-3c46-4eb0-b2be-659c92b1fd3c">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="receiver" type="string" uuid="51333b2d-7f84-48b3-b6fb-2669ed1c4545">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="broadcast_ts" type="timestamp" required="true" uuid="a0332c06-7a70-4193-a57c-bd7bf69cad60">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+            <attribute name="useCurrent">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="visible" type="boolean" default="true" required="true" uuid="746498c3-6caf-4990-8837-6c8a01b91b73"/>
+        <field name="created_at" type="timestamp" uuid="4d4b547e-6c55-40f8-a297-0e8b5bb1f186"/>
+        <field name="updated_at" type="timestamp" uuid="2d161d63-60ef-4b0f-9ab6-b96d81472982"/>
+        <field name="deleted_at" type="timestamp" uuid="0352a6e2-4b6f-4791-9045-36b080a93380"/>
+      </entity>
+      <entity name="\App\Models\Recording" local-name="Recording" namespace="\App\Models" uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="004b8b89-fe5e-49dc-b235-4d36bd1762d5"/>
+        <field name="userable_id" type="uuid" required="true" uuid="281299fb-eed5-48a0-acd2-6a36d5ab9638"/>
+        <field name="userable_type" type="string" required="true" uuid="ebf5a711-3183-485a-9674-d3d4911815fa"/>
+        <field name="message_id" type="uuid" uuid="21d420b4-ef4e-4964-a185-8c3fa1533ad2"/>
+        <field name="broadcasted_at" type="timestamp" required="true" uuid="5eabe37a-c6b9-4961-89a6-e2d91f08386f">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+            <attribute name="useCurrent">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="frequency" type="integer" required="true" unsigned="true" uuid="546635ff-76fa-4477-bf67-3f438af16aa0">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="receiver" type="string" uuid="8de38042-9077-4e7a-b387-c74c05bb4d2c">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="automated" type="boolean" default="False" required="true" uuid="23dbaa86-996c-4003-b9fc-45f3bd3a95d7"/>
+        <field name="automated_reviewed" type="boolean" default="False" uuid="cfadad7f-90be-4015-9987-ffd51c1a934d"/>
+        <field name="created_at" type="timestamp" uuid="f74951b1-e01b-4e8b-800f-f0a2def0c719"/>
+        <field name="updated_at" type="timestamp" uuid="e37be57d-28a0-4e67-9710-163f2a81cc5a"/>
+        <field name="deleted_at" type="timestamp" uuid="7762ee61-3f4c-47d7-b131-a9a4eb59dce3"/>
+      </entity>
+      <entity name="\App\Models\Rating" local-name="Rating" namespace="\App\Models" uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6">
+        <field name="id" type="uuid" required="true" unique="true" primary="true" uuid="ae1f8de6-9a98-4429-b75d-d8a66719325c"/>
+        <field name="userable_id" type="uuid" required="true" uuid="d8f96dad-2825-43a7-8258-6e43719c1a93"/>
+        <field name="userable_type" type="string" required="true" uuid="bdfcf16a-c471-4415-873d-3fec13dc54d6"/>
+        <field name="score" type="tinyInteger" required="true" uuid="e3f8aa73-28aa-4f99-b56e-4363e6f71166">
+          <orm-attributes>
+            <attribute name="isFillable">true</attribute>
+          </orm-attributes>
+        </field>
+        <field name="created_at" type="timestamp" uuid="43e2b18b-5d63-4ea3-b765-da6fd936cd59"/>
+        <field name="updated_at" type="timestamp" uuid="a78d1bc8-384c-4f02-a872-fc6fbcde9a8d"/>
+        <field name="deleted_at" type="timestamp" uuid="82bf2bcd-7b92-4f9b-b493-51ab803ee109"/>
+      </entity>
+    </region>
+    <association from="\App\Models\Comment" to="\App\Models\User" caption="User Comments" owner-alias="comments" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="2d9de308-b477-4bb9-88e6-a3f8b5388dd7">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="a599779c-8b73-4a01-8a33-d0294635d7b3"/>
+    </association>
+    <association from="\App\Models\Comment" to="\App\Models\Guest" caption="Guest Comments" owner-alias="comments" inverse-alias="guest" many-owner="true" many-inverse="false" parent-required="true" uuid="39526df8-80dc-4fca-8073-6eb59e2a5edc">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="8fdc257e-4884-48a1-91db-0a8c3e15a317"/>
+    </association>
+    <association from="\App\Models\Comment" to="\App\Models\Comment" caption="Comment Comments" owner-alias="comments" inverse-alias="comment" many-owner="true" many-inverse="false" uuid="7625536b-ffcc-4cce-bab2-444710528361">
+      <association-field from="parent_comment_id" to="id" uuid="4cdc2908-70ec-4402-8e5e-1c2d376fe72f"/>
+    </association>
+    <association from="\App\Models\Message" to="\App\Models\Guest" caption="Guest Messages" owner-alias="messages" inverse-alias="guest" many-owner="true" many-inverse="false" parent-required="true" uuid="65a460d7-b9a7-4eae-aeaf-0c76b79088f2">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="0aa7faed-fb3d-4eaf-917a-00cd7a55a203"/>
+    </association>
+    <association from="\App\Models\Message" to="\App\Models\User" caption="User Messages" owner-alias="messages" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="f670b560-fba2-43ba-93f3-9f5d6b6e4749">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="1af9c73e-72b4-4382-ae22-6899655ca015"/>
+    </association>
+    <association from="\App\Models\Recording" to="\App\Models\Message" caption="Message Recordings" owner-alias="recordings" inverse-alias="message" many-owner="true" many-inverse="false" uuid="9dd3702d-5985-433b-b571-9ba7c6ec829c">
+      <association-field from="message_id" to="id" uuid="b6174ef7-0f05-4c78-8177-86901ebcaa92"/>
+    </association>
+    <association from="\App\Models\Recording" to="\App\Models\Guest" caption="Guest Recordings" owner-alias="recordings" inverse-alias="guest" many-owner="true" many-inverse="false" parent-required="true" uuid="ad647f04-0bdf-4a28-85ae-2612f1ff0c41">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="d7c903af-aa76-4f8f-85f6-7fa36cd30acb"/>
+    </association>
+    <association from="\App\Models\Recording" to="\App\Models\User" caption="User Recordings" owner-alias="recordings" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="a14bc66f-3203-43e3-bb28-192c8f3d18b4">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="46b0684d-dec2-4ede-a193-b50d211b1267"/>
+    </association>
+    <association from="\App\Models\Rating" to="\App\Models\User" caption="User Ratings" owner-alias="ratings" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="9266c822-9b2c-437b-bc86-71b6feb38721">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="fa5a8b61-372d-4d34-bd0a-8b163a629990"/>
+    </association>
+    <association from="\App\Models\Rating" to="\App\Models\Guest" caption="Guest Ratings" owner-alias="ratings" inverse-alias="guest" many-owner="true" many-inverse="false" parent-required="true" uuid="9ccf6573-4ed2-426d-a84e-c0fe9587fdbc">
+      <association-polymorph id-field="userable_id" type-field="userable_type" name="userable" uuid="953b8992-e8d1-4fe3-93b9-897d5a609b73"/>
+    </association>
+    <migrations version="1.0">
+      <revision uuid="15a30084-7107-4af3-97ca-68b36a3aedb8" date="2020-01-19 19:53:51.587854" exportable="true">
+        <element action="add" uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="module">
+          <property name="export-format" value="Laravel"/>
+          <property name="export-path" value="../Ubuntu-Webdev/eam"/>
+          <property name="local-name" value="Application module"/>
+          <property name="local-namespace" value="App\Models"/>
+          <property name="name" value="\Application module"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="eaecb150-f796-45f3-b6ee-ba4614796880" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="region">
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="50e2d8ea-fab2-4c41-9dc7-24f9a267b7d2" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="region">
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="region">
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="region">
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" parent-uuid="eaecb150-f796-45f3-b6ee-ba4614796880" type="entity">
+          <property name="extends" value="\Illuminate\Foundation\Auth\User"/>
+          <property name="local-name" value="User"/>
+          <property name="name" value="\App\Models\User"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="b4057db5-9d60-4004-b154-cae7750a220f" parent-uuid="eaecb150-f796-45f3-b6ee-ba4614796880" type="entity">
+          <property name="local-name" value="Guest"/>
+          <property name="name" value="\App\Models\Guest"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" parent-uuid="50e2d8ea-fab2-4c41-9dc7-24f9a267b7d2" type="entity">
+          <property name="local-name" value="Setting"/>
+          <property name="name" value="\App\Models\Setting"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="13e298b3-c080-44e7-9298-ac5033e9300d" parent-uuid="50e2d8ea-fab2-4c41-9dc7-24f9a267b7d2" type="entity">
+          <property name="local-name" value="Commentable"/>
+          <property name="model-disabled" value="true"/>
+          <property name="name" value="\App\Models\Commentable"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="d8aa3340-32de-43d1-aa9c-d5bbbc2e35bd" parent-uuid="50e2d8ea-fab2-4c41-9dc7-24f9a267b7d2" type="entity">
+          <property name="local-name" value="Ratingable"/>
+          <property name="model-disabled" value="true"/>
+          <property name="name" value="\App\Models\Ratingable"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" parent-uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a" type="entity">
+          <property name="local-name" value="Relay"/>
+          <property name="name" value="\App\Models\Relay"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" parent-uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a" type="entity">
+          <property name="local-name" value="RelayProvider"/>
+          <property name="name" value="\App\Models\RelayProvider"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" parent-uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2" type="entity">
+          <property name="local-name" value="Comment"/>
+          <property name="name" value="\App\Models\Comment"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" parent-uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2" type="entity">
+          <property name="local-name" value="Message"/>
+          <property name="name" value="\App\Models\Message"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" parent-uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2" type="entity">
+          <property name="local-name" value="Recording"/>
+          <property name="name" value="\App\Models\Recording"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" parent-uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2" type="entity">
+          <property name="local-name" value="Rating"/>
+          <property name="name" value="\App\Models\Rating"/>
+          <property name="namespace" value="\App\Models"/>
+        </element>
+        <element action="add" uuid="3cad1be4-7925-4460-8e42-a6d9fb8cf580" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="89b99d28-acb7-4617-8609-d2551a6a3c67" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="3cad1be4-7925-4460-8e42-a6d9fb8cf580" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="name"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="97936466-df05-410b-827b-6098e5a1c3b7" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="89b99d28-acb7-4617-8609-d2551a6a3c67" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="email"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="98b94fdf-92fc-45a8-813c-ce7c3348ebe9" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="97936466-df05-410b-827b-6098e5a1c3b7" type="field">
+          <property name="name" value="email_verified_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="6649c261-e4e5-40be-bb13-992ef5fa6e1b" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="98b94fdf-92fc-45a8-813c-ce7c3348ebe9" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="password"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="10e35f97-94e0-4ee4-9ebd-2f129c0e397d" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="6649c261-e4e5-40be-bb13-992ef5fa6e1b" type="field">
+          <property name="name" value="remember_token"/>
+          <property name="size" value="100"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="39729f82-4305-4a3a-91d7-3971e797e887" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="10e35f97-94e0-4ee4-9ebd-2f129c0e397d" type="field">
+          <property name="default" value="False"/>
+          <property name="name" value="banned"/>
+          <property name="required" value="true"/>
+          <property name="type" value="boolean"/>
+        </element>
+        <element action="add" uuid="7961be99-2baa-44c5-a920-04c3b3e19523" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="39729f82-4305-4a3a-91d7-3971e797e887" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="0f167683-deba-4c4d-a0e4-67eca8e7529d" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="7961be99-2baa-44c5-a920-04c3b3e19523" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="d08bd11e-1460-41c5-9e8c-1bbd124d7c26" parent-uuid="b4057db5-9d60-4004-b154-cae7750a220f" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="608f9b70-e7d7-407f-9a7b-1877e3c240f9" parent-uuid="b4057db5-9d60-4004-b154-cae7750a220f" sibling-uuid="d08bd11e-1460-41c5-9e8c-1bbd124d7c26" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="ip"/>
+          <property name="required" value="true"/>
+          <property name="type" value="ipAddress"/>
+        </element>
+        <element action="add" uuid="59e5b802-8f36-440a-a83a-6ace72704b3b" parent-uuid="b4057db5-9d60-4004-b154-cae7750a220f" sibling-uuid="608f9b70-e7d7-407f-9a7b-1877e3c240f9" type="field">
+          <property name="default" value="False"/>
+          <property name="name" value="banned"/>
+          <property name="required" value="true"/>
+          <property name="type" value="boolean"/>
+        </element>
+        <element action="add" uuid="692e3fc6-87c0-4f31-a6ad-2abab92805a2" parent-uuid="b4057db5-9d60-4004-b154-cae7750a220f" sibling-uuid="59e5b802-8f36-440a-a83a-6ace72704b3b" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="c68d6fff-0ed2-4518-86b8-ad62d971a8eb" parent-uuid="b4057db5-9d60-4004-b154-cae7750a220f" sibling-uuid="692e3fc6-87c0-4f31-a6ad-2abab92805a2" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="7a8f8652-40d4-4b44-a9de-815f98117004" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" type="field">
+          <property name="auto-increment" value="true"/>
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="bigInteger"/>
+          <property name="unique" value="true"/>
+          <property name="unsigned" value="true"/>
+        </element>
+        <element action="add" uuid="91587e4b-3c44-4b12-aab3-e569f219ca68" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" sibling-uuid="7a8f8652-40d4-4b44-a9de-815f98117004" type="field">
+          <property name="name" value="user_id"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="707c799a-669c-4beb-bff7-e67043319ae1" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" sibling-uuid="91587e4b-3c44-4b12-aab3-e569f219ca68" type="field">
+          <property name="name" value="key"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="b4ba696f-059d-492c-9995-74118dd65c31" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" sibling-uuid="707c799a-669c-4beb-bff7-e67043319ae1" type="field">
+          <property name="name" value="value"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="531dbb79-4bac-43e4-a3d6-2bae186ab6d1" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" sibling-uuid="b4ba696f-059d-492c-9995-74118dd65c31" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="98d85f07-efe7-4236-850d-744d201b72ad" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" sibling-uuid="531dbb79-4bac-43e4-a3d6-2bae186ab6d1" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="7af78c69-cb2e-492f-a412-32b2579ae1e7" parent-uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" sibling-uuid="98d85f07-efe7-4236-850d-744d201b72ad" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="85aaf344-0fac-49c7-b7df-c003a1024383" parent-uuid="13e298b3-c080-44e7-9298-ac5033e9300d" type="field">
+          <property name="name" value="comment_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="71e6754c-77f3-4766-82e6-48b53ac7ec15" parent-uuid="13e298b3-c080-44e7-9298-ac5033e9300d" sibling-uuid="85aaf344-0fac-49c7-b7df-c003a1024383" type="field">
+          <property name="name" value="commentable_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="a79f4034-2489-4b73-a6c4-602a2c8f09f8" parent-uuid="13e298b3-c080-44e7-9298-ac5033e9300d" sibling-uuid="71e6754c-77f3-4766-82e6-48b53ac7ec15" type="field">
+          <property name="name" value="commentable_type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="7fbf79a3-5537-4ff9-a59c-fcc4ad67f022" parent-uuid="d8aa3340-32de-43d1-aa9c-d5bbbc2e35bd" type="field">
+          <property name="name" value="rating_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="98a36b00-d00b-4b2a-a99a-b44838028ae2" parent-uuid="d8aa3340-32de-43d1-aa9c-d5bbbc2e35bd" sibling-uuid="7fbf79a3-5537-4ff9-a59c-fcc4ad67f022" type="field">
+          <property name="name" value="ratingable_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="febf2ca2-6df2-4049-8b78-dbf1f485429c" parent-uuid="d8aa3340-32de-43d1-aa9c-d5bbbc2e35bd" sibling-uuid="98a36b00-d00b-4b2a-a99a-b44838028ae2" type="field">
+          <property name="name" value="ratingable_type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="b07cc5fa-51d8-45ed-a529-bd9374e05e82" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="01afdcac-5fa7-451e-8f2d-4758e00b4e18" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" sibling-uuid="b07cc5fa-51d8-45ed-a529-bd9374e05e82" type="field">
+          <property name="name" value="message_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="aae9fdb1-efa5-494a-a521-52a53b246899" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" sibling-uuid="01afdcac-5fa7-451e-8f2d-4758e00b4e18" type="field">
+          <property name="name" value="relay_provider_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="78e98fac-6304-43b3-8bb3-e63161999e69" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" sibling-uuid="aae9fdb1-efa5-494a-a521-52a53b246899" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="response"/>
+          <property name="type" value="text"/>
+        </element>
+        <element action="add" uuid="dd004bc7-b443-422b-ba72-bfbd9c364dac" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" sibling-uuid="78e98fac-6304-43b3-8bb3-e63161999e69" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="20db1c4a-9286-4473-8926-c082b69dd0ed" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" sibling-uuid="dd004bc7-b443-422b-ba72-bfbd9c364dac" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="2b4b6420-7c93-41f2-8328-7d60d981210d" parent-uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" sibling-uuid="20db1c4a-9286-4473-8926-c082b69dd0ed" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="46d89f2d-038e-4b21-8cc2-fd09f428589d" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="a905f239-3e60-4514-a16f-7ac8f6f24817" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="46d89f2d-038e-4b21-8cc2-fd09f428589d" type="field">
+          <property name="name" value="user_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="2c45191f-9396-4593-a23d-5d629c57aeb2" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="a905f239-3e60-4514-a16f-7ac8f6f24817" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="name"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="df9d1039-1431-46cb-8489-274808095a8b" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="2c45191f-9396-4593-a23d-5d629c57aeb2" type="field">
+          <property name="enum-values" value="&quot;Twitter&quot;,&quot;Discord&quot;"/>
+          <property name="isFillable" value="true"/>
+          <property name="name" value="type"/>
+          <property name="type" value="enum"/>
+        </element>
+        <element action="add" uuid="05b1c0f4-7cc4-4dc1-9b7b-9b28bb93cfc2" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="df9d1039-1431-46cb-8489-274808095a8b" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="details"/>
+          <property name="required" value="true"/>
+          <property name="type" value="text"/>
+        </element>
+        <element action="add" uuid="4c998866-00d3-48e1-aaa0-3d8313f47e90" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="05b1c0f4-7cc4-4dc1-9b7b-9b28bb93cfc2" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="enabled"/>
+          <property name="type" value="boolean"/>
+        </element>
+        <element action="add" uuid="529b9e0b-f667-487d-bd3a-42a66df1c9e1" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="4c998866-00d3-48e1-aaa0-3d8313f47e90" type="field">
+          <property name="name" value="circuit_closed_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="232ec89f-6ac5-47c2-82ea-ea680814f82c" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="529b9e0b-f667-487d-bd3a-42a66df1c9e1" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="6edded4f-8038-4920-a44b-cf81d64e027d" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="232ec89f-6ac5-47c2-82ea-ea680814f82c" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="f891e53d-d95a-4abc-95c8-fd431818dd2f" parent-uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" sibling-uuid="6edded4f-8038-4920-a44b-cf81d64e027d" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="b08616ab-70f1-445f-b192-70bd78592302" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="33a1d8a2-af68-494b-a2fd-009a187b4f20" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="b08616ab-70f1-445f-b192-70bd78592302" type="field">
+          <property name="name" value="userable_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="fad68a23-76b5-4e03-889c-41ffa712183f" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="33a1d8a2-af68-494b-a2fd-009a187b4f20" type="field">
+          <property name="name" value="userable_type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="f06dd333-3f8b-422e-bdf4-d476549f1c2e" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="fad68a23-76b5-4e03-889c-41ffa712183f" type="field">
+          <property name="name" value="parent_comment_id"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="bbcf57d6-d0cc-45dd-96e0-3ca28ac68935" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="f06dd333-3f8b-422e-bdf4-d476549f1c2e" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="message"/>
+          <property name="required" value="true"/>
+          <property name="type" value="text"/>
+        </element>
+        <element action="add" uuid="1123871f-ab5a-4e28-9971-59d1894cf9f1" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="bbcf57d6-d0cc-45dd-96e0-3ca28ac68935" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="cd6c6aa5-c835-4563-9aca-041b7094f9b4" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="1123871f-ab5a-4e28-9971-59d1894cf9f1" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="564bdb92-d8e8-4b4e-8a0a-6fffeea2ae69" parent-uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" sibling-uuid="cd6c6aa5-c835-4563-9aca-041b7094f9b4" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="fc95b467-2335-4c8b-9b55-2f784d0229ec" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="018cbac1-6db3-42b7-8fa6-b6b20cdb9768" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="fc95b467-2335-4c8b-9b55-2f784d0229ec" type="field">
+          <property name="name" value="userable_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="79e56273-7cd4-4f8e-aa92-4cdcb48c2514" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="018cbac1-6db3-42b7-8fa6-b6b20cdb9768" type="field">
+          <property name="name" value="userable_type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="c46ebc25-c330-4a04-8d40-965e341b44ac" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="79e56273-7cd4-4f8e-aa92-4cdcb48c2514" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="message"/>
+          <property name="required" value="true"/>
+          <property name="type" value="text"/>
+        </element>
+        <element action="add" uuid="a62f13c4-9f61-409d-b5a3-f94721ae63d6" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="c46ebc25-c330-4a04-8d40-965e341b44ac" type="field">
+          <property name="enum-values" value="&quot;BACKEND&quot;, &quot;SKYKING&quot;, &quot;ALLSTATIONS&quot;, &quot;RADIOCHECK&quot;, &quot;SKYMASTER&quot;, &quot;SKYBIRD&quot;, &quot;DISREGARDED&quot;, &quot;OTHER&quot;"/>
+          <property name="isFillable" value="true"/>
+          <property name="name" value="type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="enum"/>
+        </element>
+        <element action="add" uuid="70a7818f-3c46-4eb0-b2be-659c92b1fd3c" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="a62f13c4-9f61-409d-b5a3-f94721ae63d6" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="sender"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="51333b2d-7f84-48b3-b6fb-2669ed1c4545" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="70a7818f-3c46-4eb0-b2be-659c92b1fd3c" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="receiver"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="a0332c06-7a70-4193-a57c-bd7bf69cad60" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="51333b2d-7f84-48b3-b6fb-2669ed1c4545" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="broadcast_ts"/>
+          <property name="required" value="true"/>
+          <property name="type" value="timestamp"/>
+          <property name="useCurrent" value="true"/>
+        </element>
+        <element action="add" uuid="746498c3-6caf-4990-8837-6c8a01b91b73" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="a0332c06-7a70-4193-a57c-bd7bf69cad60" type="field">
+          <property name="default" value="true"/>
+          <property name="name" value="visible"/>
+          <property name="required" value="true"/>
+          <property name="type" value="boolean"/>
+        </element>
+        <element action="add" uuid="4d4b547e-6c55-40f8-a297-0e8b5bb1f186" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="746498c3-6caf-4990-8837-6c8a01b91b73" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="2d161d63-60ef-4b0f-9ab6-b96d81472982" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="4d4b547e-6c55-40f8-a297-0e8b5bb1f186" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="0352a6e2-4b6f-4791-9045-36b080a93380" parent-uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" sibling-uuid="2d161d63-60ef-4b0f-9ab6-b96d81472982" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="004b8b89-fe5e-49dc-b235-4d36bd1762d5" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="281299fb-eed5-48a0-acd2-6a36d5ab9638" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="004b8b89-fe5e-49dc-b235-4d36bd1762d5" type="field">
+          <property name="name" value="userable_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="ebf5a711-3183-485a-9674-d3d4911815fa" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="281299fb-eed5-48a0-acd2-6a36d5ab9638" type="field">
+          <property name="name" value="userable_type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="21d420b4-ef4e-4964-a185-8c3fa1533ad2" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="ebf5a711-3183-485a-9674-d3d4911815fa" type="field">
+          <property name="name" value="message_id"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="5eabe37a-c6b9-4961-89a6-e2d91f08386f" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="21d420b4-ef4e-4964-a185-8c3fa1533ad2" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="broadcasted_at"/>
+          <property name="required" value="true"/>
+          <property name="type" value="timestamp"/>
+          <property name="useCurrent" value="true"/>
+        </element>
+        <element action="add" uuid="546635ff-76fa-4477-bf67-3f438af16aa0" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="5eabe37a-c6b9-4961-89a6-e2d91f08386f" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="frequency"/>
+          <property name="required" value="true"/>
+          <property name="type" value="integer"/>
+          <property name="unsigned" value="true"/>
+        </element>
+        <element action="add" uuid="8de38042-9077-4e7a-b387-c74c05bb4d2c" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="546635ff-76fa-4477-bf67-3f438af16aa0" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="receiver"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="23dbaa86-996c-4003-b9fc-45f3bd3a95d7" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="8de38042-9077-4e7a-b387-c74c05bb4d2c" type="field">
+          <property name="default" value="False"/>
+          <property name="name" value="automated"/>
+          <property name="required" value="true"/>
+          <property name="type" value="boolean"/>
+        </element>
+        <element action="add" uuid="cfadad7f-90be-4015-9987-ffd51c1a934d" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="23dbaa86-996c-4003-b9fc-45f3bd3a95d7" type="field">
+          <property name="default" value="False"/>
+          <property name="name" value="automated_reviewed"/>
+          <property name="type" value="boolean"/>
+        </element>
+        <element action="add" uuid="f74951b1-e01b-4e8b-800f-f0a2def0c719" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="cfadad7f-90be-4015-9987-ffd51c1a934d" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="e37be57d-28a0-4e67-9710-163f2a81cc5a" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="f74951b1-e01b-4e8b-800f-f0a2def0c719" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="7762ee61-3f4c-47d7-b131-a9a4eb59dce3" parent-uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" sibling-uuid="e37be57d-28a0-4e67-9710-163f2a81cc5a" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="ae1f8de6-9a98-4429-b75d-d8a66719325c" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" type="field">
+          <property name="name" value="id"/>
+          <property name="primary" value="true"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+          <property name="unique" value="true"/>
+        </element>
+        <element action="add" uuid="d8f96dad-2825-43a7-8258-6e43719c1a93" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" sibling-uuid="ae1f8de6-9a98-4429-b75d-d8a66719325c" type="field">
+          <property name="name" value="userable_id"/>
+          <property name="required" value="true"/>
+          <property name="type" value="uuid"/>
+        </element>
+        <element action="add" uuid="bdfcf16a-c471-4415-873d-3fec13dc54d6" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" sibling-uuid="d8f96dad-2825-43a7-8258-6e43719c1a93" type="field">
+          <property name="name" value="userable_type"/>
+          <property name="required" value="true"/>
+          <property name="type" value="string"/>
+        </element>
+        <element action="add" uuid="e3f8aa73-28aa-4f99-b56e-4363e6f71166" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" sibling-uuid="bdfcf16a-c471-4415-873d-3fec13dc54d6" type="field">
+          <property name="isFillable" value="true"/>
+          <property name="name" value="score"/>
+          <property name="required" value="true"/>
+          <property name="type" value="tinyInteger"/>
+        </element>
+        <element action="add" uuid="43e2b18b-5d63-4ea3-b765-da6fd936cd59" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" sibling-uuid="e3f8aa73-28aa-4f99-b56e-4363e6f71166" type="field">
+          <property name="name" value="created_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="a78d1bc8-384c-4f02-a872-fc6fbcde9a8d" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" sibling-uuid="43e2b18b-5d63-4ea3-b765-da6fd936cd59" type="field">
+          <property name="name" value="updated_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="82bf2bcd-7b92-4f9b-b493-51ab803ee109" parent-uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" sibling-uuid="a78d1bc8-384c-4f02-a872-fc6fbcde9a8d" type="field">
+          <property name="name" value="deleted_at"/>
+          <property name="type" value="timestamp"/>
+        </element>
+        <element action="add" uuid="b2168256-97a5-47ba-8b77-ced9da8a1630" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Relay"/>
+          <property name="inverse-alias" value="message"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="relays"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\Message"/>
+        </element>
+        <element action="add" uuid="2d286086-6662-4c2f-bbad-42b7ef749dd2" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Relay"/>
+          <property name="inverse-alias" value="relay Provider"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="relays"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\RelayProvider"/>
+        </element>
+        <element action="add" uuid="b8b7e79d-a2dd-4510-aca6-6f7ad59897d6" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\RelayProvider"/>
+          <property name="inverse-alias" value="user"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="relayProviders"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\User"/>
+        </element>
+        <element action="add" uuid="2d9de308-b477-4bb9-88e6-a3f8b5388dd7" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Comment"/>
+          <property name="inverse-alias" value="user"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="comments"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\User"/>
+        </element>
+        <element action="add" uuid="39526df8-80dc-4fca-8073-6eb59e2a5edc" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Comment"/>
+          <property name="inverse-alias" value="guest"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="comments"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\Guest"/>
+        </element>
+        <element action="add" uuid="7625536b-ffcc-4cce-bab2-444710528361" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Comment"/>
+          <property name="inverse-alias" value="comment"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="comments"/>
+          <property name="to" value="\App\Models\Comment"/>
+        </element>
+        <element action="add" uuid="65a460d7-b9a7-4eae-aeaf-0c76b79088f2" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Message"/>
+          <property name="inverse-alias" value="guest"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="messages"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\Guest"/>
+        </element>
+        <element action="add" uuid="f670b560-fba2-43ba-93f3-9f5d6b6e4749" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Message"/>
+          <property name="inverse-alias" value="user"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="messages"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\User"/>
+        </element>
+        <element action="add" uuid="9dd3702d-5985-433b-b571-9ba7c6ec829c" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Recording"/>
+          <property name="inverse-alias" value="message"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="recordings"/>
+          <property name="to" value="\App\Models\Message"/>
+        </element>
+        <element action="add" uuid="ad647f04-0bdf-4a28-85ae-2612f1ff0c41" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Recording"/>
+          <property name="inverse-alias" value="guest"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="recordings"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\Guest"/>
+        </element>
+        <element action="add" uuid="a14bc66f-3203-43e3-bb28-192c8f3d18b4" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Recording"/>
+          <property name="inverse-alias" value="user"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="recordings"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\User"/>
+        </element>
+        <element action="add" uuid="9266c822-9b2c-437b-bc86-71b6feb38721" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Rating"/>
+          <property name="inverse-alias" value="user"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="ratings"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\User"/>
+        </element>
+        <element action="add" uuid="9ccf6573-4ed2-426d-a84e-c0fe9587fdbc" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="association">
+          <property name="from" value="\App\Models\Rating"/>
+          <property name="inverse-alias" value="guest"/>
+          <property name="many-inverse" value="false"/>
+          <property name="many-owner" value="true"/>
+          <property name="owner-alias" value="ratings"/>
+          <property name="parent-required" value="true"/>
+          <property name="to" value="\App\Models\Guest"/>
+        </element>
+        <element action="add" uuid="33ff7579-8ea9-463a-a50c-eb9c400c3100" parent-uuid="b2168256-97a5-47ba-8b77-ced9da8a1630" type="association-field">
+          <property name="from" value="message_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="81c7b07d-87b7-4728-a24a-b56a5bd713c6" parent-uuid="2d286086-6662-4c2f-bbad-42b7ef749dd2" type="association-field">
+          <property name="from" value="relay_provider_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="fbd75841-51bb-4e9a-a784-ede7df00988c" parent-uuid="b8b7e79d-a2dd-4510-aca6-6f7ad59897d6" type="association-field">
+          <property name="from" value="user_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="4cdc2908-70ec-4402-8e5e-1c2d376fe72f" parent-uuid="7625536b-ffcc-4cce-bab2-444710528361" type="association-field">
+          <property name="from" value="parent_comment_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="b6174ef7-0f05-4c78-8177-86901ebcaa92" parent-uuid="9dd3702d-5985-433b-b571-9ba7c6ec829c" type="association-field">
+          <property name="from" value="message_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="a599779c-8b73-4a01-8a33-d0294635d7b3" parent-uuid="2d9de308-b477-4bb9-88e6-a3f8b5388dd7" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="8fdc257e-4884-48a1-91db-0a8c3e15a317" parent-uuid="39526df8-80dc-4fca-8073-6eb59e2a5edc" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="0aa7faed-fb3d-4eaf-917a-00cd7a55a203" parent-uuid="65a460d7-b9a7-4eae-aeaf-0c76b79088f2" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="1af9c73e-72b4-4382-ae22-6899655ca015" parent-uuid="f670b560-fba2-43ba-93f3-9f5d6b6e4749" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="d7c903af-aa76-4f8f-85f6-7fa36cd30acb" parent-uuid="ad647f04-0bdf-4a28-85ae-2612f1ff0c41" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="46b0684d-dec2-4ede-a193-b50d211b1267" parent-uuid="a14bc66f-3203-43e3-bb28-192c8f3d18b4" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="fa5a8b61-372d-4d34-bd0a-8b163a629990" parent-uuid="9266c822-9b2c-437b-bc86-71b6feb38721" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="953b8992-e8d1-4fe3-93b9-897d5a609b73" parent-uuid="9ccf6573-4ed2-426d-a84e-c0fe9587fdbc" type="association-polymorph">
+          <property name="id-field" value="userable_id"/>
+          <property name="name" value="userable"/>
+          <property name="type-field" value="userable_type"/>
+        </element>
+        <element action="add" uuid="eb48d49e-bbc8-4c9d-a1c9-ec0ba9284aee" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="many-to-many">
+          <property name="mn-entity" value="\App\Models\Commentable"/>
+        </element>
+        <element action="add" uuid="8f681a3c-741b-4a41-a4a3-0f43137abba9" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="many-to-many">
+          <property name="mn-entity" value="\App\Models\Commentable"/>
+        </element>
+        <element action="add" uuid="372cb668-3e64-482b-a2bb-580dd0d17a2b" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="many-to-many">
+          <property name="mn-entity" value="\App\Models\Ratingable"/>
+        </element>
+        <element action="add" uuid="0a153a63-3f91-4dff-8010-1c18bbf4a0ef" parent-uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" type="many-to-many">
+          <property name="mn-entity" value="\App\Models\Ratingable"/>
+        </element>
+        <element action="add" uuid="8390bc2c-b3ae-4441-88cd-fb094a2560ca" parent-uuid="eb48d49e-bbc8-4c9d-a1c9-ec0ba9284aee" type="many-to-many-entity">
+          <property name="alias" value="comments"/>
+          <property name="name" value="\App\Models\Comment"/>
+          <property name="owning-side" value="true"/>
+        </element>
+        <element action="add" uuid="6ff8505b-f372-45ec-9014-1b405897e661" parent-uuid="eb48d49e-bbc8-4c9d-a1c9-ec0ba9284aee" type="many-to-many-entity">
+          <property name="alias" value="messages"/>
+          <property name="name" value="\App\Models\Message"/>
+          <property name="owning-side" value="false"/>
+        </element>
+        <element action="add" uuid="7f743766-efb6-4012-9d71-4067d3b3f2b3" parent-uuid="8f681a3c-741b-4a41-a4a3-0f43137abba9" type="many-to-many-entity">
+          <property name="alias" value="comments"/>
+          <property name="name" value="\App\Models\Comment"/>
+          <property name="owning-side" value="true"/>
+        </element>
+        <element action="add" uuid="0d8443ca-2a2b-4096-aa10-5acb0afce16f" parent-uuid="8f681a3c-741b-4a41-a4a3-0f43137abba9" type="many-to-many-entity">
+          <property name="alias" value="recordings"/>
+          <property name="name" value="\App\Models\Recording"/>
+          <property name="owning-side" value="false"/>
+        </element>
+        <element action="add" uuid="1ce9a348-f14a-4bf8-9564-ed355edb0150" parent-uuid="372cb668-3e64-482b-a2bb-580dd0d17a2b" type="many-to-many-entity">
+          <property name="alias" value="ratings"/>
+          <property name="name" value="\App\Models\Rating"/>
+          <property name="owning-side" value="true"/>
+        </element>
+        <element action="add" uuid="4c57006c-c5f1-463f-98c2-09c62c412b29" parent-uuid="372cb668-3e64-482b-a2bb-580dd0d17a2b" type="many-to-many-entity">
+          <property name="alias" value="messages"/>
+          <property name="name" value="\App\Models\Message"/>
+          <property name="owning-side" value="false"/>
+        </element>
+        <element action="add" uuid="40debbd1-76c4-4cd1-b263-ec2e35970bfc" parent-uuid="0a153a63-3f91-4dff-8010-1c18bbf4a0ef" type="many-to-many-entity">
+          <property name="alias" value="ratings"/>
+          <property name="name" value="\App\Models\Rating"/>
+          <property name="owning-side" value="true"/>
+        </element>
+        <element action="add" uuid="3538d033-3992-486e-882c-673b8d7c836e" parent-uuid="0a153a63-3f91-4dff-8010-1c18bbf4a0ef" type="many-to-many-entity">
+          <property name="alias" value="recordings"/>
+          <property name="name" value="\App\Models\Recording"/>
+          <property name="owning-side" value="false"/>
+        </element>
+        <element action="add" uuid="7ff1a186-161a-4520-8d9c-bb81bd959b41" parent-uuid="8390bc2c-b3ae-4441-88cd-fb094a2560ca" type="many-to-many-field">
+          <property name="from" value="comment_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="854f4786-1ed9-4c8f-879c-5f04fd17b8fd" parent-uuid="7f743766-efb6-4012-9d71-4067d3b3f2b3" type="many-to-many-field">
+          <property name="from" value="comment_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="fdb7f8ae-4e73-40cf-ad7c-a4dcaf4755e3" parent-uuid="1ce9a348-f14a-4bf8-9564-ed355edb0150" type="many-to-many-field">
+          <property name="from" value="rating_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="d8a5214a-0ff8-4270-ac35-b39cfec196e6" parent-uuid="40debbd1-76c4-4cd1-b263-ec2e35970bfc" type="many-to-many-field">
+          <property name="from" value="rating_id"/>
+          <property name="to" value="id"/>
+        </element>
+        <element action="add" uuid="5737a8fe-6b0f-4f0b-abf3-873b32ba0043" parent-uuid="eb48d49e-bbc8-4c9d-a1c9-ec0ba9284aee" type="many-to-many-polymorph">
+          <property name="id-field" value="commentable_id"/>
+          <property name="name" value="commentable"/>
+          <property name="type-field" value="commentable_type"/>
+        </element>
+        <element action="add" uuid="f3a4d229-36a5-45f9-bb56-08809855e16f" parent-uuid="8f681a3c-741b-4a41-a4a3-0f43137abba9" type="many-to-many-polymorph">
+          <property name="id-field" value="commentable_id"/>
+          <property name="name" value="commentable"/>
+          <property name="type-field" value="commentable_type"/>
+        </element>
+        <element action="add" uuid="6ecb9bdf-a17b-4864-8316-7f5702201ff7" parent-uuid="372cb668-3e64-482b-a2bb-580dd0d17a2b" type="many-to-many-polymorph">
+          <property name="id-field" value="ratingable_id"/>
+          <property name="name" value="ratingable"/>
+          <property name="type-field" value="ratingable_type"/>
+        </element>
+        <element action="add" uuid="a3990061-24c7-4265-8a1e-62985fcf3c27" parent-uuid="0a153a63-3f91-4dff-8010-1c18bbf4a0ef" type="many-to-many-polymorph">
+          <property name="id-field" value="ratingable_id"/>
+          <property name="name" value="ratingable"/>
+          <property name="type-field" value="ratingable_type"/>
+        </element>
+        <element action="add" uuid="8855429f-4f5d-4269-a750-ee2cb75315cf" parent-uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a" type="comment">
+          <property name="description" value="Relay Providers are destinations for messages (Twitter/Discord)&#10;&#10;When a message is sent to one of these destinations a relay entry is created so that they can be deleted when/if the entry is deleted from the site."/>
+        </element>
+        <element action="add" uuid="8855429f-4f5d-4269-a750-ee2cb75315cf" parent-uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a" type="comment">
+          <property name="description" value="Relay Providers are destinations for messages (Twitter/Discord)&#10;&#10;When a message is sent to one of these destinations a relay entry is created so that they can be deleted when/if the entry is deleted from the site."/>
+        </element>
+      </revision>
+      <revision uuid="0434dde0-7ce3-4609-8a4d-ffc569a2663a" date="2020-06-14 00:53:07.124242" exportable="true">
+        <element action="update" uuid="97936466-df05-410b-827b-6098e5a1c3b7" parent-uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" sibling-uuid="89b99d28-acb7-4617-8609-d2551a6a3c67" type="field">
+          <property name="unique" value="true"/>
+        </element>
+      </revision>
+    </migrations>
+  </module>
+  <visual-data>
+    <association uuid="2d286086-6662-4c2f-bbad-42b7ef749dd2" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="2d9de308-b477-4bb9-88e6-a3f8b5388dd7" caption1-position-x="1" caption1-position-y="-7" caption2-position-x="-8" caption2-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="39526df8-80dc-4fca-8073-6eb59e2a5edc" caption1-position-x="0" caption1-position-y="-20" caption2-position-x="0" caption2-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="65a460d7-b9a7-4eae-aeaf-0c76b79088f2" caption1-position-x="-5" caption1-position-y="-20" caption2-position-x="0" caption2-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="7625536b-ffcc-4cce-bab2-444710528361" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="-20" color="#969696"/>
+    <association uuid="9266c822-9b2c-437b-bc86-71b6feb38721" caption1-position-x="-3" caption1-position-y="-7" caption2-position-x="-1" caption2-position-y="40" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="9ccf6573-4ed2-426d-a84e-c0fe9587fdbc" caption1-position-x="1" caption1-position-y="-20" caption2-position-x="-2" caption2-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="9dd3702d-5985-433b-b571-9ba7c6ec829c" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="a14bc66f-3203-43e3-bb28-192c8f3d18b4" caption1-position-x="-1" caption1-position-y="-4" caption2-position-x="-3" caption2-position-y="27" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="ad647f04-0bdf-4a28-85ae-2612f1ff0c41" caption1-position-x="-3" caption1-position-y="-17" caption2-position-x="-2" caption2-position-y="12" center-position-x="-7" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="b2168256-97a5-47ba-8b77-ced9da8a1630" caption1-position-x="1" caption1-position-y="22" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="b8b7e79d-a2dd-4510-aca6-6f7ad59897d6" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="f670b560-fba2-43ba-93f3-9f5d6b6e4749" caption1-position-x="0" caption1-position-y="-7" caption2-position-x="0" caption2-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <comment uuid="8855429f-4f5d-4269-a750-ee2cb75315cf" bg-color="#FFF187" position-x="117" position-y="-4" size-x="0" size-x2="168" size-y="-15" size-y2="132" txt-color="#000000"/>
+    <entity uuid="13e298b3-c080-44e7-9298-ac5033e9300d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="466" position-y="23" size-x="0" size-x2="143" size-y="0" size-y2="74"/>
+    <entity uuid="254814fb-2ed8-4c6b-8b61-17237ffd1973" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="470" position-y="243" size-x="0" size-x2="124" size-y="0" size-y2="115"/>
+    <entity uuid="3cc8f2f9-8e53-4750-b4b3-a02aff82dbe6" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="253" position-y="131" size-x="0" size-x2="124" size-y="0" size-y2="115"/>
+    <entity uuid="558f6aac-4717-4166-8398-b60c6d0ac13d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="297" position-y="75" size-x="0" size-x2="148" size-y="0" size-y2="157"/>
+    <entity uuid="9eed0ed4-f243-42e6-9909-ab3ba0aa160d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-43" position-y="95" size-x="0" size-x2="147" size-y="0" size-y2="115"/>
+    <entity uuid="b4057db5-9d60-4004-b154-cae7750a220f" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-56" position-y="134" size-x="0" size-x2="124" size-y="0" size-y2="115"/>
+    <entity uuid="d8aa3340-32de-43d1-aa9c-d5bbbc2e35bd" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="469" position-y="128" size-x="0" size-x2="127" size-y="0" size-y2="88"/>
+    <entity uuid="db471b16-5221-4d39-b8d4-1311ecb5b520" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-185" position-y="93" size-x="0" size-x2="132" size-y="0" size-y2="185"/>
+    <entity uuid="ec0c1df6-b6f3-416a-96de-39e04aa5fbc1" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="63" position-y="60" size-x="0" size-x2="152" size-y="0" size-y2="199"/>
+    <entity uuid="f8b2e723-148d-4511-bc7f-c427aab915d5" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="420" position-y="116" size-x="0" size-x2="157" size-y="0" size-y2="129"/>
+    <entity uuid="fd023448-2f1d-48a0-982f-91aa82b4eccf" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="194" position-y="64" size-x="0" size-x2="150" size-y="0" size-y2="143"/>
+    <many-to-many-association uuid="0a153a63-3f91-4dff-8010-1c18bbf4a0ef" color="#969696"/>
+    <many-to-many-association uuid="372cb668-3e64-482b-a2bb-580dd0d17a2b" color="#969696"/>
+    <many-to-many-association uuid="8f681a3c-741b-4a41-a4a3-0f43137abba9" color="#969696"/>
+    <many-to-many-association uuid="eb48d49e-bbc8-4c9d-a1c9-ec0ba9284aee" color="#969696"/>
+    <many-to-many-association-entity uuid="0d8443ca-2a2b-4096-aa10-5acb0afce16f" split="1"/>
+    <many-to-many-association-entity uuid="1ce9a348-f14a-4bf8-9564-ed355edb0150" split="1"/>
+    <many-to-many-association-entity uuid="3538d033-3992-486e-882c-673b8d7c836e" split="1"/>
+    <many-to-many-association-entity uuid="40debbd1-76c4-4cd1-b263-ec2e35970bfc" split="1"/>
+    <many-to-many-association-entity uuid="4c57006c-c5f1-463f-98c2-09c62c412b29" split="1"/>
+    <many-to-many-association-entity uuid="6ff8505b-f372-45ec-9014-1b405897e661" split="1"/>
+    <many-to-many-association-entity uuid="7f743766-efb6-4012-9d71-4067d3b3f2b3" split="1"/>
+    <many-to-many-association-entity uuid="8390bc2c-b3ae-4441-88cd-fb094a2560ca" split="1"/>
+    <module uuid="48f31cd3-d34c-4a9f-9c59-7305d93d0b7b" bg-color="#FEFCE8" position-x="61" position-y="72" size-x="201" size-x2="904" size-y="157" size-y2="872"/>
+    <project uuid="ab12086c-4faa-4130-8bf1-67dca202af24" size-x="190" size-x2="1465" size-y="135" size-y2="994"/>
+    <region uuid="463d6385-5ec7-4d70-9b9b-c92b20c62a9a" bg-color="#EAE4F1" position-x="-78" position-y="598" size-x="63" size-x2="467" size-y="0" size-y2="249"/>
+    <region uuid="50e2d8ea-fab2-4c41-9dc7-24f9a267b7d2" bg-color="#FDEBEF" position-x="192" position-y="-125" size-x="-309" size-x2="667" size-y="7" size-y2="373"/>
+    <region uuid="eaecb150-f796-45f3-b6ee-ba4614796880" bg-color="#FEEFE3" position-x="-85" position-y="-96" size-x="70" size-x2="359" size-y="10" size-y2="329"/>
+    <region uuid="f28a51ba-9b93-48e9-97db-b27afca4a7b2" bg-color="#E7F5FD" position-x="79" position-y="258" size-x="220" size-x2="786" size-y="0" size-y2="326"/>
+  </visual-data>
+</skipper>

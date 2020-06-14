@@ -17,6 +17,10 @@ Route::get('/banned', function(){
     return view('banned');
 });
 
+Route::get('/unauthorized', function(){
+    return view('unauthorized');
+});
+
 Route::middleware(BannedMiddleware::class)->group(function(){
     Auth::routes();
 

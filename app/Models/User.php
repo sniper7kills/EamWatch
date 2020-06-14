@@ -19,4 +19,24 @@ class User extends \App\Models\AbstractModels\AbstractUser
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Return the role to display
+     *
+     * @return string
+     */
+    public function displayRole()
+    {
+        if($this->hasRole('admin'))
+        {
+            return "Admin";
+        }
+
+        if($this->hasRole('moderator'))
+        {
+            return "Moderator";
+        }
+
+        return "Member";
+    }
 }

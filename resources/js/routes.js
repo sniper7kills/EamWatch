@@ -58,9 +58,34 @@ let routes = [
         component: () => import(/* webpackChunkName: "js/chunks/guest/view" */ './components/guest/view')
     },
     {
+        path: '/guest/:guest_id/ban',
+        name: 'guest-ban',
+        component: () => import(/* webpackChunkName: "js/chunks/guest/ban" */ './components/guest/ban')
+    },
+    {
+        path: '/guest/:guest_id/unban',
+        name: 'guest-unban',
+        component: () => import(/* webpackChunkName: "js/chunks/guest/unban" */ './components/guest/unban')
+    },
+    {
         path: '/user/:user_id',
         name: 'user-view',
         component: () => import(/* webpackChunkName: "js/chunks/user/view" */ './components/user/view')
+    },
+    {
+        path: '/user/:user_id/edit',
+        name: 'user-edit',
+        component: () => import(/* webpackChunkName: "js/chunks/user/edit" */ './components/user/edit')
+    },
+    {
+        path: '/user/:user_id/ban',
+        name: 'user-ban',
+        component: () => import(/* webpackChunkName: "js/chunks/user/ban" */ './components/user/ban')
+    },
+    {
+        path: '/user/:user_id/unban',
+        name: 'user-unban',
+        component: () => import(/* webpackChunkName: "js/chunks/user/unban" */ './components/user/unban')
     },
 ];
 

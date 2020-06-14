@@ -9,17 +9,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class UserResource extends JsonResource
 {
     /**
-     * @var User | Guest
-     */
-    private $user = null;
-
-    public function __construct($resource)
-    {
-        parent::__construct($resource);
-        $this->user = $resource;
-    }
-
-    /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -28,16 +17,16 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            $this->mergeWhen($this->user->getMorphClass() == User::class,[
-                'name' => $this->user->name,
-                'id' => $this->user->id,
+            $this->mergeWhen($this->resource->getMorphClass() == User::class,[
+                'name' => $this->resource->name,
+                'id' => $this->resource->id,
                 'type' => 'user'
             ]),
-            $this->mergeWhen($this->user->getMorphClass() == Guest::class,[
-                'name' => $this->user->id,
-                'id' => $this->user->id,
+            $this->mergeWhen($this->resource->getMorphClass() == Guest::class,[
+                'name' => $this->resource->id,
+                'id' => $this->resource->id,
                 'type' => 'guest'
-            ])
+            ]),
         ];
     }
 }

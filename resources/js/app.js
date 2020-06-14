@@ -31,6 +31,10 @@ axios.interceptors.response.use(function (response) {
             window.location.href = '/banned';
             window.location.assign("/banned");
             console.log("YOU ARE BANNED!");
+        } else if(error.response.data.message === "This action is unauthorized.") {
+            window.location.href = '/unauthorized';
+            window.location.assign("/unauthorized");
+            console.log("You are not authorized to preform that action!");
         }
     }
     return Promise.reject(error);

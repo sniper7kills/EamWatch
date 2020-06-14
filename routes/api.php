@@ -23,4 +23,6 @@ Route::namespace('Api')->group(function(){
     Route::apiResource('comments', 'CommentController');
     Route::apiResource('skykings', 'SkykingController')->only('index');
     Route::apiResource('automatedRecordings', 'AutomatedRecordingController')->except(['delete','show']);
+    Route::apiResource('users', 'UserController')->only(['show','update']);
+    Route::apiResource('guests', 'GuestController')->only(['show','update']);
 });

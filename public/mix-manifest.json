@@ -7,6 +7,8 @@
     "/js/chunks/comment/listing.js": "/js/chunks/comment/listing.js",
     "/js/chunks/comment/stub/add.js": "/js/chunks/comment/stub/add.js",
     "/js/chunks/comment/stub/view.js": "/js/chunks/comment/stub/view.js",
+    "/js/chunks/guest/ban.js": "/js/chunks/guest/ban.js",
+    "/js/chunks/guest/unban.js": "/js/chunks/guest/unban.js",
     "/js/chunks/guest/view.js": "/js/chunks/guest/view.js",
     "/js/chunks/messages/add.js": "/js/chunks/messages/add.js",
     "/js/chunks/messages/delete.js": "/js/chunks/messages/delete.js",
@@ -18,6 +20,9 @@
     "/js/chunks/recording/stub/add.js": "/js/chunks/recording/stub/add.js",
     "/js/chunks/recording/stub/list.js": "/js/chunks/recording/stub/list.js",
     "/js/chunks/recordings/view.js": "/js/chunks/recordings/view.js",
+    "/js/chunks/user/ban.js": "/js/chunks/user/ban.js",
+    "/js/chunks/user/edit.js": "/js/chunks/user/edit.js",
+    "/js/chunks/user/unban.js": "/js/chunks/user/unban.js",
     "/js/chunks/user/view.js": "/js/chunks/user/view.js",
     "/vendors~js/chunks/recording/stub/list~js/chunks/recordings/view.js": "/vendors~js/chunks/recording/stub/list~js/chunks/recordings/view.js"
 }

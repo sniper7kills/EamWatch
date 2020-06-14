@@ -3,41 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GuestUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Guest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GuestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $this->middleware('auth:api')->except('show');
+        $this->authorizeResource(Guest::class, 'guest');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Guest  $guest
-     * @return \Illuminate\Http\Response
+     * @return UserResource
      */
     public function show(Guest $guest)
     {
-        //
+        return new UserResource($guest);
     }
 
     /**
@@ -45,21 +33,29 @@ class GuestController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Guest  $guest
-     * @return \Illuminate\Http\Response
+     * @return UserResource
      */
-    public function update(Request $request, Guest $guest)
+    public function update(GuestUpdateRequest $request, Guest $guest)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Guest  $guest
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Guest $guest)
-    {
-        //
+        /**
+         * Ban & Unban
+         */
+        if(Auth::user()->hasAnyPermission(['ban guests', 'unban guests']) && array_key_exists('banned', $data))
+        {
+            if (Auth::user()->hasPermissionTo('ban users') && $data['banned'] == true)
+            {
+                $guest->banned = true;
+                $guest->save();
+            }
+            if (Auth::user()->hasPermissionTo('unban users') && $data['banned'] == false)
+            {
+                $guest->banned = false;
+                $guest->save();
+            }
+        }
+
+        return new UserResource($guest);
     }
 }
