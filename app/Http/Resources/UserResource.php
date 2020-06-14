@@ -75,8 +75,9 @@ class UserResource extends JsonResource
         if($this->resource->getMorphClass() == User::class)
         {
             $email = "[REDACTED]";
-            if($this->currentUserOrGuest()->id == $this->resource->id
-                || $this->currentUserOrGuest()->hasPermissionTo('edit users'))
+            if($user->getMorphClass() == User::class &&
+                ($user->id == $this->resource->id
+                || $user->hasPermissionTo('edit users')))
             {
                 $email = $this->resource->email;
             }
