@@ -87,6 +87,15 @@ class UserController extends Controller
         }
 
         /**
+         * Ensure Null Inputs are not updated.
+         */
+        foreach($data as $key => $value)
+        {
+            if(is_null($value))
+                unset($data[$key]);
+        }
+
+        /**
          * Update User
          */
         $user->update($data);
