@@ -27,6 +27,8 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $userID = request()->route('user')->id;
+
         return [
             'banned' => [
                 'nullable',
@@ -39,7 +41,7 @@ class UserUpdateRequest extends FormRequest
             'email' => [
                 'nullable',
                 'email',
-                'unique:users,email'
+                'unique:users,email,'.$userID
             ],
             'password' => [
                 'nullable',

@@ -24,6 +24,3 @@ environments:
             - 'composer install'
             - 'php artisan event:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
-        deploy:
-            - 'php artisan migrate'
-            - 'php artisan db:seed --class=UserRolesAndPermissionsSeeder'
