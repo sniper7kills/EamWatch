@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Unit\Models;
 
 use App\Models\Message;
@@ -21,8 +20,8 @@ class MessageTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->assertEquals($user->getKey(),$message->userable->getKey());
-        $this->assertEquals($user->getMorphClass(),$message->userable->getMorphClass());
+        $this->assertEquals($user->getKey(), $message->userable->getKey());
+        $this->assertEquals($user->getMorphClass(), $message->userable->getMorphClass());
     }
 
     public function test_message_has_upper_case_messages()
@@ -32,7 +31,7 @@ class MessageTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->assertEquals('THIS IS A TEST MESSAGE',$message->message);
+        $this->assertEquals('THIS IS A TEST MESSAGE', $message->message);
     }
 
     public function test_message_type_can_be_radiocheck()
@@ -40,7 +39,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'radiocheck']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('RADIOCHECK',$message->type);
+        $this->assertEquals('RADIOCHECK', $message->type);
     }
 
     public function test_message_type_can_be_allstations()
@@ -48,7 +47,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'allstations']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('ALLSTATIONS',$message->type);
+        $this->assertEquals('ALLSTATIONS', $message->type);
     }
 
     public function test_message_type_can_be_skyking()
@@ -56,7 +55,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'skyking']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('SKYKING',$message->type);
+        $this->assertEquals('SKYKING', $message->type);
     }
 
     public function test_message_type_can_be_skymaster()
@@ -64,7 +63,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'skymaster']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('SKYMASTER',$message->type);
+        $this->assertEquals('SKYMASTER', $message->type);
     }
 
     public function test_message_type_can_be_skybird()
@@ -72,7 +71,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'skybird']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('SKYBIRD',$message->type);
+        $this->assertEquals('SKYBIRD', $message->type);
     }
 
     public function test_message_type_can_be_other()
@@ -80,7 +79,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'other']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('OTHER',$message->type);
+        $this->assertEquals('OTHER', $message->type);
     }
 
     public function test_message_type_can_be_disregarded()
@@ -88,7 +87,7 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'disregarded']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('DISREGARDED',$message->type);
+        $this->assertEquals('DISREGARDED', $message->type);
     }
 
     public function test_message_type_can_be_backend()
@@ -96,6 +95,6 @@ class MessageTest extends TestCase
         $message = factory(Message::class)->make(['type' => 'backend']);
         $message->user = $this->getUserModel();
         $message->save();
-        $this->assertEquals('BACKEND',$message->type);
+        $this->assertEquals('BACKEND', $message->type);
     }
 }

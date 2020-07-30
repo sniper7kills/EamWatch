@@ -21,11 +21,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('automatedRecordings.store'),$recordingData)
+        $this->post(route('automatedRecordings.store'), $recordingData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -42,10 +42,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->post(route('automatedRecordings.store'),$recordingData)
+        $this->post(route('automatedRecordings.store'), $recordingData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }

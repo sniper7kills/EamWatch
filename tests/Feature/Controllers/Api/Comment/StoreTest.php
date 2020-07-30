@@ -30,12 +30,11 @@ class StoreTest extends TestCase
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->json('post', route('comments.store'), $messageData)
             ->assertStatus(403);
-
     }
 
     public function test_banned_users_can_not_create_comment()
@@ -50,7 +49,7 @@ class StoreTest extends TestCase
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->actingAs($user, 'api');
@@ -81,7 +80,7 @@ class StoreTest extends TestCase
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->json('post', route('comments.store'), $messageData)
@@ -98,7 +97,7 @@ class StoreTest extends TestCase
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->actingAs($user, 'api');
@@ -121,7 +120,7 @@ class StoreTest extends TestCase
 
         $messageData = [
             'message' => 'This is a test comment',
-            'recording_id' => $recording->id
+            'recording_id' => $recording->id,
         ];
 
         $this->json('post', route('comments.store'), $messageData)
@@ -143,7 +142,7 @@ class StoreTest extends TestCase
 
         $messageData = [
             'message' => 'This is a test comment',
-            'recording_id' => $recording->id
+            'recording_id' => $recording->id,
         ];
 
         $this->actingAs($user, 'api');

@@ -29,11 +29,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -50,10 +50,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -68,10 +68,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -81,9 +81,9 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THIS IS A TEST MESSAGE',
                     'user' => [
-                        'name' => $guest->id
-                    ]
-                ]
+                        'name' => $guest->id,
+                    ],
+                ],
             ]);
     }
 
@@ -97,11 +97,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -111,14 +111,14 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THIS IS A TEST MESSAGE',
                     'user' => [
-                        'name' => $user->name
-                    ]
-                ]
+                        'name' => $user->name,
+                    ],
+                ],
             ]);
     }
 
     /**
-     * Message Validation Rules
+     * Message Validation Rules.
      */
     public function test_store_message_can_not_contain_http_link()
     {
@@ -129,10 +129,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'http://google.com'
+            'message' => 'http://google.com',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
@@ -146,10 +146,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'https://google.com'
+            'message' => 'https://google.com',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
@@ -163,10 +163,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => '<a href='
+            'message' => '<a href=',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
@@ -180,16 +180,16 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => '[URL='
+            'message' => '[URL=',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
 
     /**
-     * Type Validation
+     * Type Validation.
      */
     public function test_store_message_type_must_be_valid()
     {
@@ -200,10 +200,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->json('post',route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
     }
@@ -217,10 +217,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
     }
@@ -235,17 +235,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
     }
 
     /**
-     * Admin Related Tests
+     * Admin Related Tests.
      */
     public function test_store_message_type_can_be_backend_for_admins()
     {
@@ -258,11 +258,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -272,9 +272,9 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THIS IS A TEST MESSAGE',
                     'user' => [
-                        'name' => $user->name
-                    ]
-                ]
+                        'name' => $user->name,
+                    ],
+                ],
             ]);
     }
 
@@ -288,10 +288,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => null,
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -300,9 +300,9 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THIS IS A TEST MESSAGE',
                     'user' => [
-                        'name' => $guest->id
-                    ]
-                ]
+                        'name' => $guest->id,
+                    ],
+                ],
             ]);
     }
 
@@ -316,16 +316,16 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201);
 
         $messageData['time'] = $ts->addMinutes(2)->toDateTimeString();
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(303);
 
         $this->assertCount(1, Message::all());

@@ -24,7 +24,7 @@ class ShowTest extends TestCase
         $recording->save();
 
         $this->actingAs($user, 'api');
-        $this->json('get', route('recordings.show',['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording'=>$recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -42,7 +42,7 @@ class ShowTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->json('get', route('recordings.show',['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording'=>$recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -58,7 +58,7 @@ class ShowTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->json('get', route('recordings.show',['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording'=>$recording]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -70,12 +70,12 @@ class ShowTest extends TestCase
                     'message' => [
                         'id' => $message->id,
                         'type' => $message->type,
-                        'time' => $message->time
+                        'time' => $message->time,
                     ],
                     'user' => [
-                        'name' => $user->id
-                    ]
-                ]
+                        'name' => $user->id,
+                    ],
+                ],
             ]);
     }
 }
