@@ -29,20 +29,20 @@ class ShowTest extends TestCase
         $comment->user = $guest;
         $comment->save();
 
-        $this->get(route('comments.show',['comment'=>$comment]))
+        $this->get(route('comments.show', ['comment'=>$comment]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
                     'comment' => $comment->message,
                     'user' => [
-                        'name' => $guest->id
+                        'name' => $guest->id,
                     ],
                     'permissions' => [
                         'update' => true,
                         'delete' => true,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -58,20 +58,20 @@ class ShowTest extends TestCase
         $comment->save();
 
         $this->actingAs($user, 'api');
-        $this->get(route('comments.show',['comment'=>$comment]))
+        $this->get(route('comments.show', ['comment'=>$comment]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
                     'comment' => $comment->message,
                     'user' => [
-                        'name' => $user->name
+                        'name' => $user->name,
                     ],
                     'permissions' => [
                         'update' => true,
                         'delete' => true,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -90,20 +90,20 @@ class ShowTest extends TestCase
         $admin->givePermissionTo('update comments');
 
         $this->actingAs($admin);
-        $this->get(route('comments.show',['comment'=>$comment]))
+        $this->get(route('comments.show', ['comment'=>$comment]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
                     'comment' => $comment->message,
                     'user' => [
-                        'name' => $user->name
+                        'name' => $user->name,
                     ],
                     'permissions' => [
                         'update' => true,
                         'delete' => false,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -122,20 +122,20 @@ class ShowTest extends TestCase
         $admin->givePermissionTo('delete comments');
 
         $this->actingAs($admin);
-        $this->get(route('comments.show',['comment'=>$comment]))
+        $this->get(route('comments.show', ['comment'=>$comment]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'id' => $comment->id,
                     'comment' => $comment->message,
                     'user' => [
-                        'name' => $user->name
+                        'name' => $user->name,
                     ],
                     'permissions' => [
                         'update' => false,
                         'delete' => true,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 }
