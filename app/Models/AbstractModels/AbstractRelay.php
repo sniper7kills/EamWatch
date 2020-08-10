@@ -51,7 +51,7 @@ abstract class AbstractRelay extends Model
         return $this->belongsTo('\App\Models\Message', 'message_id', 'id');
     }
     
-    public function relay Provider()
+    public function relayProvider()
     {
         return $this->belongsTo('\App\Models\RelayProvider', 'relay_provider_id', 'id');
     }
