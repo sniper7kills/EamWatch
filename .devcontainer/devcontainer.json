@@ -1,0 +1,26 @@
+{
+  "name": "Laradock",
+  "dockerComposeFile": "../../laradock/docker-compose.yml",
+  "remoteUser": "laradock",
+  "runServices": [
+    "nginx",
+    "postgres",
+    "pgadmin"
+  ],
+  "service": "workspace",
+  "workspaceFolder": "/var/www/EamWatch",
+  "shutdownAction": "stopCompose",
+"postCreateCommand": "uname -a",
+"remoteUser": "laradock"
+"extensions": [
+	"ikappas.composer",
+	"editorconfig.editorconfig",
+	"ryannaddy.laravel-artisan",
+	"onecentlin.laravel-blade",
+	"onecentlin.laravel-extension-pack",
+	"felixfbecker.php-intellisense",
+	"emallin.phpunit",
+	"bradlc.vscode-tailwindcss",
+	"octref.vetur"
+]
+}

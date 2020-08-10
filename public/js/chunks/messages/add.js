@@ -76,6 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "message-add",
   data: function data() {
@@ -330,8 +331,10 @@ var render = function() {
                 { staticClass: "form-group" },
                 [
                   _c("label", { attrs: { for: "receiver" } }, [
-                    _vm._v("Receiver")
+                    _vm._v("Recipient")
                   ]),
+                  _vm._v(" "),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -428,6 +431,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("Add Message")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", [
+      _vm._v("(The "),
+      _c("b", [_vm._v("FOR")]),
+      _vm._v(" part of the message)")
     ])
   }
 ]

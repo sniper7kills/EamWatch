@@ -45,7 +45,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="receiver">Receiver</label>
+                                <label for="receiver">Recipient</label>
+                                <small>(The <b>FOR</b> part of the message)</small>
                                 <input v-model="receiver" type="text" id="receiver" class="form-control" v-bind:class="{ 'is-invalid': this.$errors.has('receiver') }" :disabled="submitting === true || loading === true">
                                 <error input="receiver" class="text-danger" />
                             </div>
