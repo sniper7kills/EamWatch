@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/chunks/api-tokens.js": "/js/chunks/api-tokens.js",
     "/js/chunks/automated/list.js": "/js/chunks/automated/list.js",
     "/js/chunks/comment/delete.js": "/js/chunks/comment/delete.js",
     "/js/chunks/comment/edit.js": "/js/chunks/comment/edit.js",

@@ -87,6 +87,11 @@ let routes = [
         name: 'user-unban',
         component: () => import(/* webpackChunkName: "js/chunks/user/unban" */ './components/user/unban')
     },
+    {
+        path: '/api-tokens',
+        name: 'api-tokens',
+        component: () => import(/* webpackChunkName: "js/chunks/api-tokens" */ './components/api-tokens')
+    },
 ];
 
 

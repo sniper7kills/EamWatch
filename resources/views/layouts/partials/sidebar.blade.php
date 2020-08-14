@@ -63,6 +63,12 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
+                        <router-link tag="a" class="nav-link" :to="{ name: 'api-tokens'}">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>API Tokens</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout-form').submit();">
                             <i class="nav-icon fas fa-key"></i>
                             <p>Logout</p>

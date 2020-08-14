@@ -59,7 +59,7 @@ class MessageResource extends JsonResource
             'id' => $this->message->id,
             'type' => $this->message->type,
             'sender' => $this->message->sender,
-            'receiver' => $this->message->receiver,
+            'receiver' => $this->message->receiver ? $this->message->receiver : '',
             'time' => $this->message->time,
             'message' => $this->message->message,
             'comment_count' => $this->message->comments()->count(),

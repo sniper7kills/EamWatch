@@ -48,7 +48,7 @@
                                 <td>{{message.type}}</td>
                                 <td>{{message.time}}</td>
                                 <td>
-                                    <p v-if="message.receiver === '' " class="text-muted text-sm">
+                                    <p v-if="message.receiver === ''" class="text-muted text-sm">
                                         <b>Sender: </b> {{message.sender}}
                                     </p>
                                     <p v-else class="text-muted text-sm">
