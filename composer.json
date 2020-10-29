@@ -12,7 +12,7 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "j7mbo/twitter-api-php": "^1.0",
-        "laravel/framework": "^7.25",
+        "laravel/framework": "^7.29",
         "laravel/passport": "^9.3",
         "laravel/telescope": "^3.0",
         "laravel/tinker": "^2.0",
