@@ -49,12 +49,12 @@ abstract class AbstractComment extends Model
 
     public function comment()
     {
-        return $this->belongsTo('\App\Models\Comment', 'parent_comment_id', 'id');
+        return $this->belongsTo(\App\Models\Comment::class, 'parent_comment_id', 'id');
     }
 
     public function comments()
     {
-        return $this->hasMany('\App\Models\Comment', 'parent_comment_id', 'id');
+        return $this->hasMany(\App\Models\Comment::class, 'parent_comment_id', 'id');
     }
 
     public function userable()
@@ -64,11 +64,11 @@ abstract class AbstractComment extends Model
 
     public function messages()
     {
-        return $this->morphedByMany('\App\Models\Message', 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
+        return $this->morphedByMany(\App\Models\Message::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }
 
     public function recordings()
     {
-        return $this->morphedByMany('\App\Models\Recording', 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
+        return $this->morphedByMany(\App\Models\Recording::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }
 }

@@ -56,11 +56,11 @@ abstract class AbstractRelayProvider extends Model
 
     public function user()
     {
-        return $this->belongsTo('\App\Models\User', 'user_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
     public function relays()
     {
-        return $this->hasMany('\App\Models\Relay', 'relay_provider_id', 'id');
+        return $this->hasMany(\App\Models\Relay::class, 'relay_provider_id', 'id');
     }
 }

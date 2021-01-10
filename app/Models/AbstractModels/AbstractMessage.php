@@ -66,12 +66,12 @@ abstract class AbstractMessage extends Model
 
     public function relays()
     {
-        return $this->hasMany('\App\Models\Relay', 'message_id', 'id');
+        return $this->hasMany(\App\Models\Relay::class, 'message_id', 'id');
     }
 
     public function recordings()
     {
-        return $this->hasMany('\App\Models\Recording', 'message_id', 'id');
+        return $this->hasMany(\App\Models\Recording::class, 'message_id', 'id');
     }
 
     public function userable()
@@ -81,11 +81,11 @@ abstract class AbstractMessage extends Model
 
     public function comments()
     {
-        return $this->morphToMany('\App\Models\Comment', 'commentable', 'commentables', 'commentable_id', 'comment_id', 'id', 'id');
+        return $this->morphToMany(\App\Models\Comment::class, 'commentable', 'commentables', 'commentable_id', 'comment_id', 'id', 'id');
     }
 
     public function ratings()
     {
-        return $this->morphToMany('\App\Models\Rating', 'ratingable', 'ratingables', 'ratingable_id', 'rating_id', 'id', 'id');
+        return $this->morphToMany(\App\Models\Rating::class, 'ratingable', 'ratingables', 'ratingable_id', 'rating_id', 'id', 'id');
     }
 }

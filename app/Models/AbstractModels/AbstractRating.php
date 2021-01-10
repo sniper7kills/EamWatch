@@ -53,11 +53,11 @@ abstract class AbstractRating extends Model
 
     public function messages()
     {
-        return $this->morphedByMany('\App\Models\Message', 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
+        return $this->morphedByMany(\App\Models\Message::class, 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
     }
 
     public function recordings()
     {
-        return $this->morphedByMany('\App\Models\Recording', 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
+        return $this->morphedByMany(\App\Models\Recording::class, 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
     }
 }

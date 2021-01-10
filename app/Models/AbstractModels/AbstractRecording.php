@@ -67,7 +67,7 @@ abstract class AbstractRecording extends Model
 
     public function message()
     {
-        return $this->belongsTo('\App\Models\Message', 'message_id', 'id');
+        return $this->belongsTo(\App\Models\Message::class, 'message_id', 'id');
     }
 
     public function userable()
@@ -77,11 +77,11 @@ abstract class AbstractRecording extends Model
 
     public function comments()
     {
-        return $this->morphToMany('\App\Models\Comment', 'commentable', 'commentables', 'commentable_id', 'comment_id', 'id', 'id');
+        return $this->morphToMany(\App\Models\Comment::class, 'commentable', 'commentables', 'commentable_id', 'comment_id', 'id', 'id');
     }
 
     public function ratings()
     {
-        return $this->morphToMany('\App\Models\Rating', 'ratingable', 'ratingables', 'ratingable_id', 'rating_id', 'id', 'id');
+        return $this->morphToMany(\App\Models\Rating::class, 'ratingable', 'ratingables', 'ratingable_id', 'rating_id', 'id', 'id');
     }
 }

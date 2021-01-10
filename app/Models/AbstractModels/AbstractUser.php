@@ -59,26 +59,26 @@ abstract class AbstractUser extends \Illuminate\Foundation\Auth\User
 
     public function relayProviders()
     {
-        return $this->hasMany('\App\Models\RelayProvider', 'user_id', 'id');
+        return $this->hasMany(\App\Models\RelayProvider::class, 'user_id', 'id');
     }
 
     public function comments()
     {
-        return $this->morphMany('\App\Models\Comment', 'userable', 'userable_type', 'userable_id');
+        return $this->morphMany(\App\Models\Comment::class, 'userable', 'userable_type', 'userable_id');
     }
 
     public function messages()
     {
-        return $this->morphMany('\App\Models\Message', 'userable', 'userable_type', 'userable_id');
+        return $this->morphMany(\App\Models\Message::class, 'userable', 'userable_type', 'userable_id');
     }
 
     public function recordings()
     {
-        return $this->morphMany('\App\Models\Recording', 'userable', 'userable_type', 'userable_id');
+        return $this->morphMany(\App\Models\Recording::class, 'userable', 'userable_type', 'userable_id');
     }
 
     public function ratings()
     {
-        return $this->morphMany('\App\Models\Rating', 'userable', 'userable_type', 'userable_id');
+        return $this->morphMany(\App\Models\Rating::class, 'userable', 'userable_type', 'userable_id');
     }
 }

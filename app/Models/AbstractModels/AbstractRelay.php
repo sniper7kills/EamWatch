@@ -48,11 +48,11 @@ abstract class AbstractRelay extends Model
 
     public function message()
     {
-        return $this->belongsTo('\App\Models\Message', 'message_id', 'id');
+        return $this->belongsTo(\App\Models\Message::class, 'message_id', 'id');
     }
 
     public function relayProvider()
     {
-        return $this->belongsTo('\App\Models\RelayProvider', 'relay_provider_id', 'id');
+        return $this->belongsTo(\App\Models\RelayProvider::class, 'relay_provider_id', 'id');
     }
 }
