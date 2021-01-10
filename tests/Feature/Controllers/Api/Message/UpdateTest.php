@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         Permission::create(['name' => 'update messages']);

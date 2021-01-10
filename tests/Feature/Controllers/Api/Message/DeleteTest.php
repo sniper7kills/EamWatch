@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         Permission::create(['name' => 'delete messages']);
