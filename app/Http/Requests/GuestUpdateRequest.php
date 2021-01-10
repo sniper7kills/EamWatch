@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 class GuestUpdateRequest extends FormRequest
 {
     use GetCurrentUserOrGuest;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -30,7 +31,7 @@ class GuestUpdateRequest extends FormRequest
         return [
             'banned' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
         ];
     }

@@ -24,7 +24,7 @@ class ShowTest extends TestCase
         $message->user = $guest;
         $message->save();
 
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -38,13 +38,13 @@ class ShowTest extends TestCase
                     'recording_count' => 0,
                     'rating' => 0,
                     'user' => [
-                        'name' => $guest->id
+                        'name' => $guest->id,
                     ],
                     'comments' => [
                     ],
                     'recordings' => [
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -58,7 +58,7 @@ class ShowTest extends TestCase
         $message->save();
 
         $this->actingAs($user, 'api');
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -72,7 +72,7 @@ class ShowTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -84,7 +84,7 @@ class ShowTest extends TestCase
         $message->user = $guest;
         $message->save();
 
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -98,7 +98,7 @@ class ShowTest extends TestCase
                     'recording_count' => 0,
                     'rating' => 0,
                     'user' => [
-                        'name' => $guest->id
+                        'name' => $guest->id,
                     ],
                     'comments' => [
                     ],
@@ -106,9 +106,9 @@ class ShowTest extends TestCase
                     ],
                     'permissions' => [
                         'update' => true,
-                        'delete' => false
-                    ]
-                ]
+                        'delete' => false,
+                    ],
+                ],
             ]);
     }
 
@@ -120,7 +120,7 @@ class ShowTest extends TestCase
         $message->save();
 
         $this->actingAs($user, 'api');
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -134,7 +134,7 @@ class ShowTest extends TestCase
                     'recording_count' => 0,
                     'rating' => 0,
                     'user' => [
-                        'name' => $user->name
+                        'name' => $user->name,
                     ],
                     'comments' => [
                     ],
@@ -142,9 +142,9 @@ class ShowTest extends TestCase
                     ],
                     'permissions' => [
                         'update' => true,
-                        'delete' => false
-                    ]
-                ]
+                        'delete' => false,
+                    ],
+                ],
             ]);
     }
 
@@ -158,7 +158,7 @@ class ShowTest extends TestCase
         $admin = factory(User::class)->create();
         $admin->givePermissionTo('update messages');
         $this->actingAs($admin);
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -172,7 +172,7 @@ class ShowTest extends TestCase
                     'recording_count' => 0,
                     'rating' => 0,
                     'user' => [
-                        'name' => $user->name
+                        'name' => $user->name,
                     ],
                     'comments' => [
                     ],
@@ -180,9 +180,9 @@ class ShowTest extends TestCase
                     ],
                     'permissions' => [
                         'update' => true,
-                        'delete' => false
-                    ]
-                ]
+                        'delete' => false,
+                    ],
+                ],
             ]);
     }
 
@@ -196,7 +196,7 @@ class ShowTest extends TestCase
         $admin = factory(User::class)->create();
         $admin->givePermissionTo('delete messages');
         $this->actingAs($admin);
-        $this->get(route('messages.show',['message'=>$message]))
+        $this->get(route('messages.show', ['message'=>$message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -210,7 +210,7 @@ class ShowTest extends TestCase
                     'recording_count' => 0,
                     'rating' => 0,
                     'user' => [
-                        'name' => $user->name
+                        'name' => $user->name,
                     ],
                     'comments' => [
                     ],
@@ -218,9 +218,9 @@ class ShowTest extends TestCase
                     ],
                     'permissions' => [
                         'update' => false,
-                        'delete' => true
-                    ]
-                ]
+                        'delete' => true,
+                    ],
+                ],
             ]);
     }
 }

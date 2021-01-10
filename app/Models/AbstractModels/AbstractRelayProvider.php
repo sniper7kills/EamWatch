@@ -10,23 +10,23 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRelayProvider extends Model
 {
-    /**  
+    /**
      * Primary key type.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'uuid';
-    
-    /**  
+
+    /**
      * Primary key is non-autoincrementing.
-     * 
+     *
      * @var bool
      */
     public $incrementing = false;
-    
-    /**  
+
+    /**
      * The attributes that should be cast to native types.
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -39,26 +39,26 @@ abstract class AbstractRelayProvider extends Model
         'circuit_closed_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
-    
-    /**  
+
+    /**
      * The attributes that are mass assignable.
-     * 
+     *
      * @var array
      */
     protected $fillable = [
         'name',
         'type',
         'details',
-        'enabled'
+        'enabled',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo('\App\Models\User', 'user_id', 'id');
     }
-    
+
     public function relays()
     {
         return $this->hasMany('\App\Models\Relay', 'relay_provider_id', 'id');

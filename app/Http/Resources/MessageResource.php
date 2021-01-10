@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\MessageController;
 use App\Http\Resources\Stub\CommentResource as CommentResourceStub;
 use App\Http\Resources\Stub\RecordingResource as RecordingResourceStub;
 use App\Http\Resources\Stub\UserResource as UserResourceStub;
-
 use App\Models\Guest;
 use App\Models\Message;
 use App\Models\User;
@@ -41,19 +40,19 @@ class MessageResource extends JsonResource
 
         $user = $this->currentUserOrGuest();
 
-        if ($user->getMorphClass() === Guest::class){
-            if ($this->message->userable == $user){
+        if ($user->getMorphClass() === Guest::class) {
+            if ($this->message->userable == $user) {
                 $canUpdate = true;
             }
-        }else{
+        } else {
             $canUpdate = $user->can('update', $this->message);
         }
 
         $canDelete = false;
 
-        if($user->getMorphClass() === User::class)
+        if ($user->getMorphClass() === User::class) {
             $canDelete = $user->can('delete', $this->message);
-
+        }
 
         return [
             'id' => $this->message->id,
@@ -70,27 +69,28 @@ class MessageResource extends JsonResource
             'recordings' => RecordingResourceStub::collection($this->message->recordings()->paginate()),
             'permissions' => [
                 'update' => $canUpdate,
-                'delete' => $canDelete
-            ]
-        ];
-    }
-/*
-    public function with($request)
-    {
-        return [
-            'links' => $this->links(MessageController::class),
-            'can' => [
-                'update' => false,
-                'destroy' => false,
-            ]
+                'delete' => $canDelete,
+            ],
         ];
     }
 
-    public static function meta()
-    {
-        return [
-            'links' => self::collectionLinks(MessageController::class)
-        ];
-    }
-*/
+    /*
+        public function with($request)
+        {
+            return [
+                'links' => $this->links(MessageController::class),
+                'can' => [
+                    'update' => false,
+                    'destroy' => false,
+                ]
+            ];
+        }
+
+        public static function meta()
+        {
+            return [
+                'links' => self::collectionLinks(MessageController::class)
+            ];
+        }
+    */
 }

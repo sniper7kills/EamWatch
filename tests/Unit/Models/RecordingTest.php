@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Unit\Models;
 
 use App\Models\Message;
@@ -19,6 +18,7 @@ class RecordingTest extends TestCase
     {
         $message = factory(Message::class)->make();
         $message->user = $this->get_user();
+
         return $message;
     }
 

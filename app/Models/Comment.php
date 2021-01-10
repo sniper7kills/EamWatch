@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Models\Concerns\GeneratesUuid;
@@ -10,7 +11,7 @@ class Comment extends \App\Models\AbstractModels\AbstractComment
     use GeneratesUuid;
 
     /**
-     * Set the userable properties for the model using a fake attribute
+     * Set the userable properties for the model using a fake attribute.
      *
      * @param Model $user
      */

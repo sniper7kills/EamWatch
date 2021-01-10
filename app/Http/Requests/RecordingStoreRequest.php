@@ -31,9 +31,9 @@ class RecordingStoreRequest extends FormRequest
             'content_type' => ['required_without:file'],
             'recording' => ['required_without:uuid,key,bucket,name,content_type'],
 
-            'frequency' => ['required','numeric'],
+            'frequency' => ['required', 'numeric'],
             'receiver' => ['nullable'],
-            'message_id' => ['required','exists:messages,id']
+            'message_id' => ['required', 'exists:messages,id'],
         ];
     }
 }

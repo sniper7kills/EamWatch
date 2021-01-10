@@ -31,7 +31,8 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        $messages = Message::where('visible',true)->orderBy('broadcast_ts','DESC')->orderBy('created_at','DESC')->paginate($request->get('paginate',15));
+        $messages = Message::where('visible', true)->orderBy('broadcast_ts', 'DESC')->orderBy('created_at', 'DESC')->paginate($request->get('paginate', 15));
+
         return MessageResource::collection($messages);
     }
 
@@ -46,7 +47,7 @@ class MessageController extends Controller
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request);
-        if(!is_null($existingMessage)){
+        if (! is_null($existingMessage)) {
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
         }
 
@@ -81,8 +82,9 @@ class MessageController extends Controller
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request, $message);
-        if(!is_null($existingMessage)){
+        if (! is_null($existingMessage)) {
             $message->delete();
+
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
         }
 
@@ -105,7 +107,7 @@ class MessageController extends Controller
     }
 
     /**
-     * Get an existing message based on the request
+     * Get an existing message based on the request.
      *
      * @param array $request
      * @param Message|null $existingMessage
@@ -115,26 +117,31 @@ class MessageController extends Controller
     {
         $message = Message::query();
 
-        if(!is_null($existingMessage))
-            $message->where('id','!=',$existingMessage->id);
-
-        if(key_exists('message', $request))
-            $message->where('message', strtoupper($request['message']));
-
-        if(key_exists('sender', $request))
-            $message->where('sender', strtoupper($request['sender']));
-
-        if(key_exists('type', $request))
-            $message->where('type', strtoupper($request['type']));
-
-        if(key_exists('time', $request)){
-            $from = Carbon::make($request['time'])->subMinutes(2);
-            $to = Carbon::make($request['time'])->addMinutes(2);
-            $message->whereBetween('broadcast_ts',[$from, $to]);
+        if (! is_null($existingMessage)) {
+            $message->where('id', '!=', $existingMessage->id);
         }
 
-        if(key_exists('receiver', $request))
+        if (array_key_exists('message', $request)) {
+            $message->where('message', strtoupper($request['message']));
+        }
+
+        if (array_key_exists('sender', $request)) {
+            $message->where('sender', strtoupper($request['sender']));
+        }
+
+        if (array_key_exists('type', $request)) {
+            $message->where('type', strtoupper($request['type']));
+        }
+
+        if (array_key_exists('time', $request)) {
+            $from = Carbon::make($request['time'])->subMinutes(2);
+            $to = Carbon::make($request['time'])->addMinutes(2);
+            $message->whereBetween('broadcast_ts', [$from, $to]);
+        }
+
+        if (array_key_exists('receiver', $request)) {
             $message->where('receiver', strtoupper($request['receiver']));
+        }
 
         return $message->first();
     }

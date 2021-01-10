@@ -58,15 +58,15 @@ class MessagePolicy
      */
     public function update(?User $user, Message $message)
     {
-        if(is_null($user) && !Auth::guard('api')->guest())
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
+        }
 
-        if(!is_null($user) && $user->can('update messages'))
-        {
+        if (! is_null($user) && $user->can('update messages')) {
             return Response::allow();
         }
 
-        if(!$this->userOwnsResource($user, $message)){
+        if (! $this->userOwnsResource($user, $message)) {
             return Response::deny('You did not create this message');
         }
 
@@ -82,8 +82,9 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message)
     {
-        if($user->can('delete messages'))
+        if ($user->can('delete messages')) {
             return Response::allow();
+        }
 
         return Response::deny('No Permission to delete messages');
     }

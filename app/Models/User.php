@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Models\Concerns\GeneratesUuid;
@@ -21,22 +22,20 @@ class User extends \App\Models\AbstractModels\AbstractUser
     ];
 
     /**
-     * Return the role to display
+     * Return the role to display.
      *
      * @return string
      */
     public function displayRole()
     {
-        if($this->hasRole('admin'))
-        {
-            return "Admin";
+        if ($this->hasRole('admin')) {
+            return 'Admin';
         }
 
-        if($this->hasRole('moderator'))
-        {
-            return "Moderator";
+        if ($this->hasRole('moderator')) {
+            return 'Moderator';
         }
 
-        return "Member";
+        return 'Member';
     }
 }

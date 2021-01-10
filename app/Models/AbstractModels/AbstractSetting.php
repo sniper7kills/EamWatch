@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractSetting extends Model
 {
-    /**  
+    /**
      * Primary key type.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'bigInteger';
-    
-    /**  
+
+    /**
      * The attributes that should be cast to native types.
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -29,6 +29,6 @@ abstract class AbstractSetting extends Model
         'value' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
 }

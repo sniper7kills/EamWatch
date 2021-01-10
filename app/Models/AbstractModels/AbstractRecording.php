@@ -10,33 +10,33 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRecording extends Model
 {
-    /**  
+    /**
      * Primary key type.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'uuid';
-    
-    /**  
+
+    /**
      * Primary key is non-autoincrementing.
-     * 
+     *
      * @var bool
      */
     public $incrementing = false;
-    
-    /**  
+
+    /**
      * The model's default values for attributes.
-     * 
+     *
      * @var array
      */
     protected $attributes = [
-        'automated' => False,
-        'automated_reviewed' => False
+        'automated' => false,
+        'automated_reviewed' => false,
     ];
-    
-    /**  
+
+    /**
      * The attributes that should be cast to native types.
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -51,35 +51,35 @@ abstract class AbstractRecording extends Model
         'automated_reviewed' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
-    
-    /**  
+
+    /**
      * The attributes that are mass assignable.
-     * 
+     *
      * @var array
      */
     protected $fillable = [
         'broadcasted_at',
         'frequency',
-        'receiver'
+        'receiver',
     ];
-    
+
     public function message()
     {
         return $this->belongsTo('\App\Models\Message', 'message_id', 'id');
     }
-    
+
     public function userable()
     {
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
-    
+
     public function comments()
     {
         return $this->morphToMany('\App\Models\Comment', 'commentable', 'commentables', 'commentable_id', 'comment_id', 'id', 'id');
     }
-    
+
     public function ratings()
     {
         return $this->morphToMany('\App\Models\Rating', 'ratingable', 'ratingables', 'ratingable_id', 'rating_id', 'id', 'id');

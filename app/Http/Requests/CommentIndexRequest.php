@@ -24,10 +24,10 @@ class CommentIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'paginate' => ['nullable','numeric'],
-            'page' => ['nullable','numeric'],
+            'paginate' => ['nullable', 'numeric'],
+            'page' => ['nullable', 'numeric'],
             'message_id' => ['exists:messages,id', 'required_without:recording_id'],
-            'recording_id' => ['exists:recordings,id', 'required_without:message_id']
+            'recording_id' => ['exists:recordings,id', 'required_without:message_id'],
         ];
     }
 }

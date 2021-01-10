@@ -2,8 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Models\Message;
-use Faker\Generator as Faker;
 use Carbon\Carbon;
+use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------

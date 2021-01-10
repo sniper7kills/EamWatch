@@ -19,6 +19,6 @@ use Illuminate\Support\Str;
 $factory->define(Guest::class, function (Faker $faker) {
     return [
         'ip' => $faker->ipv4,
-        'banned' => false
+        'banned' => false,
     ];
 });

@@ -37,12 +37,12 @@ class IndexTest extends TestCase
                         'recording_count' => 0,
                         'rating' => 0,
                         'user' => [
-                            'name' => $user->name
+                            'name' => $user->name,
                         ],
                         'comments' => [
                         ],
                         'recordings' => [
-                        ]
+                        ],
                     ],
                     [
                         'id' => $message2->id,
@@ -55,17 +55,17 @@ class IndexTest extends TestCase
                         'recording_count' => 0,
                         'rating' => 0,
                         'user' => [
-                            'name' => $guest->id
+                            'name' => $guest->id,
                         ],
                         'comments' => [
                         ],
                         'recordings' => [
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'links' => [
-                    'first' => route('messages.index')."?page=1",
-                    'last' => route('messages.index')."?page=1",
+                    'first' => route('messages.index').'?page=1',
+                    'last' => route('messages.index').'?page=1',
                     'next' => null,
                     'prev' => null,
 
@@ -77,8 +77,8 @@ class IndexTest extends TestCase
                     'path' => route('messages.index'),
                     'per_page' => 15,
                     'to' => 2,
-                    'total' => 2
-                ]
+                    'total' => 2,
+                ],
             ]);
     }
 
@@ -124,7 +124,7 @@ class IndexTest extends TestCase
         $message2->user = $guest;
         $message2->save();
 
-        $this->get(route('messages.index')."?per_page=1")
+        $this->get(route('messages.index').'?per_page=1')
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -139,13 +139,13 @@ class IndexTest extends TestCase
                         'recording_count' => 0,
                         'rating' => 0,
                         'user' => [
-                            'name' => $guest->id
+                            'name' => $guest->id,
                         ],
                         'comments' => [
                         ],
                         'recordings' => [
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ]);
     }

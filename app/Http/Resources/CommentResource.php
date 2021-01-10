@@ -35,21 +35,20 @@ class CommentResource extends JsonResource
 
         $user = $this->currentUserOrGuest();
 
-
-        if ($user->getMorphClass() === Guest::class){
-            if ($this->comment->userable == $user){
+        if ($user->getMorphClass() === Guest::class) {
+            if ($this->comment->userable == $user) {
                 $canUpdate = true;
             }
-        }else{
+        } else {
             $canUpdate = $user->can('update', $this->comment);
         }
 
         $canDelete = false;
-        if ($user->getMorphClass() === Guest::class){
-            if ($this->comment->userable == $user){
+        if ($user->getMorphClass() === Guest::class) {
+            if ($this->comment->userable == $user) {
                 $canDelete = true;
             }
-        }else{
+        } else {
             $canDelete = $user->can('delete', $this->comment);
         }
 
@@ -60,8 +59,8 @@ class CommentResource extends JsonResource
             'message' => MessageResource::make($this->comment->messages()->first()),
             'permissions' => [
                 'update' => $canUpdate,
-                'delete' => $canDelete
-            ]
+                'delete' => $canDelete,
+            ],
         ];
     }
 }

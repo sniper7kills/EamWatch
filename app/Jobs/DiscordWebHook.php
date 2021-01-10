@@ -42,48 +42,48 @@ class DiscordWebHook implements ShouldQueue
      */
     public function handle()
     {
-        if($this->action == 'create')
+        if ($this->action == 'create') {
             $this->createPost();
+        }
     }
 
     private function createPost()
     {
-        $providerDetails = json_decode($this->provider->details,true);
+        $providerDetails = json_decode($this->provider->details, true);
 
-        $response = Http::post($providerDetails['url'], 
+        $response = Http::post($providerDetails['url'],
         [
-            "wait" => true,
-            "username" => "Eam.Watch",
-            "tts" => false,
-            "embeds" => [
+            'wait' => true,
+            'username' => 'Eam.Watch',
+            'tts' => false,
+            'embeds' => [
                 [
-                    "title" => "New " . $this->message->type . " Submitted",
-                    "type" => "rich",
-                    "description" => $this->getFormattedMessage(),
-                    "url" => "https://www.eam.watch/view/".$this->message->id,
-                    "timestamp" => $this->message->time,
-                    "color" => hexdec( "3366ff" ),
-                    "author" => $this->getAuthorArray(),
-                    "fields" => $this->getEmbedFields(),
-                ]
-            ]
+                    'title' => 'New '.$this->message->type.' Submitted',
+                    'type' => 'rich',
+                    'description' => $this->getFormattedMessage(),
+                    'url' => 'https://www.eam.watch/view/'.$this->message->id,
+                    'timestamp' => $this->message->time,
+                    'color' => hexdec('3366ff'),
+                    'author' => $this->getAuthorArray(),
+                    'fields' => $this->getEmbedFields(),
+                ],
+            ],
         ]);
     }
 
     private function getAuthorArray()
     {
         $user = $this->message->userable;
-        if($user->getMorphClass() == User::class)
-        {
+        if ($user->getMorphClass() == User::class) {
             return [
-                "name" => $user->name,
-                "url" => "https://www.eam.watch/user/".$user->id
+                'name' => $user->name,
+                'url' => 'https://www.eam.watch/user/'.$user->id,
             ];
         }
 
         return [
-            "name" => "Guest ".$user->id,
-            "url" => "https://www.eam.watch/guest/".$user->id
+            'name' => 'Guest '.$user->id,
+            'url' => 'https://www.eam.watch/guest/'.$user->id,
         ];
     }
 
@@ -91,32 +91,32 @@ class DiscordWebHook implements ShouldQueue
     {
         $fields = [
             [
-                "name" => "ID",
-                "value" => $this->message->id,
-                "inline" => false
+                'name' => 'ID',
+                'value' => $this->message->id,
+                'inline' => false,
             ],
             [
-                "name" => "Type",
-                "value" => $this->message->type,
-                "inline" => false
+                'name' => 'Type',
+                'value' => $this->message->type,
+                'inline' => false,
             ],
             [
-                "name" => "Sender",
-                "value" => $this->message->sender,
-                "inline" => false
+                'name' => 'Sender',
+                'value' => $this->message->sender,
+                'inline' => false,
             ],
             [
-                "name" => "Time",
-                "value" => $this->message->time,
-                "inline" => false
+                'name' => 'Time',
+                'value' => $this->message->time,
+                'inline' => false,
             ],
         ];
 
-        if(!is_null($this->message->receiver)){
+        if (! is_null($this->message->receiver)) {
             $fields[0][] = [
-                "name" => "Receiver",
-                "value" => $this->message->receiver,
-                "inline" => false
+                'name' => 'Receiver',
+                'value' => $this->message->receiver,
+                'inline' => false,
             ];
         }
 

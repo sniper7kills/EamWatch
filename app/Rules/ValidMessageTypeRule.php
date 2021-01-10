@@ -14,26 +14,25 @@ class ValidMessageTypeRule implements Rule
      * @var array
      */
     private $validMessageTypes = [
-        "SKYKING",
-        "ALLSTATIONS",
-        "RADIOCHECK",
-        "SKYMASTER",
-        "SKYBIRD",
-        "DISREGARDED",
-        "OTHER"
+        'SKYKING',
+        'ALLSTATIONS',
+        'RADIOCHECK',
+        'SKYMASTER',
+        'SKYBIRD',
+        'DISREGARDED',
+        'OTHER',
     ];
 
     public function __construct()
     {
-        if(!Auth::guest() || !Auth::guard('api')->guest())
-        {
-            if(!Auth::guest()){
-                if(Auth::user()->can('create backend message')){
-                    $this->validMessageTypes[] = "BACKEND";
+        if (! Auth::guest() || ! Auth::guard('api')->guest()) {
+            if (! Auth::guest()) {
+                if (Auth::user()->can('create backend message')) {
+                    $this->validMessageTypes[] = 'BACKEND';
                 }
-            }else{
-                if(Auth::guard('api')->user()->can('create backend message')){
-                    $this->validMessageTypes[] = "BACKEND";
+            } else {
+                if (Auth::guard('api')->user()->can('create backend message')) {
+                    $this->validMessageTypes[] = 'BACKEND';
                 }
             }
         }

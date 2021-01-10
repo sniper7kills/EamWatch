@@ -30,7 +30,7 @@ class MessageUpdateRequest extends FormRequest
             'sender' => ['nullable', 'string'],
             'receiver' => ['nullable', 'string'],
             'time' => ['nullable', 'date'],
-            'message' => ['nullable', 'string', new NotSpamRule(), 'messageValidForType:type']
+            'message' => ['nullable', 'string', new NotSpamRule(), 'messageValidForType:type'],
         ];
     }
 }

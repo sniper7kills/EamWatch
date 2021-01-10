@@ -10,23 +10,23 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRating extends Model
 {
-    /**  
+    /**
      * Primary key type.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'uuid';
-    
-    /**  
+
+    /**
      * Primary key is non-autoincrementing.
-     * 
+     *
      * @var bool
      */
     public $incrementing = false;
-    
-    /**  
+
+    /**
      * The attributes that should be cast to native types.
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -36,26 +36,26 @@ abstract class AbstractRating extends Model
         'score' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
-    
-    /**  
+
+    /**
      * The attributes that are mass assignable.
-     * 
+     *
      * @var array
      */
     protected $fillable = ['score'];
-    
+
     public function userable()
     {
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
-    
+
     public function messages()
     {
         return $this->morphedByMany('\App\Models\Message', 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
     }
-    
+
     public function recordings()
     {
         return $this->morphedByMany('\App\Models\Recording', 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');

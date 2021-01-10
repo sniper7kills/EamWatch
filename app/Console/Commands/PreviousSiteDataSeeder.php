@@ -45,7 +45,7 @@ class PreviousSiteDataSeeder extends Command
                 'email' => 'dmu@eam.watch',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-                'remember_token' => Str::random(10)
+                'remember_token' => Str::random(10),
             ]
         );
         $csvData = file_get_contents('https://eam-watch.s3.amazonaws.com/CSV/eams.csv');
@@ -56,16 +56,16 @@ class PreviousSiteDataSeeder extends Command
         $results = $csv->fetch();
         $recordNumber = $offset;
         foreach ($results as $row) {
-                $message = new \App\Models\Message();
-                $message->time = $row[2];
-                $message->type = $row[4];
-                $message->receiver = ($row[6] == "NULL")? null: $row[6];
-                $message->message = $row[8];
-                $message->sender = $row[10];
-                $message->user = $user;
-                $message->save();
-                print("Record: ".$recordNumber." EAM_ID: ".$row[0]." Message ID: ".$message->id."\n");
-                $recordNumber++;
+            $message = new \App\Models\Message();
+            $message->time = $row[2];
+            $message->type = $row[4];
+            $message->receiver = ($row[6] == 'NULL') ? null : $row[6];
+            $message->message = $row[8];
+            $message->sender = $row[10];
+            $message->user = $user;
+            $message->save();
+            echo 'Record: '.$recordNumber.' EAM_ID: '.$row[0].' Message ID: '.$message->id."\n";
+            $recordNumber++;
         }
         $user->banned = true;
         $user->save();

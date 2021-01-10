@@ -13,15 +13,15 @@
 
 use App\Http\Middleware\BannedMiddleware;
 
-Route::get('/banned', function(){
+Route::get('/banned', function () {
     return view('banned');
 });
 
-Route::get('/unauthorized', function(){
+Route::get('/unauthorized', function () {
     return view('unauthorized');
 });
 
-Route::middleware(BannedMiddleware::class)->group(function(){
+Route::middleware(BannedMiddleware::class)->group(function () {
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');

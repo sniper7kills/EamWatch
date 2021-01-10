@@ -14,7 +14,7 @@ class DefaultAdminSeeder extends Seeder
         $user = factory(\App\Models\User::class)->create([
             'name' => 'Eam.Watch Admin',
             'email' => 'admin@eam.watch',
-            'password' => '$2y$10$VLXCs6sKybmlPstSSmRuBuHBon.5ab5v9lR.qawQA.G4JZ1ljdxWq'
+            'password' => '$2y$10$VLXCs6sKybmlPstSSmRuBuHBon.5ab5v9lR.qawQA.G4JZ1ljdxWq',
         ]);
         $user->assignRole('admin');
     }

@@ -34,7 +34,7 @@ class DeleteTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
         $this->json('delete', route('messages.destroy', ['message'=>$message]))
             ->assertStatus(403);
     }

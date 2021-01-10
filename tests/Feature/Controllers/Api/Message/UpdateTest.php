@@ -25,7 +25,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
@@ -42,7 +42,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
@@ -59,7 +59,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->actingAs(factory(User::class)->make());
@@ -77,7 +77,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->actingAs(factory(User::class)->make());
@@ -95,7 +95,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
@@ -109,9 +109,9 @@ class UpdateTest extends TestCase
                     'time' => $message->broadcast_ts->toDateTimeString(),
                     'message' => 'THIS IS A NEW MESSAGE',
                     'user' => [
-                        'name' => $user->id
-                    ]
-                ]
+                        'name' => $user->id,
+                    ],
+                ],
             ]);
     }
 
@@ -124,7 +124,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->actingAs($user, 'api');
@@ -139,9 +139,9 @@ class UpdateTest extends TestCase
                     'time' => $message->broadcast_ts->toDateTimeString(),
                     'message' => 'THIS IS A NEW MESSAGE',
                     'user' => [
-                        'name' => $user->name
-                    ]
-                ]
+                        'name' => $user->name,
+                    ],
+                ],
             ]);
     }
 
@@ -156,7 +156,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
@@ -175,7 +175,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->actingAs($user, 'api');
@@ -195,7 +195,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->actingAs($user, 'api');
@@ -210,9 +210,9 @@ class UpdateTest extends TestCase
                     'time' => $message->broadcast_ts->toDateTimeString(),
                     'message' => 'THIS IS A NEW MESSAGE',
                     'user' => [
-                        'name' => $guest->id
-                    ]
-                ]
+                        'name' => $guest->id,
+                    ],
+                ],
             ]);
     }
 
@@ -227,7 +227,7 @@ class UpdateTest extends TestCase
 
         $updateRequest = [
             'type' => 'skyking',
-            'message' => 'This is a new message'
+            'message' => 'This is a new message',
         ];
 
         $this->actingAs($user, 'api');
@@ -242,9 +242,9 @@ class UpdateTest extends TestCase
                     'time' => $message->broadcast_ts->toDateTimeString(),
                     'message' => 'THIS IS A NEW MESSAGE',
                     'user' => [
-                        'name' => $user2->name
-                    ]
-                ]
+                        'name' => $user2->name,
+                    ],
+                ],
             ]);
     }
 }

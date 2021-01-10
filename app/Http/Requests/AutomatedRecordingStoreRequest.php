@@ -31,8 +31,8 @@ class AutomatedRecordingStoreRequest extends FormRequest
             'content_type' => ['required_without:file'],
             'file' => ['required_without:uuid,key,bucket,name,content_type'],
 
-            'time' => ['required','date'],
-            'frequency' => ['required','numeric'],
+            'time' => ['required', 'date'],
+            'frequency' => ['required', 'numeric'],
             'receiver' => ['nullable'],
         ];
     }
