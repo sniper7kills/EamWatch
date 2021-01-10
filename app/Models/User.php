@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Concerns\GeneratesUuid;
 use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -12,7 +12,6 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends \App\Models\AbstractModels\AbstractUser
 {
     use HasFactory;
-
     use Notifiable, MustVerifyEmail, HasRoles, GeneratesUuid, HasApiTokens;
 
     /**
