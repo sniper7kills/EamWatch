@@ -30,7 +30,7 @@ class MessageStoreRequest extends FormRequest
             'sender' => ['required', 'string'],
             'receiver' => ['string', 'nullable'],
             'time' => ['required', 'date'],
-            'message' => ['required', 'string', new NotSpamRule()]
+            'message' => ['required', 'string', new NotSpamRule(), 'messageValidForType:type']
         ];
     }
 }

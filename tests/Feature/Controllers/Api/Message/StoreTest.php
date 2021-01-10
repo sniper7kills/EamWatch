@@ -68,7 +68,7 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'thisisatestmessage'
         ];
 
         $this->post(route('messages.store'),$messageData)
@@ -79,7 +79,7 @@ class StoreTest extends TestCase
                     'sender' => 'SENDER',
                     'receiver' => 'RECEIVER',
                     'time' => $ts,
-                    'message' => 'THIS IS A TEST MESSAGE',
+                    'message' => 'THISISATESTMESSAGE',
                     'user' => [
                         'name' => $guest->id
                     ]
@@ -97,7 +97,7 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'thisisatestmessage'
         ];
 
         $this->actingAs($user, 'api');
@@ -109,7 +109,7 @@ class StoreTest extends TestCase
                     'sender' => 'SENDER',
                     'receiver' => 'RECEIVER',
                     'time' => $ts,
-                    'message' => 'THIS IS A TEST MESSAGE',
+                    'message' => 'THISISATESTMESSAGE',
                     'user' => [
                         'name' => $user->name
                     ]
@@ -316,7 +316,7 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'this is a test message'
+            'message' => 'thisisatestmessage123'
         ];
 
         $this->actingAs($user, 'api');
@@ -329,5 +329,113 @@ class StoreTest extends TestCase
             ->assertStatus(303);
 
         $this->assertCount(1, Message::all());
+    }
+
+    public function test_allstation_message_can_not_contain_spaces()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'this is a test message'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_allstation_message_can_not_contain_dashes()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'this-is-a-test-message'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_skyking_message_must_follow_regex()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'skyking',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'abd TIME 44 AUTH AV'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(201);
+    }
+
+    public function test_skyking_message_must_only_contain_alpha_numerica_before_time()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'skyking',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'ab3 TIME 44 AUTH AV'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_skyking_message_must_only_contain_numerica_for_time()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'skyking',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'The Who TIME A4 AUTH AV'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_skyking_message_must_only_contain_alpha_for_auth()
+    {
+        $user = factory(User::class)->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'skyking',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'The Who TIME 44 AUTH 3B'
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'),$messageData)
+            ->assertStatus(302);
     }
 }
