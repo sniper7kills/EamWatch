@@ -22,10 +22,10 @@ class DeleteTest extends TestCase
         $guest = Guest::current();
         $guest->banned = true;
         $guest->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $guest;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->user = $guest;
         $message->comments()->save($comment);
 
@@ -36,13 +36,13 @@ class DeleteTest extends TestCase
 
     public function test_banned_users_can_not_delete_comments()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->user = $user;
         $message->comments()->save($comment);
 
@@ -54,11 +54,11 @@ class DeleteTest extends TestCase
 
     public function test_guests_can_not_delete_comments_made_by_other_users()
     {
-        $message = factory(Message::class)->make();
-        $message->user = factory(User::class)->create();
+        $message = Message::factory()->make();
+        $message->user = User::factory()->create();
         $message->save();
-        $comment = factory(Comment::class)->make();
-        $comment->user = factory(User::class)->create();
+        $comment = Comment::factory()->make();
+        $comment->user = User::factory()->create();
         $message->comments()->save($comment);
 
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
@@ -67,11 +67,11 @@ class DeleteTest extends TestCase
 
     public function test_guests_can_not_delete_comments_made_by_other_guests()
     {
-        $message = factory(Message::class)->make();
-        $message->user = factory(Guest::class)->create();
+        $message = Message::factory()->make();
+        $message->user = Guest::factory()->create();
         $message->save();
-        $comment = factory(Comment::class)->make();
-        $comment->user = factory(Guest::class)->create();
+        $comment = Comment::factory()->make();
+        $comment->user = Guest::factory()->create();
         $message->comments()->save($comment);
 
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
@@ -80,12 +80,12 @@ class DeleteTest extends TestCase
 
     public function test_users_can_not_delete_comments_made_by_other_users()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
-        $message->user = factory(User::class)->create();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
+        $message->user = User::factory()->create();
         $message->save();
-        $comment = factory(Comment::class)->make();
-        $comment->user = factory(User::class)->create();
+        $comment = Comment::factory()->make();
+        $comment->user = User::factory()->create();
         $message->comments()->save($comment);
 
         $this->actingAs($user, 'api');
@@ -95,12 +95,12 @@ class DeleteTest extends TestCase
 
     public function test_users_can_not_delete_comments_made_by_other_guests()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
-        $message->user = factory(Guest::class)->create();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
+        $message->user = Guest::factory()->create();
         $message->save();
-        $comment = factory(Comment::class)->make();
-        $comment->user = factory(Guest::class)->create();
+        $comment = Comment::factory()->make();
+        $comment->user = Guest::factory()->create();
         $message->comments()->save($comment);
 
         $this->actingAs($user, 'api');
@@ -110,11 +110,11 @@ class DeleteTest extends TestCase
 
     public function test_users_can_delete_their_own_comments()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->user = $user;
         $message->comments()->save($comment);
 
@@ -126,10 +126,10 @@ class DeleteTest extends TestCase
     public function test_guests_can_delete_their_own_comments()
     {
         $user = Guest::current();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->user = $user;
         $message->comments()->save($comment);
 
@@ -139,13 +139,13 @@ class DeleteTest extends TestCase
 
     public function test_admins_can_delete_comments()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo('delete comments');
-        $message = factory(Message::class)->make();
-        $message->user = factory(User::class)->create();
+        $message = Message::factory()->make();
+        $message->user = User::factory()->create();
         $message->save();
-        $comment = factory(Comment::class)->make();
-        $comment->user = factory(User::class)->create();
+        $comment = Comment::factory()->make();
+        $comment->user = User::factory()->create();
         $message->comments()->save($comment);
 
         $this->actingAs($user, 'api');

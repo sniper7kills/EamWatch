@@ -13,19 +13,19 @@ class StagingSeeder extends Seeder
     {
         for ($x = 0; $x < 100; $x++) {
             if ($x % 2 == 0) {
-                $user = factory(\App\Models\User::class)->create();
+                $user = \App\Models\User::factory()->create();
             } else {
-                $user = factory(\App\Models\Guest::class)->create();
+                $user = \App\Models\Guest::factory()->create();
             }
-            $message = factory(\App\Models\Message::class)->make();
+            $message = \App\Models\Message::factory()->make();
             $message->user = $user;
             $message->save();
             for ($c = 0; $c < 5; $c++) {
-                $comment = factory(\App\Models\Comment::class)->make();
+                $comment = \App\Models\Comment::factory()->make();
                 if ($c % 2 == 0) {
-                    $subUser = factory(\App\Models\User::class)->create();
+                    $subUser = \App\Models\User::factory()->create();
                 } else {
-                    $subUser = factory(\App\Models\Guest::class)->create();
+                    $subUser = \App\Models\Guest::factory()->create();
                 }
                 $comment->user = $subUser;
                 $message->comments()->save($comment);

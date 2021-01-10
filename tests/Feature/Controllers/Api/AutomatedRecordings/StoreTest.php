@@ -11,7 +11,7 @@ class StoreTest extends TestCase
 {
     public function test_store_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
         $ts = Carbon::now()->toDateTimeString();

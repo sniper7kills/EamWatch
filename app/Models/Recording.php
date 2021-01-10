@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Concerns\GeneratesUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Recording extends \App\Models\AbstractModels\AbstractRecording
 {
+    use HasFactory;
+
     use GeneratesUuid;
 
     public function getTimeAttribute()

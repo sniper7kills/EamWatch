@@ -24,7 +24,7 @@ class StoreTest extends TestCase
         $guest->banned = true;
         $guest->save();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $guest;
         $message->save();
 
@@ -39,11 +39,11 @@ class StoreTest extends TestCase
 
     public function test_banned_users_can_not_create_comment()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -59,7 +59,7 @@ class StoreTest extends TestCase
 
     public function test_message_id_or_recording_id_required()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $messageData = [
             'message' => 'This is a test comment',
@@ -74,7 +74,7 @@ class StoreTest extends TestCase
     {
         $user = Guest::current();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -89,9 +89,9 @@ class StoreTest extends TestCase
 
     public function test_user_can_create_comment_on_message()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -109,11 +109,11 @@ class StoreTest extends TestCase
     {
         $user = Guest::current();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->user = $user;
         $recording->message = $message;
         $recording->save();
@@ -129,13 +129,13 @@ class StoreTest extends TestCase
 
     public function test_user_can_create_comment_on_recording()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->user = $user;
         $recording->message = $message;
         $recording->save();

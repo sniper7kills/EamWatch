@@ -19,8 +19,8 @@ class ShowTest extends TestCase
 
     public function test_message_show()
     {
-        $guest = factory(Guest::class)->create();
-        $message = factory(Message::class)->make();
+        $guest = Guest::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $guest;
         $message->save();
 
@@ -50,10 +50,10 @@ class ShowTest extends TestCase
 
     public function test_show_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -68,7 +68,7 @@ class ShowTest extends TestCase
         $user = Guest::current();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -80,7 +80,7 @@ class ShowTest extends TestCase
     public function test_show_contains_update_permissions_for_guest_who_created_message()
     {
         $guest = Guest::current();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $guest;
         $message->save();
 
@@ -114,8 +114,8 @@ class ShowTest extends TestCase
 
     public function test_show_contains_update_permissions_for_user_who_created_message()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -150,12 +150,12 @@ class ShowTest extends TestCase
 
     public function test_show_contains_update_permissions_for_admin_with_update_permission()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $admin = factory(User::class)->create();
+        $admin = User::factory()->create();
         $admin->givePermissionTo('update messages');
         $this->actingAs($admin);
         $this->get(route('messages.show', ['message'=>$message]))
@@ -188,12 +188,12 @@ class ShowTest extends TestCase
 
     public function test_show_contains_delete_permissions_for_admin_with_delete_permission()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $admin = factory(User::class)->create();
+        $admin = User::factory()->create();
         $admin->givePermissionTo('delete messages');
         $this->actingAs($admin);
         $this->get(route('messages.show', ['message'=>$message]))

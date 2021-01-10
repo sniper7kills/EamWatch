@@ -12,13 +12,13 @@ class ShowTest extends TestCase
 {
     public function test_show_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $message;
         $recording->user = $user;
         $recording->save();
@@ -34,10 +34,10 @@ class ShowTest extends TestCase
         $user = Guest::current();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $message;
         $recording->user = $user;
         $recording->save();
@@ -50,10 +50,10 @@ class ShowTest extends TestCase
     public function test_recording_show()
     {
         $user = Guest::current();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $message;
         $recording->user = $user;
         $recording->save();

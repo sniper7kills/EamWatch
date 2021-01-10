@@ -1,8 +1,10 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Guest;
-use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 /*
@@ -16,9 +18,25 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Guest::class, function (Faker $faker) {
-    return [
-        'ip' => $faker->ipv4,
-        'banned' => false,
-    ];
-});
+class GuestFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Guest::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'ip' => $this->faker->ipv4,
+            'banned' => false,
+        ];
+    }
+}

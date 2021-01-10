@@ -9,7 +9,7 @@ class UserTest extends TestCase
 {
     public function test_uuid_is_generated()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $this->assertNotNull($user->id);
     }
 }

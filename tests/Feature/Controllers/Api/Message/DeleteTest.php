@@ -18,8 +18,8 @@ class DeleteTest extends TestCase
 
     public function test_guests_can_not_delete_messages()
     {
-        $fakeGuest = factory(Guest::class)->create();
-        $message = factory(Message::class)->make();
+        $fakeGuest = Guest::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $fakeGuest;
         $message->save();
 
@@ -29,8 +29,8 @@ class DeleteTest extends TestCase
 
     public function test_users_can_not_delete_messages()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -41,10 +41,10 @@ class DeleteTest extends TestCase
 
     public function test_admins_can_delete_messages()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo('delete messages');
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 

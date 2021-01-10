@@ -12,13 +12,13 @@ class IndexTest extends TestCase
 {
     public function test_index_is_paginated()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $guest = factory(Guest::class)->create();
-        $message2 = factory(Message::class)->make();
+        $guest = Guest::factory()->create();
+        $message2 = Message::factory()->make();
         $message2->user = $guest;
         $message2->save();
 
@@ -84,10 +84,10 @@ class IndexTest extends TestCase
 
     public function test_index_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -102,7 +102,7 @@ class IndexTest extends TestCase
         $user = Guest::current();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
@@ -113,13 +113,13 @@ class IndexTest extends TestCase
 
     public function test_index_results_are_ordered_by_broadcast_time()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $guest = factory(Guest::class)->create();
-        $message2 = factory(Message::class)->make();
+        $guest = Guest::factory()->create();
+        $message2 = Message::factory()->make();
         $message2->time = Carbon::now()->addHour();
         $message2->user = $guest;
         $message2->save();

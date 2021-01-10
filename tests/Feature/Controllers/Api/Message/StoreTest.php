@@ -19,7 +19,7 @@ class StoreTest extends TestCase
 
     public function test_store_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
         $ts = Carbon::now()->toDateTimeString();
@@ -89,7 +89,7 @@ class StoreTest extends TestCase
 
     public function test_store_as_user()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now()->toDateTimeString();
 
         $messageData = [
@@ -227,7 +227,7 @@ class StoreTest extends TestCase
 
     public function test_store_message_type_can_not_be_backend_for_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now()->toDateTimeString();
 
         $messageData = [
@@ -249,7 +249,7 @@ class StoreTest extends TestCase
      */
     public function test_store_message_type_can_be_backend_for_admins()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo('create backend message');
         $ts = Carbon::now()->toDateTimeString();
 
@@ -308,7 +308,7 @@ class StoreTest extends TestCase
 
     public function test_message_can_not_be_the_same_within_3_min()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -333,7 +333,7 @@ class StoreTest extends TestCase
 
     public function test_allstation_message_can_not_contain_spaces()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -351,7 +351,7 @@ class StoreTest extends TestCase
 
     public function test_allstation_message_can_not_contain_dashes()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -369,7 +369,7 @@ class StoreTest extends TestCase
 
     public function test_skyking_message_must_follow_regex()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -387,7 +387,7 @@ class StoreTest extends TestCase
 
     public function test_skyking_message_must_only_contain_alpha_numerica_before_time()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -405,7 +405,7 @@ class StoreTest extends TestCase
 
     public function test_skyking_message_must_only_contain_numerica_for_time()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -423,7 +423,7 @@ class StoreTest extends TestCase
 
     public function test_skyking_message_must_only_contain_alpha_for_auth()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [

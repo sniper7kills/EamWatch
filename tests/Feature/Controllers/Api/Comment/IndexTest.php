@@ -34,17 +34,17 @@ class IndexTest extends TestCase
 
     public function test_index_is_paginated()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->user = $user;
         $comment->message = $message;
         $message->comments()->save($comment);
 
-        $comment2 = factory(Comment::class)->make();
+        $comment2 = Comment::factory()->make();
         $comment2->user = $user;
         $message->comments()->save($comment2);
 

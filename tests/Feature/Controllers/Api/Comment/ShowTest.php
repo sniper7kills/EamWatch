@@ -21,10 +21,10 @@ class ShowTest extends TestCase
     public function test_show_contains_update_and_delete_permissions_for_guest_who_created_comment()
     {
         $guest = Guest::current();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $guest;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->message = $message;
         $comment->user = $guest;
         $comment->save();
@@ -48,11 +48,11 @@ class ShowTest extends TestCase
 
     public function test_show_contains_update_and_delete_permissions_for_user_who_created_comment()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->message = $message;
         $comment->user = $user;
         $comment->save();
@@ -77,16 +77,16 @@ class ShowTest extends TestCase
 
     public function test_show_contains_update_permission_for_admin_with_update_permission()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->message = $message;
         $comment->user = $user;
         $comment->save();
 
-        $admin = factory(User::class)->create();
+        $admin = User::factory()->create();
         $admin->givePermissionTo('update comments');
 
         $this->actingAs($admin);
@@ -109,16 +109,16 @@ class ShowTest extends TestCase
 
     public function test_show_contains_delete_permission_for_admin_with_delete_permission()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->message = $message;
         $comment->user = $user;
         $comment->save();
 
-        $admin = factory(User::class)->create();
+        $admin = User::factory()->create();
         $admin->givePermissionTo('delete comments');
 
         $this->actingAs($admin);
