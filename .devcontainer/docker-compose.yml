@@ -2,10 +2,11 @@ version: '3'
 
 services: 
   workspace:
-    image: runbooksolutions/site-cicd-workspace:latest
+    image: cloudmyit/php-cicd:php-7.4
     volumes:
       - /srv/samba/sda/sniper7kills/EamWatch:/workspace:cached
     command: /bin/sh -c "while sleep 1000; do :; done"
+    
   app:
     build:
       context: .

@@ -13,12 +13,12 @@ class Passportupdgrade extends Migration
      */
     public function up()
     {
-        Schema::table('oauth_clients', function (Blueprint $table) {
-            $table->string('provider')->after('secret')->nullable();
-        });
-        DB::statement('ALTER TABLE oauth_clients CHANGE user_id user_id CHAR(36)');
-        DB::statement('ALTER TABLE oauth_auth_codes CHANGE user_id user_id CHAR(36)');
-        DB::statement('ALTER TABLE oauth_access_tokens CHANGE user_id user_id CHAR(36)');
+        // Schema::table('oauth_clients', function (Blueprint $table) {
+        //     $table->string('provider')->after('secret')->nullable();
+        // });
+        // DB::statement('ALTER TABLE oauth_clients CHANGE user_id user_id CHAR(36)');
+        // DB::statement('ALTER TABLE oauth_auth_codes CHANGE user_id user_id CHAR(36)');
+        // DB::statement('ALTER TABLE oauth_access_tokens CHANGE user_id user_id CHAR(36)');
     }
 
     /**
