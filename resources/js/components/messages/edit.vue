@@ -30,7 +30,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="time">Broadcasted at</label>
-                                <input v-model="time" type="datetime" id="time" class="form-control" v-bind:class="{ 'is-invalid': this.$errors.has('time') }" :disabled="submitting === true || loading === true">
+                                <input v-model="time" type="datetime-local" id="time" class="form-control" v-bind:class="{ 'is-invalid': this.$errors.has('time') }" :disabled="submitting === true || loading === true">
                                 <error input="time" class="text-danger" />
                             </div>
                         </div>
