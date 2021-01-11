@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Models;
 
 use App\Models\Concerns\GeneratesUuid;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Message extends \App\Models\AbstractModels\AbstractMessage
 {
+    use HasFactory;
     use GeneratesUuid, SoftDeletes;
 
     public function __construct(array $attributes = [])
@@ -22,7 +25,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Set the type to Upper Case
+     * Set the type to Upper Case.
      *
      * @param $type
      */
@@ -32,7 +35,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Set the message to upper case
+     * Set the message to upper case.
      *
      * @param $message
      */
@@ -42,7 +45,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Set the Sender to upper case
+     * Set the Sender to upper case.
      *
      * @param $sender
      */
@@ -52,7 +55,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Set the Receiver to upper case
+     * Set the Receiver to upper case.
      *
      * @param $receiver
      */
@@ -62,7 +65,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Set the userable properties for the model using a fake attribute
+     * Set the userable properties for the model using a fake attribute.
      *
      * @param Model $user
      */
@@ -73,7 +76,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Set the broadcast_ts attribute using a fake attribute
+     * Set the broadcast_ts attribute using a fake attribute.
      *
      * @param $time
      */
@@ -83,22 +86,22 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     }
 
     /**
-     * Returns the 5 newest comments
+     * Returns the 5 newest comments.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getLastFiveCommentsAttribute()
     {
-        return $this->comments()->orderBy('created_at','DESC')->limit(5)->get();
+        return $this->comments()->orderBy('created_at', 'DESC')->limit(5)->get();
     }
 
     /**
-     * Returns the 5 newest recordings
+     * Returns the 5 newest recordings.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getLastFiveRecordingsAttribute()
     {
-        return $this->recordings()->orderBy('created_at','DESC')->limit(5)->get();
+        return $this->recordings()->orderBy('created_at', 'DESC')->limit(5)->get();
     }
 }

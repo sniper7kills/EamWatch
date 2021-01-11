@@ -40,17 +40,14 @@ class GuestController extends Controller
         $data = $request->validated();
 
         /**
-         * Ban & Unban
+         * Ban & Unban.
          */
-        if(Auth::user()->hasAnyPermission(['ban guests', 'unban guests']) && array_key_exists('banned', $data))
-        {
-            if (Auth::user()->hasPermissionTo('ban users') && $data['banned'] == true)
-            {
+        if (Auth::user()->hasAnyPermission(['ban guests', 'unban guests']) && array_key_exists('banned', $data)) {
+            if (Auth::user()->hasPermissionTo('ban users') && $data['banned'] == true) {
                 $guest->banned = true;
                 $guest->save();
             }
-            if (Auth::user()->hasPermissionTo('unban users') && $data['banned'] == false)
-            {
+            if (Auth::user()->hasPermissionTo('unban users') && $data['banned'] == false) {
                 $guest->banned = false;
                 $guest->save();
             }

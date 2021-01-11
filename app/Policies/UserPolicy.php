@@ -55,14 +55,17 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         $response = $this->checkBan($user);
-        if($response->denied())
+        if ($response->denied()) {
             return $response;
+        }
 
-        if($user->id === $model->id)
+        if ($user->id === $model->id) {
             return Response::allow();
+        }
 
-        if($user->hasAnyPermission(['edit users', 'ban users', 'unban users']))
+        if ($user->hasAnyPermission(['edit users', 'ban users', 'unban users'])) {
             return Response::allow();
+        }
 
         return Response::deny('No Permission to Edit User');
     }

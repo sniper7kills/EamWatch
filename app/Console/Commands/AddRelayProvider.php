@@ -49,7 +49,7 @@ class AddRelayProvider extends Command
         $provider->details = $this->argument('details');
         $provider->enabled = true;
         $provider->user()->associate(User::find($this->argument('user_id')));
-        
+
         $provider->save();
 
         return 0;

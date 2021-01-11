@@ -25,8 +25,8 @@ class SkykingController extends Controller
      */
     public function index(Request $request)
     {
-        $messages = Message::where('type','SKYKING')->where('visible',true)->orderBy('broadcast_ts','DESC')->paginate($request->get('paginate',15));
+        $messages = Message::where('type', 'SKYKING')->where('visible', true)->orderBy('broadcast_ts', 'DESC')->paginate($request->get('paginate', 15));
+
         return MessageResource::collection($messages);
     }
-
 }

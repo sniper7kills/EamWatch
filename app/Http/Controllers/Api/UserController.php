@@ -41,45 +41,41 @@ class UserController extends Controller
         $data = $request->validated();
 
         /**
-         * Ban & Unban
+         * Ban & Unban.
          */
-        if(Auth::user()->hasAnyPermission(['ban users', 'unban users']) && array_key_exists('banned', $data))
-        {
-            if (Auth::user()->hasPermissionTo('ban users') && $data['banned'] == true)
-            {
+        if (Auth::user()->hasAnyPermission(['ban users', 'unban users']) && array_key_exists('banned', $data)) {
+            if (Auth::user()->hasPermissionTo('ban users') && $data['banned'] == true) {
                 $user->banned = true;
                 $user->save();
             }
-            if (Auth::user()->hasPermissionTo('unban users') && $data['banned'] == false)
-            {
+            if (Auth::user()->hasPermissionTo('unban users') && $data['banned'] == false) {
                 $user->banned = false;
                 $user->save();
             }
         }
-        if(array_key_exists('banned', $data))
+        if (array_key_exists('banned', $data)) {
             unset($data['banned']);
+        }
 
         /**
-         * Change Roles
+         * Change Roles.
          */
-        if(Auth::user()->hasPermissionTo('edit users') && array_key_exists('role', $data))
-        {
+        if (Auth::user()->hasPermissionTo('edit users') && array_key_exists('role', $data)) {
             $user->syncRoles([]);
             $role = strtolower($data['role']);
-            if($role != "member")
-            {
+            if ($role != 'member') {
                 $user->syncRoles($role);
             }
         }
-        if(array_key_exists('role', $data))
+        if (array_key_exists('role', $data)) {
             unset($data['role']);
+        }
 
         /**
-         * Change Password
+         * Change Password.
          */
-        if(array_key_exists('password', $data))
-        {
-            if(!is_null($data['password'])){
+        if (array_key_exists('password', $data)) {
+            if (! is_null($data['password'])) {
                 $user->password = Hash::make($data['password']);
                 $user->save();
             }
@@ -89,14 +85,14 @@ class UserController extends Controller
         /**
          * Ensure Null Inputs are not updated.
          */
-        foreach($data as $key => $value)
-        {
-            if(is_null($value))
+        foreach ($data as $key => $value) {
+            if (is_null($value)) {
                 unset($data[$key]);
+            }
         }
 
         /**
-         * Update User
+         * Update User.
          */
         $user->update($data);
 

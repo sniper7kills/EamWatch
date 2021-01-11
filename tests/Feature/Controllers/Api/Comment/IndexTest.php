@@ -34,17 +34,17 @@ class IndexTest extends TestCase
 
     public function test_index_is_paginated()
     {
-        $user = factory(User::class)->create();
-        $message = factory(Message::class)->make();
+        $user = User::factory()->create();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $comment = factory(Comment::class)->make();
+        $comment = Comment::factory()->make();
         $comment->user = $user;
         $comment->message = $message;
         $message->comments()->save($comment);
 
-        $comment2 = factory(Comment::class)->make();
+        $comment2 = Comment::factory()->make();
         $comment2->user = $user;
         $message->comments()->save($comment2);
 
@@ -58,28 +58,28 @@ class IndexTest extends TestCase
                         'id' => $comment->id,
                         'comment' => $comment->message,
                         'user' => [
-                            'name' => $user->name
+                            'name' => $user->name,
                         ],
                         'permissions' => [
                             'update' => false,
-                            'delete' => false
-                        ]
+                            'delete' => false,
+                        ],
                     ],
                     [
                         'id' => $comment2->id,
                         'comment' => $comment2->message,
                         'user' => [
-                            'name' => $user->name
+                            'name' => $user->name,
                         ],
                         'permissions' => [
                             'update' => false,
-                            'delete' => false
-                        ]
-                    ]
+                            'delete' => false,
+                        ],
+                    ],
                 ],
                 'links' => [
-                    'first' => route('comments.index')."?page=1",
-                    'last' => route('comments.index')."?page=1",
+                    'first' => route('comments.index').'?page=1',
+                    'last' => route('comments.index').'?page=1',
                     'next' => null,
                     'prev' => null,
 
@@ -91,8 +91,8 @@ class IndexTest extends TestCase
                     'path' => route('comments.index'),
                     'per_page' => 15,
                     'to' => 2,
-                    'total' => 2
-                ]
+                    'total' => 2,
+                ],
             ]);
     }
 }

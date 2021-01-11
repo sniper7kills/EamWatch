@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         PreviousSiteDataSeeder::class,
-        AddRelayProvider::class
+        AddRelayProvider::class,
     ];
 
     /**

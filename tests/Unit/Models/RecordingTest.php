@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Unit\Models;
 
 use App\Models\Message;
@@ -12,19 +11,20 @@ class RecordingTest extends TestCase
 {
     private function get_user()
     {
-        return factory(User::class)->create();
+        return User::factory()->create();
     }
 
     private function get_message()
     {
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $this->get_user();
+
         return $message;
     }
 
     public function test_recording_has_id_generated()
     {
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $this->get_message();
         $recording->user = $this->get_user();
         $recording->save();

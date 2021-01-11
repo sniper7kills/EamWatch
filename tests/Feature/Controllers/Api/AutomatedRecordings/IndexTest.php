@@ -12,10 +12,10 @@ class IndexTest extends TestCase
 {
     public function test_index_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->user = $user;
         $recording->save();
 
@@ -30,7 +30,7 @@ class IndexTest extends TestCase
         $user = Guest::current();
         $user->banned = true;
         $user->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->user = $user;
         $recording->save();
 
@@ -42,7 +42,7 @@ class IndexTest extends TestCase
     public function test_index_displays_paginated_data()
     {
         $user = Guest::current();
-        $recording = factory(Recording::class)->make(['automated'=>true]);
+        $recording = Recording::factory()->make(['automated'=>true]);
         $recording->user = $user;
         $recording->save();
 
@@ -56,11 +56,11 @@ class IndexTest extends TestCase
                         'frequency' => $recording->frequency,
                         'receiver' => $recording->receiver,
                         'link' => $recording->link,
-                    ]
+                    ],
                 ],
                 'links' => [
-                    'first' => route('automatedRecordings.index')."?page=1",
-                    'last' => route('automatedRecordings.index')."?page=1",
+                    'first' => route('automatedRecordings.index').'?page=1',
+                    'last' => route('automatedRecordings.index').'?page=1',
                     'next' => null,
                     'prev' => null,
 
@@ -72,8 +72,8 @@ class IndexTest extends TestCase
                     'path' => route('automatedRecordings.index'),
                     'per_page' => 15,
                     'to' => 1,
-                    'total' => 1
-                ]
+                    'total' => 1,
+                ],
             ]);
     }
 }

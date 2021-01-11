@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         Permission::create(['name' => 'create backend message']);
@@ -19,7 +19,7 @@ class StoreTest extends TestCase
 
     public function test_store_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
         $ts = Carbon::now()->toDateTimeString();
@@ -29,11 +29,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -50,10 +50,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -68,10 +68,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'thisisatestmessage'
+            'message' => 'thisisatestmessage',
         ];
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -81,15 +81,15 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THISISATESTMESSAGE',
                     'user' => [
-                        'name' => $guest->id
-                    ]
-                ]
+                        'name' => $guest->id,
+                    ],
+                ],
             ]);
     }
 
     public function test_store_as_user()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now()->toDateTimeString();
 
         $messageData = [
@@ -97,11 +97,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'thisisatestmessage'
+            'message' => 'thisisatestmessage',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -111,14 +111,14 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THISISATESTMESSAGE',
                     'user' => [
-                        'name' => $user->name
-                    ]
-                ]
+                        'name' => $user->name,
+                    ],
+                ],
             ]);
     }
 
     /**
-     * Message Validation Rules
+     * Message Validation Rules.
      */
     public function test_store_message_can_not_contain_http_link()
     {
@@ -129,10 +129,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'http://google.com'
+            'message' => 'http://google.com',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
@@ -146,10 +146,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'https://google.com'
+            'message' => 'https://google.com',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
@@ -163,10 +163,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => '<a href='
+            'message' => '<a href=',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
@@ -180,16 +180,16 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => '[URL='
+            'message' => '[URL=',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('The input appears to be spam.');
     }
 
     /**
-     * Type Validation
+     * Type Validation.
      */
     public function test_store_message_type_must_be_valid()
     {
@@ -200,10 +200,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->json('post',route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
     }
@@ -217,17 +217,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
     }
 
     public function test_store_message_type_can_not_be_backend_for_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now()->toDateTimeString();
 
         $messageData = [
@@ -235,21 +235,21 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->json('post', route('messages.store'),$messageData)
+        $this->json('post', route('messages.store'), $messageData)
             ->assertStatus(422)
             ->assertSee('Invalid Message Type Selected');
     }
 
     /**
-     * Admin Related Tests
+     * Admin Related Tests.
      */
     public function test_store_message_type_can_be_backend_for_admins()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo('create backend message');
         $ts = Carbon::now()->toDateTimeString();
 
@@ -258,11 +258,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -272,9 +272,9 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THIS IS A TEST MESSAGE',
                     'user' => [
-                        'name' => $user->name
-                    ]
-                ]
+                        'name' => $user->name,
+                    ],
+                ],
             ]);
     }
 
@@ -288,10 +288,10 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => null,
             'time' => $ts,
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201)
             ->assertJson([
                 'data' => [
@@ -300,15 +300,15 @@ class StoreTest extends TestCase
                     'time' => $ts,
                     'message' => 'THIS IS A TEST MESSAGE',
                     'user' => [
-                        'name' => $guest->id
-                    ]
-                ]
+                        'name' => $guest->id,
+                    ],
+                ],
             ]);
     }
 
     public function test_message_can_not_be_the_same_within_3_min()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -316,16 +316,16 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'thisisatestmessage123'
+            'message' => 'thisisatestmessage123',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201);
 
         $messageData['time'] = $ts->addMinutes(2)->toDateTimeString();
 
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(303);
 
         $this->assertCount(1, Message::all());
@@ -333,7 +333,7 @@ class StoreTest extends TestCase
 
     public function test_allstation_message_can_not_contain_spaces()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -341,17 +341,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'this is a test message'
+            'message' => 'this is a test message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
 
     public function test_allstation_message_can_not_contain_dashes()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -359,17 +359,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'this-is-a-test-message'
+            'message' => 'this-is-a-test-message',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
 
     public function test_skyking_message_must_follow_regex()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -377,17 +377,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'abd TIME 44 AUTH AV'
+            'message' => 'abd TIME 44 AUTH AV',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(201);
     }
 
     public function test_skyking_message_must_only_contain_alpha_numerica_before_time()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -395,17 +395,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'ab3 TIME 44 AUTH AV'
+            'message' => 'ab3 TIME 44 AUTH AV',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
 
     public function test_skyking_message_must_only_contain_numerica_for_time()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -413,17 +413,17 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'The Who TIME A4 AUTH AV'
+            'message' => 'The Who TIME A4 AUTH AV',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
 
     public function test_skyking_message_must_only_contain_alpha_for_auth()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $ts = Carbon::now();
 
         $messageData = [
@@ -431,11 +431,11 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'The Who TIME 44 AUTH 3B'
+            'message' => 'The Who TIME 44 AUTH 3B',
         ];
 
         $this->actingAs($user, 'api');
-        $this->post(route('messages.store'),$messageData)
+        $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
 }

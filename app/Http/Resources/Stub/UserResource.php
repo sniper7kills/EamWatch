@@ -17,15 +17,15 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            $this->mergeWhen($this->resource->getMorphClass() == User::class,[
+            $this->mergeWhen($this->resource->getMorphClass() == User::class, [
                 'name' => $this->resource->name,
                 'id' => $this->resource->id,
-                'type' => 'user'
+                'type' => 'user',
             ]),
-            $this->mergeWhen($this->resource->getMorphClass() == Guest::class,[
+            $this->mergeWhen($this->resource->getMorphClass() == Guest::class, [
                 'name' => $this->resource->id,
                 'id' => $this->resource->id,
-                'type' => 'guest'
+                'type' => 'guest',
             ]),
         ];
     }

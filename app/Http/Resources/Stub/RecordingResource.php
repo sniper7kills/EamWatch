@@ -28,7 +28,7 @@ class RecordingResource extends JsonResource
     {
         return [
             'id' => $this->recording->id,
-            'link' => $this->recording->link
+            'link' => $this->recording->link,
         ];
     }
 }

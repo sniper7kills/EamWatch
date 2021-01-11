@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         Permission::create(['name' => 'update comments']);
@@ -24,33 +24,32 @@ class StoreTest extends TestCase
         $guest->banned = true;
         $guest->save();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $guest;
         $message->save();
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->json('post', route('comments.store'), $messageData)
             ->assertStatus(403);
-
     }
 
     public function test_banned_users_can_not_create_comment()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->actingAs($user, 'api');
@@ -60,7 +59,7 @@ class StoreTest extends TestCase
 
     public function test_message_id_or_recording_id_required()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $messageData = [
             'message' => 'This is a test comment',
@@ -75,13 +74,13 @@ class StoreTest extends TestCase
     {
         $user = Guest::current();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->json('post', route('comments.store'), $messageData)
@@ -90,15 +89,15 @@ class StoreTest extends TestCase
 
     public function test_user_can_create_comment_on_message()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
         $messageData = [
             'message' => 'This is a test comment',
-            'message_id' => $message->id
+            'message_id' => $message->id,
         ];
 
         $this->actingAs($user, 'api');
@@ -110,18 +109,18 @@ class StoreTest extends TestCase
     {
         $user = Guest::current();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->user = $user;
         $recording->message = $message;
         $recording->save();
 
         $messageData = [
             'message' => 'This is a test comment',
-            'recording_id' => $recording->id
+            'recording_id' => $recording->id,
         ];
 
         $this->json('post', route('comments.store'), $messageData)
@@ -130,20 +129,20 @@ class StoreTest extends TestCase
 
     public function test_user_can_create_comment_on_recording()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->user = $user;
         $recording->message = $message;
         $recording->save();
 
         $messageData = [
             'message' => 'This is a test comment',
-            'recording_id' => $recording->id
+            'recording_id' => $recording->id,
         ];
 
         $this->actingAs($user, 'api');

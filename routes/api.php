@@ -17,12 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('Api')->group(function(){
+Route::namespace('Api')->group(function () {
     Route::apiResource('messages', 'MessageController');
     Route::apiResource('recordings', 'RecordingController');
     Route::apiResource('comments', 'CommentController');
     Route::apiResource('skykings', 'SkykingController')->only('index');
-    Route::apiResource('automatedRecordings', 'AutomatedRecordingController')->except(['delete','show']);
-    Route::apiResource('users', 'UserController')->only(['show','update']);
-    Route::apiResource('guests', 'GuestController')->only(['show','update']);
+    Route::apiResource('automatedRecordings', 'AutomatedRecordingController')->except(['delete', 'show']);
+    Route::apiResource('users', 'UserController')->only(['show', 'update']);
+    Route::apiResource('guests', 'GuestController')->only(['show', 'update']);
 });

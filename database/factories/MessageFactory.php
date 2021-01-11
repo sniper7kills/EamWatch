@@ -1,9 +1,10 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
+
 use App\Models\Message;
-use Faker\Generator as Faker;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,29 @@ use Carbon\Carbon;
 |
 */
 
-$factory->define(Message::class, function (Faker $faker) {
-    return [
-        'message' => $faker->word,
-        'sender' => $faker->word,
-        'receiver' => $faker->word,
-        'broadcast_ts' => Carbon::now(),
-        'type' => 'BACKEND',
-        'visible' => true,
-    ];
-});
+class MessageFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Message::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'message' => $this->faker->word,
+            'sender' => $this->faker->word,
+            'receiver' => $this->faker->word,
+            'broadcast_ts' => Carbon::now(),
+            'type' => 'BACKEND',
+            'visible' => true,
+        ];
+    }
+}

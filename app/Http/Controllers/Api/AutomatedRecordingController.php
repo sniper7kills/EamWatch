@@ -21,7 +21,8 @@ class AutomatedRecordingController extends Controller
      */
     public function index()
     {
-        $recordings = Recording::where('automated',true)->where('message_id',null)->paginate();
+        $recordings = Recording::where('automated', true)->where('message_id', null)->paginate();
+
         return AutomatedRecordingResource::collection($recordings);
     }
 

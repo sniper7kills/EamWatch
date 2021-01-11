@@ -42,10 +42,10 @@ class RecordingController extends Controller
 
         Storage::copy(
             $request['key'],
-            '/recordings/'.$message->id."/".$recording->id
+            '/recordings/'.$message->id.'/'.$recording->id
         );
 
-        Storage::setVisibility('/recordings/'.$message->id."/".$recording->id, 'public');
+        Storage::setVisibility('/recordings/'.$message->id.'/'.$recording->id, 'public');
 
         return RecordingResource::make($recording);
     }

@@ -27,7 +27,7 @@ class CommentStoreRequest extends FormRequest
         return [
             'message' => ['required', 'string', new NotSpamRule()],
             'message_id' => ['exists:messages,id', 'required_without:recording_id'],
-            'recording_id' => ['exists:recordings,id', 'required_without:message_id']
+            'recording_id' => ['exists:recordings,id', 'required_without:message_id'],
         ];
     }
 }

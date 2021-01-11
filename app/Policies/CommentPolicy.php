@@ -58,16 +58,17 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment)
     {
-        if(is_null($user) && !Auth::guard('api')->guest())
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
+        }
 
-        if(!is_null($user) && $user->can('update comments'))
-        {
+        if (! is_null($user) && $user->can('update comments')) {
             return Response::allow();
         }
 
-        if(!$this->userOwnsResource($user,$comment))
+        if (! $this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
+        }
 
         return $this->checkBan($user);
     }
@@ -81,14 +82,17 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment)
     {
-        if(is_null($user) && !Auth::guard('api')->guest())
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
+        }
 
-        if(!is_null($user) && $user->hasPermissionTo('delete comments'))
+        if (! is_null($user) && $user->hasPermissionTo('delete comments')) {
             return Response::allow();
+        }
 
-        if(!$this->userOwnsResource($user,$comment))
+        if (! $this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
+        }
 
         return $this->checkBan($user);
     }

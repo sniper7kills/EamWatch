@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 class UserUpdateRequest extends FormRequest
 {
     use GetCurrentUserOrGuest;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -32,30 +33,30 @@ class UserUpdateRequest extends FormRequest
         return [
             'banned' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
             'name' => [
                 'nullable',
-                'string'
+                'string',
             ],
             'email' => [
                 'nullable',
                 'email',
-                'unique:users,email,'.$userID
+                'unique:users,email,'.$userID,
             ],
             'password' => [
                 'nullable',
-                'min:8'
+                'min:8',
             ],
             'password_confirm' => [
                 'nullable',
                 'required_with:password',
-                'same:password'
+                'same:password',
             ],
             'role' => [
                 'nullable',
                 Rule::in(['Member', 'Moderator', 'Admin']),
-            ]
+            ],
         ];
     }
 }

@@ -18,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -31,8 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Message::observe(MessageObserver::class);
 
-        Validator::resolver(function($translator, $data, $rules, $messages)
-        {
+        Validator::resolver(function ($translator, $data, $rules, $messages) {
             return new MessageValidForTypeValidator($translator, $data, $rules, $messages);
         });
     }

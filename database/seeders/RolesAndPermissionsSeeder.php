@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -14,13 +16,13 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         /**
-         * Create Roles
+         * Create Roles.
          */
         $adminRole = Role::create(['name' => 'admin']);
         $moderatorRole = Role::create(['name' => 'moderator']);
 
         /**
-         * Telescope Permissions
+         * Telescope Permissions.
          */
         $telescopePermissions = [
             'view' => Permission::create(['name' => 'view telescope']),
@@ -29,12 +31,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->givePermissionTo($telescopePermissions['view']);
 
         /**
-         * Message Permissions
+         * Message Permissions.
          */
         $messagePermissions = [
             'backend' => Permission::create(['name' => 'create backend message']),
             'update' => Permission::create(['name' => 'update messages']),
-            'delete' => Permission::create(['name' => 'delete messages'])
+            'delete' => Permission::create(['name' => 'delete messages']),
         ];
 
         $adminRole->givePermissionTo($messagePermissions['backend']);
@@ -46,11 +48,11 @@ class RolesAndPermissionsSeeder extends Seeder
         $moderatorRole->givePermissionTo($messagePermissions['delete']);
 
         /**
-         * Recording Permissions
+         * Recording Permissions.
          */
         $recordingPermissions = [
             'update' => Permission::create(['name' => 'update recordings']),
-            'delete' => Permission::create(['name' => 'delete recordings'])
+            'delete' => Permission::create(['name' => 'delete recordings']),
         ];
 
         $adminRole->givePermissionTo($recordingPermissions['update']);
@@ -59,11 +61,11 @@ class RolesAndPermissionsSeeder extends Seeder
         $moderatorRole->givePermissionTo($recordingPermissions['delete']);
 
         /**
-         * Comment Permissions
+         * Comment Permissions.
          */
         $commentPermissions = [
             'update' => Permission::create(['name' => 'update comments']),
-            'delete' => Permission::create(['name' => 'delete comments'])
+            'delete' => Permission::create(['name' => 'delete comments']),
         ];
 
         $adminRole->givePermissionTo($commentPermissions['update']);
@@ -71,6 +73,5 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $adminRole->givePermissionTo($commentPermissions['delete']);
         $moderatorRole->givePermissionTo($commentPermissions['delete']);
-
     }
 }

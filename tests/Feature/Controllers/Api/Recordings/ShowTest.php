@@ -12,19 +12,19 @@ class ShowTest extends TestCase
 {
     public function test_show_unavailable_for_banned_users()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $message;
         $recording->user = $user;
         $recording->save();
 
         $this->actingAs($user, 'api');
-        $this->json('get', route('recordings.show',['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording'=>$recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -34,15 +34,15 @@ class ShowTest extends TestCase
         $user = Guest::current();
         $user->banned = true;
         $user->save();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $message;
         $recording->user = $user;
         $recording->save();
 
-        $this->json('get', route('recordings.show',['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording'=>$recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -50,15 +50,15 @@ class ShowTest extends TestCase
     public function test_recording_show()
     {
         $user = Guest::current();
-        $message = factory(Message::class)->make();
+        $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
-        $recording = factory(Recording::class)->make();
+        $recording = Recording::factory()->make();
         $recording->message = $message;
         $recording->user = $user;
         $recording->save();
 
-        $this->json('get', route('recordings.show',['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording'=>$recording]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -70,12 +70,12 @@ class ShowTest extends TestCase
                     'message' => [
                         'id' => $message->id,
                         'type' => $message->type,
-                        'time' => $message->time
+                        'time' => $message->time,
                     ],
                     'user' => [
-                        'name' => $user->id
-                    ]
-                ]
+                        'name' => $user->id,
+                    ],
+                ],
             ]);
     }
 }

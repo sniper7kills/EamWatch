@@ -1,8 +1,9 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
+
 use App\Models\Recording;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /*
@@ -16,10 +17,26 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Recording::class, function (Faker $faker) {
-    return [
-        'broadcasted_at' => \Carbon\Carbon::now(),
-        'frequency' => $faker->numberBetween(),
-        'automated' => false,
-    ];
-});
+class RecordingFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Recording::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'broadcasted_at' => \Carbon\Carbon::now(),
+            'frequency' => $this->faker->numberBetween(),
+            'automated' => false,
+        ];
+    }
+}

@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         Message::class => MessagePolicy::class,
         Recording::class => RecordingPolicy::class,
-        Comment::class => CommentPolicy::class
+        Comment::class => CommentPolicy::class,
     ];
 
     /**
@@ -41,7 +41,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         /**
-         * Vapor File Uploads (Allows Guest Uploads)
+         * Vapor File Uploads (Allows Guest Uploads).
          */
         Gate::define('uploadFiles', function (?User $user) {
             return $this->checkBan($user);

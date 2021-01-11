@@ -35,67 +35,67 @@ class UserResource extends JsonResource
         $user = $this->currentUserOrGuest();
 
         /**
-         * Edit
+         * Edit.
          */
-        if ($user->getMorphClass() === Guest::class){
+        if ($user->getMorphClass() === Guest::class) {
             $canEdit = false;
-        }else{
+        } else {
             /* @var $user \App\Models\User */
-            if($this->resource->getMorphClass() == User::class)
+            if ($this->resource->getMorphClass() == User::class) {
                 $canEdit = $user->hasPermissionTo('edit users');
-            else
+            } else {
                 $canEdit = false;
+            }
         }
         /**
-         * Ban
+         * Ban.
          */
-        if ($user->getMorphClass() === Guest::class){
+        if ($user->getMorphClass() === Guest::class) {
             $canBan = false;
-        }else{
+        } else {
             /* @var $user \App\Models\User */
-            if($this->resource->getMorphClass() == User::class)
+            if ($this->resource->getMorphClass() == User::class) {
                 $canBan = $user->hasPermissionTo('ban users');
-            else
+            } else {
                 $canBan = $user->hasPermissionTo('ban guests');
+            }
         }
         /**
-         * Unban
+         * Unban.
          */
-        if ($user->getMorphClass() === Guest::class){
+        if ($user->getMorphClass() === Guest::class) {
             $canUnban = false;
-        }else{
+        } else {
             /* @var $user \App\Models\User */
-            if($this->resource->getMorphClass() == User::class)
+            if ($this->resource->getMorphClass() == User::class) {
                 $canUnban = $user->hasPermissionTo('unban users');
-            else
+            } else {
                 $canUnban = $user->hasPermissionTo('unban guests');
+            }
         }
 
         $email = 'None';
-        if($this->resource->getMorphClass() == User::class)
-        {
-            $email = "[REDACTED]";
-            if($user->getMorphClass() == User::class &&
+        if ($this->resource->getMorphClass() == User::class) {
+            $email = '[REDACTED]';
+            if ($user->getMorphClass() == User::class &&
                 ($user->id == $this->resource->id
-                || $user->hasPermissionTo('edit users')))
-            {
+                || $user->hasPermissionTo('edit users'))) {
                 $email = $this->resource->email;
             }
         }
 
-
         return [
-            $this->mergeWhen($this->resource->getMorphClass() == User::class,[
+            $this->mergeWhen($this->resource->getMorphClass() == User::class, [
                 'name' => $this->resource->name,
                 'id' => $this->resource->id,
                 'type' => 'user',
-                'role' => $this->resource->displayRole()
+                'role' => $this->resource->displayRole(),
             ]),
-            $this->mergeWhen($this->resource->getMorphClass() == Guest::class,[
+            $this->mergeWhen($this->resource->getMorphClass() == Guest::class, [
                 'name' => $this->resource->id,
                 'id' => $this->resource->id,
                 'type' => 'guest',
-                'role' => 'Guest'
+                'role' => 'Guest',
             ]),
             'email' => $email,
             'banned' => $this->resource->banned,
@@ -109,8 +109,8 @@ class UserResource extends JsonResource
                 'edit' => $canEdit,
                 'ban' => $canBan,
                 'unban' => $canUnban,
-                'self' => $this->resource->id == $user->id
-            ]
+                'self' => $this->resource->id == $user->id,
+            ],
         ];
     }
 }

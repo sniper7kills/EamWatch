@@ -16,7 +16,7 @@ class NotSpamRule implements Rule
         'not_regex:/[hH][tT]{2}[pP]:\/\//',
         'not_regex:/[hH][tT]{2}[pP][sS]:\/\//',
         'not_regex:/\[[uU][rR][lL]=/',
-        'not_regex:/\<[aA]\s[hH][rR][eE][fF]/'
+        'not_regex:/\<[aA]\s[hH][rR][eE][fF]/',
     ];
 
     /**
@@ -40,10 +40,10 @@ class NotSpamRule implements Rule
     {
         $validator = Validator::make(
             [
-                'message' => $value
+                'message' => $value,
             ],
             [
-                'message' => $this->regexRules
+                'message' => $this->regexRules,
             ]
         );
 

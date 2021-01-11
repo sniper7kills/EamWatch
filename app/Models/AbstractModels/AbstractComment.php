@@ -10,23 +10,23 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractComment extends Model
 {
-    /**  
+    /**
      * Primary key type.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'uuid';
-    
-    /**  
+
+    /**
      * Primary key is non-autoincrementing.
-     * 
+     *
      * @var bool
      */
     public $incrementing = false;
-    
-    /**  
+
+    /**
      * The attributes that should be cast to native types.
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -37,38 +37,38 @@ abstract class AbstractComment extends Model
         'message' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
-    
-    /**  
+
+    /**
      * The attributes that are mass assignable.
-     * 
+     *
      * @var array
      */
     protected $fillable = ['message'];
-    
+
     public function comment()
     {
-        return $this->belongsTo('\App\Models\Comment', 'parent_comment_id', 'id');
+        return $this->belongsTo(\App\Models\Comment::class, 'parent_comment_id', 'id');
     }
-    
+
     public function comments()
     {
-        return $this->hasMany('\App\Models\Comment', 'parent_comment_id', 'id');
+        return $this->hasMany(\App\Models\Comment::class, 'parent_comment_id', 'id');
     }
-    
+
     public function userable()
     {
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
-    
+
     public function messages()
     {
-        return $this->morphedByMany('\App\Models\Message', 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
+        return $this->morphedByMany(\App\Models\Message::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }
-    
+
     public function recordings()
     {
-        return $this->morphedByMany('\App\Models\Recording', 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
+        return $this->morphedByMany(\App\Models\Recording::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }
 }

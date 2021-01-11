@@ -56,11 +56,13 @@ class GuestPolicy
     public function update(User $user, Guest $guest)
     {
         $response = $this->checkBan($user);
-        if($response->denied())
+        if ($response->denied()) {
             return $response;
+        }
 
-        if($user->hasAnyPermission(['ban guests', 'unban guests']))
+        if ($user->hasAnyPermission(['ban guests', 'unban guests'])) {
             return Response::allow();
+        }
 
         return Response::deny('No Permission to Edit Guest');
     }

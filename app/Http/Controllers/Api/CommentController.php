@@ -34,15 +34,18 @@ class CommentController extends Controller
     {
         $request = $request->validated();
         $commentable = null;
-        if(key_exists('message_id',$request))
+        if (array_key_exists('message_id', $request)) {
             $commentable = Message::find($request['message_id']);
-        else if(key_exists('recording_id',$request))
+        } elseif (array_key_exists('recording_id', $request)) {
             $commentable = Recording::find($request['recording_id']);
+        }
 
-        if(!key_exists('paginate', $request))
+        if (! array_key_exists('paginate', $request)) {
             $request['paginate'] = 15;
+        }
 
-        $messages = $commentable->comments()->orderBy('created_at','DESC')->paginate($request['paginate']);
+        $messages = $commentable->comments()->orderBy('created_at', 'DESC')->paginate($request['paginate']);
+
         return CommentResource::collection($messages);
     }
 
@@ -59,11 +62,10 @@ class CommentController extends Controller
 
         $comment->user = $this->currentUserOrGuest();
 
-        if(key_exists('message_id', $request))
-        {
+        if (array_key_exists('message_id', $request)) {
             $message = Message::find($request['message_id']);
             $message->comments()->save($comment);
-        }elseif(key_exists('recording_id', $request)) {
+        } elseif (array_key_exists('recording_id', $request)) {
             $recording = Recording::find($request['recording_id']);
             $recording->comments()->save($comment);
         }
