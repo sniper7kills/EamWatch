@@ -10,14 +10,15 @@ class MessageValidForTypeValidator extends Validator
     {
         $regexRules = [
             'ALLSTATIONS' => [
-                '/[^a-zA-Z0-9]/',
+                '/[^a-zA-Z0-9]/' => false,
             ],
             'SKYKING' => [
-                '/[a-zA-Z\s]*[^a-zA-Z\s]+[a-zA-Z\s]* TIME/',
-                '/TIME [0-9]{1} AUTH/',
-                '/TIME [0-9]*[^0-9]+[0-9]* AUTH/',
-                '/AUTH [a-zA-Z]{1}$/',
-                '/AUTH [a-zA-Z]*[^a-zA-Z]+[a-zA-Z]*$/',
+                '/[a-zA-Z\s]*[^a-zA-Z\s]+[a-zA-Z\s]* TIME/' => false,
+                '/TIME [0-9]{1} AUTH/' => false,
+                '/TIME [0-9]*[^0-9]+[0-9]* AUTH/' => false,
+                '/AUTH [a-zA-Z]{1}$/' => false,
+                '/AUTH [a-zA-Z]*[^a-zA-Z]+[a-zA-Z]*$/' => false,
+                '/[A-Za-z\s]+ TIME [0-9]{2} AUTH [A-Za-z]{2}/' => true,
             ],
         ];
 
@@ -28,8 +29,12 @@ class MessageValidForTypeValidator extends Validator
             return true;
         }
 
-        foreach ($regexRules[$messageType] as $rule) {
-            if (0 < preg_match_all($rule, $message)) {
+        foreach ($regexRules[$messageType] as $rule => $passes) {
+            $results = preg_match_all($rule, $message);
+            if (!$passes && $results > 1) {
+                return false;
+            }
+            if ($passes && $results == 0) {
                 return false;
             }
         }

@@ -438,4 +438,22 @@ class StoreTest extends TestCase
         $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
+
+    public function test_skyking_message_fails_if_not_proper_format()
+    {
+        $user = User::factory()->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'skyking',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'The Who',
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'), $messageData)
+            ->assertStatus(302);
+    }
 }
