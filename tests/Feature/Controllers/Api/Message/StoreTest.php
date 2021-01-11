@@ -316,7 +316,7 @@ class StoreTest extends TestCase
             'sender' => 'sender',
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
-            'message' => 'thisisatestmessage123',
+            'message' => 'thisisatestmessage23',
         ];
 
         $this->actingAs($user, 'api');
@@ -342,6 +342,78 @@ class StoreTest extends TestCase
             'receiver' => 'receiver',
             'time' => $ts->toDateTimeString(),
             'message' => 'this is a test message',
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'), $messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_allstation_message_can_not_contain_0()
+    {
+        $user = User::factory()->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'thisisatestmessage0',
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'), $messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_allstation_message_can_not_contain_1()
+    {
+        $user = User::factory()->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'thisisatestmessage1',
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'), $messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_allstation_message_can_not_contain_8()
+    {
+        $user = User::factory()->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'thisisatestmessage8',
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'), $messageData)
+            ->assertStatus(302);
+    }
+
+    public function test_allstation_message_can_not_contain_9()
+    {
+        $user = User::factory()->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'thisisatestmessage9',
         ];
 
         $this->actingAs($user, 'api');

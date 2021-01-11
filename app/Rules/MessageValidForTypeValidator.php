@@ -10,7 +10,7 @@ class MessageValidForTypeValidator extends Validator
     {
         $regexRules = [
             'ALLSTATIONS' => [
-                '/[^a-zA-Z0-9]/' => false,
+                '/[^a-zA-Z2-7]/' => false,
             ],
             'SKYKING' => [
                 '/[a-zA-Z\s]*[^a-zA-Z\s]+[a-zA-Z\s]* TIME/' => false,
