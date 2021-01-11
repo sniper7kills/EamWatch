@@ -82,7 +82,7 @@
         mounted:function(){
             var date = new Date();
             var month = date.getUTCMonth() + 1
-            var day = date.getUTCDay() + 1
+            var day = date.getUTCDate()
             var hour = date.getUTCHours()
             var minute = date.getUTCMinutes()
             this.time = date.getUTCFullYear() 
