@@ -16,11 +16,11 @@
                 @else
                     <div class="alert alert-info alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-ban"></i> Info!</h5>
-                        This is still an early Alpha version of EAM.Watch v3
-                        Some things may not work exactly as expected; and not all features are implemented yet.
-
-                        Data will remain persistent.
+                        <h5><i class="icon fas fa-alert"></i> Info!</h5>
+                        Welcome to Eam.Watch V3!<br />
+                        This is a community log of Emergency Action Messages broadcasted through the High Frequency Global Communication System.<br />
+                        Please consider joining the community and adding the messages you capture while monitoring.<br />
+                        More details can be gained through our discord server.
                     </div>
                 @endif
                 <router-view></router-view>
