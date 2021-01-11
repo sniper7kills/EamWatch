@@ -79,6 +79,22 @@
                 message:null
             }
         },
+        mounted:function(){
+            var date = new Date();
+            var month = date.getUTCMonth() + 1
+            var day = date.getUTCDay() + 1
+            var hour = date.getUTCHours()
+            var minute = date.getUTCMinutes()
+            this.time = date.getUTCFullYear() 
+                + "-" 
+                + (month < 10 ? '0'+month : month)
+                + "-"
+                + (day < 10 ? '0'+day : day)
+                + "T"
+                + (hour < 10 ? '0'+hour : hour)
+                + ":"
+                + (minute < 10 ? '0'+minute : minute)
+        },
         methods: {
             submitMessage: function() {
                 this.$errors.flush();
