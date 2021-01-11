@@ -456,4 +456,22 @@ class StoreTest extends TestCase
         $this->post(route('messages.store'), $messageData)
             ->assertStatus(302);
     }
+
+    public function test_allstation_message_fails_if_containingaspace()
+    {
+        $user = User::factory()->create();
+        $ts = Carbon::now();
+
+        $messageData = [
+            'type' => 'allstations',
+            'sender' => 'sender',
+            'receiver' => 'receiver',
+            'time' => $ts->toDateTimeString(),
+            'message' => 'TEST MESSAGE',
+        ];
+
+        $this->actingAs($user, 'api');
+        $this->post(route('messages.store'), $messageData)
+            ->assertStatus(302);
+    }
 }
