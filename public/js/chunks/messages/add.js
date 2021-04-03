@@ -89,6 +89,14 @@ __webpack_require__.r(__webpack_exports__);
       message: null
     };
   },
+  mounted: function mounted() {
+    var date = new Date();
+    var month = date.getUTCMonth() + 1;
+    var day = date.getUTCDate();
+    var hour = date.getUTCHours();
+    var minute = date.getUTCMinutes();
+    this.time = date.getUTCFullYear() + "-" + (month < 10 ? '0' + month : month) + "-" + (day < 10 ? '0' + day : day) + "T" + (hour < 10 ? '0' + hour : hour) + ":" + (minute < 10 ? '0' + minute : minute);
+  },
   methods: {
     submitMessage: function submitMessage() {
       var _this = this;
