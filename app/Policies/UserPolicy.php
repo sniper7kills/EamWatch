@@ -63,7 +63,7 @@ class UserPolicy
             return Response::allow();
         }
 
-        if ($user->hasAnyPermission(['edit users', 'ban users', 'unban users'])) {
+        if ($user->hasAnyPermission(['edit users', 'ban users', 'unban users'], 'web')) {
             return Response::allow();
         }
 

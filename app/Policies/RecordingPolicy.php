@@ -66,7 +66,19 @@ class RecordingPolicy
      */
     public function delete(User $user, Recording $recording)
     {
-        return $user->can('delete recordings');
+        if ($user->can('delete recordings')) {
+            return true;
+        }
+
+        try {
+            if ($user->hasPermissionTo('delete recordings', 'web')) {
+                return true;
+            }
+        } catch (\Exception) {
+            //print("Exception");
+        }
+
+        return false;
     }
 
     /**

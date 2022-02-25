@@ -22,6 +22,10 @@ Vue.use(VueLoading);
 import LaravelVueValidator from 'laravel-vue2-validator'
 Vue.use(LaravelVueValidator);
 
+import Ads from 'vue-google-adsense'
+Vue.use(require('vue-script2'))
+Vue.use(Ads.AutoAdsense, { adClient: 'ca-pub-7269331059057339', isNewAdsCode: true })
+
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
     return response;

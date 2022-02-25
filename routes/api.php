@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 /*
@@ -17,12 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('Api')->group(function () {
-    Route::apiResource('messages', 'MessageController');
-    Route::apiResource('recordings', 'RecordingController');
-    Route::apiResource('comments', 'CommentController');
-    Route::apiResource('skykings', 'SkykingController')->only('index');
-    Route::apiResource('automatedRecordings', 'AutomatedRecordingController')->except(['delete', 'show']);
-    Route::apiResource('users', 'UserController')->only(['show', 'update']);
-    Route::apiResource('guests', 'GuestController')->only(['show', 'update']);
-});
+Route::apiResource('messages', Api\MessageController::class);
+Route::apiResource('recordings', Api\RecordingController::class);
+Route::apiResource('comments', Api\CommentController::class);
+Route::apiResource('skykings', Api\SkykingController::class)->only('index');
+Route::apiResource('automatedRecordings', Api\AutomatedRecordingController::class)->except(['delete', 'show']);
+Route::apiResource('users', Api\UserController::class)->only(['show', 'update']);
+Route::apiResource('guests', Api\GuestController::class)->only(['show', 'update']);

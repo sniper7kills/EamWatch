@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class CommentResource extends JsonResource
 {
     use GetCurrentUserOrGuest;
+
     /**
      * @var Comment
      */

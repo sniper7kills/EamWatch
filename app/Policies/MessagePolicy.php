@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
 use App\Policies\Concerns\UserOwnsResource;
+use Exception;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
@@ -58,15 +59,22 @@ class MessagePolicy
      */
     public function update(?User $user, Message $message)
     {
-        if (is_null($user) && ! Auth::guard('api')->guest()) {
+        if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (! is_null($user) && $user->can('update messages')) {
+        if (!is_null($user) && $user->can('update messages')) {
             return Response::allow();
         }
+        try {
+            if (!is_null($user) && $user->hasPermissionTo('update messages', 'web')) {
+                return Response::allow();
+            }
+        } catch (\Exception) {
+            //print("Exception");
+        }
 
-        if (! $this->userOwnsResource($user, $message)) {
+        if (!$this->userOwnsResource($user, $message)) {
             return Response::deny('You did not create this message');
         }
 
@@ -85,6 +93,14 @@ class MessagePolicy
         if ($user->can('delete messages')) {
             return Response::allow();
         }
+        try {
+            if ($user->hasPermissionTo('delete messages', 'web')) {
+                return Response::allow();
+            }
+        } catch (\Exception) {
+            print("Exception");
+        }
+
 
         return Response::deny('No Permission to delete messages');
     }

@@ -25,10 +25,17 @@ class ValidMessageTypeRule implements Rule
 
     public function __construct()
     {
-        if (! Auth::guest() || ! Auth::guard('api')->guest()) {
-            if (! Auth::guest()) {
+        if (!Auth::guest() || !Auth::guard('api')->guest()) {
+            if (!Auth::guest()) {
                 if (Auth::user()->can('create backend message')) {
                     $this->validMessageTypes[] = 'BACKEND';
+                }
+                try {
+                    if (Auth::user()->hasPermissionTo('create backend message', 'web')) {
+                        $this->validMessageTypes[] = 'BACKEND';
+                    }
+                } catch (\Exception) {
+                    //print("Exception");
                 }
             } else {
                 if (Auth::guard('api')->user()->can('create backend message')) {

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Concerns\GetCurrentUserOrGuest;
+use App\Http\Controllers\Api\UserController;
 use App\Models\Guest;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -10,7 +11,6 @@ use Spatie\ResourceLinks\HasLinks;
 
 class UserResource extends JsonResource
 {
-    use HasLinks;
     use GetCurrentUserOrGuest;
 
     /**
@@ -77,9 +77,11 @@ class UserResource extends JsonResource
         $email = 'None';
         if ($this->resource->getMorphClass() == User::class) {
             $email = '[REDACTED]';
-            if ($user->getMorphClass() == User::class &&
+            if (
+                $user->getMorphClass() == User::class &&
                 ($user->id == $this->resource->id
-                || $user->hasPermissionTo('edit users'))) {
+                    || $user->hasPermissionTo('edit users'))
+            ) {
                 $email = $this->resource->email;
             }
         }
@@ -111,6 +113,21 @@ class UserResource extends JsonResource
                 'unban' => $canUnban,
                 'self' => $this->resource->id == $user->id,
             ],
+            'links' => [
+                "show" => action([UserController::class, 'show'], $this),
+                "update" => action([UserController::class, 'update'], $this),
+            ],
+        ];
+    }
+
+    public static function meta()
+    {
+        return [
+            'links' => [
+                "index" => action([UserController::class, 'index']),
+                "create" => action([UserController::class, 'create']),
+                "store" => action([UserController::class, 'store']),
+            ]
         ];
     }
 }

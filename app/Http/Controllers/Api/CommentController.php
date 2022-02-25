@@ -40,7 +40,7 @@ class CommentController extends Controller
             $commentable = Recording::find($request['recording_id']);
         }
 
-        if (! array_key_exists('paginate', $request)) {
+        if (!array_key_exists('paginate', $request)) {
             $request['paginate'] = 15;
         }
 

@@ -31,7 +31,7 @@ class MessageValidForTypeValidator extends Validator
 
         foreach ($regexRules[$messageType] as $rule => $passes) {
             $results = preg_match_all($rule, $message);
-            if (!$passes && $results > 0) {
+            if (! $passes && $results > 0) {
                 return false;
             }
             if ($passes && $results == 0) {

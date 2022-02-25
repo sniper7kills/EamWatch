@@ -9,8 +9,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SkipperMigrations2020061400530712 extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -34,4 +33,4 @@ class SkipperMigrations2020061400530712 extends Migration
             $table->string('email')->after('name')->change();
         });
     }
-}
+};

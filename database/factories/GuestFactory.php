@@ -20,13 +20,6 @@ use Illuminate\Support\Str;
 class GuestFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Guest::class;
-
-    /**
      * Define the model's default state.
      *
      * @return array
@@ -34,7 +27,7 @@ class GuestFactory extends Factory
     public function definition()
     {
         return [
-            'ip' => $this->faker->ipv4,
+            'ip' => $this->faker->ipv4(),
             'banned' => false,
         ];
     }

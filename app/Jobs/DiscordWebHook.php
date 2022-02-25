@@ -51,39 +51,41 @@ class DiscordWebHook implements ShouldQueue
     {
         $providerDetails = json_decode($this->provider->details, true);
 
-        $response = Http::post($providerDetails['url'],
-        [
-            'wait' => true,
-            'username' => 'Eam.Watch',
-            'tts' => false,
-            'embeds' => [
-                [
-                    'title' => 'New '.$this->message->type.' Submitted',
-                    'type' => 'rich',
-                    'description' => $this->getFormattedMessage(),
-                    'url' => 'https://www.eam.watch/view/'.$this->message->id,
-                    'timestamp' => $this->message->time,
-                    'color' => hexdec('3366ff'),
-                    'author' => $this->getAuthorArray(),
-                    'fields' => $this->getEmbedFields(),
+        $response = Http::post(
+            $providerDetails['url'],
+            [
+                'wait' => true,
+                'username' => 'Eam.Watch',
+                'tts' => false,
+                'embeds' => [
+                    [
+                        'title' => 'New ' . $this->message->type . ' Submitted',
+                        'type' => 'rich',
+                        'description' => $this->getFormattedMessage(),
+                        'url' => 'https://www.eam.watch/view/' . $this->message->id,
+                        'timestamp' => $this->message->time,
+                        'color' => hexdec('3366ff'),
+                        'author' => $this->getAuthorArray(),
+                        'fields' => $this->getEmbedFields(),
+                    ],
                 ],
-            ],
-        ]);
+            ]
+        );
     }
 
     private function getAuthorArray()
     {
         $user = $this->message->userable;
-        if ($user->getMorphClass() == User::class) {
+        if ($user->displayRole() != "Guest") {
             return [
-                'name' => $user->name,
-                'url' => 'https://www.eam.watch/user/'.$user->id,
+                'name' => $user->displayRole() . " " . $user->name,
+                'url' => 'https://www.eam.watch/user/' . $user->id,
             ];
         }
 
         return [
-            'name' => 'Guest '.$user->id,
-            'url' => 'https://www.eam.watch/guest/'.$user->id,
+            'name' => 'Guest ' . $user->id,
+            'url' => 'https://www.eam.watch/guest/' . $user->id,
         ];
     }
 
@@ -112,7 +114,7 @@ class DiscordWebHook implements ShouldQueue
             ],
         ];
 
-        if (! is_null($this->message->receiver)) {
+        if (!is_null($this->message->receiver)) {
             $fields[0][] = [
                 'name' => 'Receiver',
                 'value' => $this->message->receiver,

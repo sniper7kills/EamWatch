@@ -6,11 +6,13 @@ use App\Models\Concerns\GeneratesUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends \App\Models\AbstractModels\AbstractComment
 {
     use HasFactory;
     use GeneratesUuid;
+    use SoftDeletes;
 
     /**
      * Set the userable properties for the model using a fake attribute.

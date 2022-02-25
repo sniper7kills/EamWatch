@@ -1,26 +1,17 @@
 version: '3'
 
-services: 
-  workspace:
-    image: cloudmyit/php-cicd:php-7.4
-    volumes:
-      - /srv/samba/sda/sniper7kills/EamWatch:/workspace:cached
-    command: /bin/sh -c "while sleep 1000; do :; done"
-    
+services:     
   app:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        # [Choice] PHP version: 7, 7.4, 7.3
-        VARIANT: "7"
-        # [Option] Install Node.js
-        INSTALL_NODE: "true"
+        # Update 'VARIANT' to pick a version of PHP version: 8, 8.1, 8.0, 7, 7.4
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local arm64/Apple Silicon.
+        VARIANT: "8.1"
+        # Optional Node.js version
         NODE_VERSION: "lts/*"
-        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
-        USER_UID: 1000
-        USER_GID: 1000
-
     volumes:
       - /srv/samba/sda/sniper7kills/EamWatch:/workspace:cached
 
