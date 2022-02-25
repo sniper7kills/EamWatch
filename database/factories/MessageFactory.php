@@ -20,13 +20,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class MessageFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Message::class;
-
-    /**
      * Define the model's default state.
      *
      * @return array
@@ -34,9 +27,9 @@ class MessageFactory extends Factory
     public function definition()
     {
         return [
-            'message' => $this->faker->word,
-            'sender' => $this->faker->word,
-            'receiver' => $this->faker->word,
+            'message' => $this->faker->word(),
+            'sender' => $this->faker->word(),
+            'receiver' => $this->faker->word(),
             'broadcast_ts' => Carbon::now(),
             'type' => 'BACKEND',
             'visible' => true,
