@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SpaController;
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Middleware\BannedMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Middleware\BannedMiddleware;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/banned', function () {
     return view('banned');
