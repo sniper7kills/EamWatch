@@ -20,6 +20,7 @@ use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
     use BanCheck;
+
     /**
      * The policy mappings for the application.
      *
