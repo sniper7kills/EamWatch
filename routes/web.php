@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SpaController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +28,7 @@ Route::get('/unauthorized', function () {
 Route::middleware(BannedMiddleware::class)->group(function () {
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+    Route::get('/{any}', [SpaController::class, 'index'])->where('any', '.*');
 });
