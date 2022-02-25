@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(125);
         Message::observe(MessageObserver::class);
 
         Validator::resolver(function ($translator, $data, $rules, $messages) {

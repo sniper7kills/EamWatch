@@ -2,14 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\AutomatedRecordingController;
 use App\Models\Recording;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Spatie\ResourceLinks\HasLinks;
 
 class AutomatedRecordingResource extends JsonResource
 {
-    use HasLinks;
-
     /**
      * @var Recording
      */
@@ -36,6 +34,21 @@ class AutomatedRecordingResource extends JsonResource
             'receiver' => $this->recording->receiver,
             'link' => $this->recording->link,
             'user' => \App\Http\Resources\Stub\UserResource::make($this->recording->userable),
+            'links' => [
+                "update" => action([AutomatedRecordingController::class, 'update'], $this),
+                "delete" => action([AutomatedRecordingController::class, 'destroy'], $this),
+            ],
+        ];
+    }
+
+    public static function meta()
+    {
+        return [
+            'links' => [
+                "index" => action([AutomatedRecordingController::class, 'index']),
+                "create" => action([AutomatedRecordingController::class, 'create']),
+                "store" => action([AutomatedRecordingController::class, 'store']),
+            ]
         ];
     }
 }

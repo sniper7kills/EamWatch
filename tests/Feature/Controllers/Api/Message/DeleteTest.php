@@ -23,7 +23,7 @@ class DeleteTest extends TestCase
         $message->user = $fakeGuest;
         $message->save();
 
-        $this->json('delete', route('messages.destroy', ['message'=>$message]))
+        $this->json('delete', route('messages.destroy', ['message' => $message]))
             ->assertStatus(401);
     }
 
@@ -35,7 +35,7 @@ class DeleteTest extends TestCase
         $message->save();
 
         $this->actingAs($user, 'api');
-        $this->json('delete', route('messages.destroy', ['message'=>$message]))
+        $this->json('delete', route('messages.destroy', ['message' => $message]))
             ->assertStatus(403);
     }
 
@@ -43,13 +43,19 @@ class DeleteTest extends TestCase
     {
         $user = User::factory()->create();
         $user->givePermissionTo('delete messages');
+        $user->save();
+
+        $this->assertTrue($user->can('delete messages'));
 
         $message = Message::factory()->make();
         $message->user = $user;
         $message->save();
 
+        $this->assertTrue($user->can('delete messages'));
         $this->actingAs($user, 'api');
-        $this->json('delete', route('messages.destroy', ['message'=>$message]))
+
+        $this->assertTrue($user->haspermissionTo('delete messages', 'web'));
+        $this->json('delete', route('messages.destroy', ['message' => $message]))
             ->assertStatus(204);
     }
 }

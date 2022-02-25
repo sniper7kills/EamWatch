@@ -28,7 +28,7 @@ class DeleteTest extends TestCase
         $recording->user = $fakeGuest;
         $recording->save();
 
-        $this->json('delete', route('recordings.destroy', ['recording'=>$recording]))
+        $this->json('delete', route('recordings.destroy', ['recording' => $recording]))
             ->assertStatus(403);
     }
 
@@ -44,7 +44,7 @@ class DeleteTest extends TestCase
         $recording->save();
 
         $this->actingAs($user, 'api');
-        $this->json('delete', route('recordings.destroy', ['recording'=>$recording]))
+        $this->json('delete', route('recordings.destroy', ['recording' => $recording]))
             ->assertStatus(403);
     }
 
@@ -60,8 +60,9 @@ class DeleteTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
+        $this->assertTrue($user->can('delete recordings'));
         $this->actingAs($user, 'api');
-        $this->json('delete', route('recordings.destroy', ['recording'=>$recording]))
+        $this->json('delete', route('recordings.destroy', ['recording' => $recording]))
             ->assertStatus(204);
     }
 }

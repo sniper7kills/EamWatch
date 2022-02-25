@@ -28,7 +28,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message',
         ];
 
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You did not create this message');
     }
@@ -45,7 +45,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message',
         ];
 
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You did not create this message');
     }
@@ -63,7 +63,7 @@ class UpdateTest extends TestCase
         ];
 
         $this->actingAs(User::factory()->make());
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You did not create this message');
     }
@@ -81,7 +81,7 @@ class UpdateTest extends TestCase
         ];
 
         $this->actingAs(User::factory()->make());
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You did not create this message');
     }
@@ -98,7 +98,7 @@ class UpdateTest extends TestCase
             'message' => 'NEW MESSAGE TIME 00 AUTH ZZ',
         ];
 
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -128,7 +128,7 @@ class UpdateTest extends TestCase
         ];
 
         $this->actingAs($user, 'api');
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -159,7 +159,7 @@ class UpdateTest extends TestCase
             'message' => 'This is a new message',
         ];
 
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -179,7 +179,7 @@ class UpdateTest extends TestCase
         ];
 
         $this->actingAs($user, 'api');
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -197,9 +197,10 @@ class UpdateTest extends TestCase
             'type' => 'skyking',
             'message' => 'NEW MESSAGE TIME 00 AUTH ZZ',
         ];
-
+        $this->assertTrue($user->can('update messages'));
         $this->actingAs($user, 'api');
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        //$this->assertTrue($user->haspermissionTo('update messages', 'web'));
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -231,7 +232,7 @@ class UpdateTest extends TestCase
         ];
 
         $this->actingAs($user, 'api');
-        $this->json('put', route('messages.update', ['message'=>$message]), $updateRequest)
+        $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
