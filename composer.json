@@ -22,7 +22,6 @@
         "league/csv": "^9.7",
         "spatie/laravel-permission": "^3.17",
         "spatie/laravel-resource-links": "^1.1",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1"
     },
     "require-dev": {
