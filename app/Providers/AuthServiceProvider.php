@@ -48,8 +48,6 @@ class AuthServiceProvider extends ServiceProvider
             return $this->checkBan($user);
         });
 
-        $this->registerPolicies();
-
         Passport::routes();
     }
 }
