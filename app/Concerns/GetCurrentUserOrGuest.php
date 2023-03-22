@@ -11,7 +11,7 @@ trait GetCurrentUserOrGuest
     /**
      * @return User | Guest
      */
-    protected function currentUserOrGuest()
+    protected function currentUserOrGuest(): User
     {
         if (Auth::guest() && Auth::guard('api')->guest()) {
             return Guest::current();

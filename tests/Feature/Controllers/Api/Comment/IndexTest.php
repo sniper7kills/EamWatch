@@ -9,13 +9,13 @@ use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
-    public function test_index_requires_message_or_recording_id()
+    public function test_index_requires_message_or_recording_id(): void
     {
         $this->json('get', route('comments.index'))
             ->assertStatus(422);
     }
 
-    public function test_index_requires_valid_message_id()
+    public function test_index_requires_valid_message_id(): void
     {
         $this->json('get', route('comments.index'), [
             'message_id' => 1,
@@ -23,7 +23,7 @@ class IndexTest extends TestCase
             ->assertStatus(422);
     }
 
-    public function test_index_requires_valid_recording_id()
+    public function test_index_requires_valid_recording_id(): void
     {
         $this->json('get', route('comments.index'), [
             'message_id' => 1,
@@ -31,7 +31,7 @@ class IndexTest extends TestCase
             ->assertStatus(422);
     }
 
-    public function test_index_is_paginated()
+    public function test_index_is_paginated(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();

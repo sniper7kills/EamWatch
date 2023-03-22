@@ -37,7 +37,7 @@ class PreviousSiteDataSeeder extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $user = \App\Models\User::firstOrCreate(
             ['name' => 'Data Migration User'],

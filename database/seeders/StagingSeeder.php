@@ -11,7 +11,7 @@ class StagingSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         for ($x = 0; $x < 100; $x++) {
             if ($x % 2 == 0) {

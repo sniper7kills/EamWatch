@@ -31,7 +31,7 @@ class RelayDelete implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->sendToProviders('delete');
     }

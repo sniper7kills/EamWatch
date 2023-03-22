@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class ShowTest extends TestCase
 {
-    public function test_show_unavailable_for_banned_users()
+    public function test_show_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -29,7 +29,7 @@ class ShowTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_show_unavailable_for_banned_guests()
+    public function test_show_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -47,7 +47,7 @@ class ShowTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_recording_show()
+    public function test_recording_show(): void
     {
         $user = Guest::current();
         $message = Message::factory()->make();

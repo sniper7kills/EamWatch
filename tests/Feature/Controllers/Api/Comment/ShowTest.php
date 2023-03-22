@@ -18,7 +18,7 @@ class ShowTest extends TestCase
         Permission::create(['name' => 'delete comments']);
     }
 
-    public function test_show_contains_update_and_delete_permissions_for_guest_who_created_comment()
+    public function test_show_contains_update_and_delete_permissions_for_guest_who_created_comment(): void
     {
         $guest = Guest::current();
         $message = Message::factory()->make();
@@ -46,7 +46,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_contains_update_and_delete_permissions_for_user_who_created_comment()
+    public function test_show_contains_update_and_delete_permissions_for_user_who_created_comment(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -75,7 +75,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_contains_update_permission_for_admin_with_update_permission()
+    public function test_show_contains_update_permission_for_admin_with_update_permission(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -107,7 +107,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_contains_delete_permission_for_admin_with_delete_permission()
+    public function test_show_contains_delete_permission_for_admin_with_delete_permission(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();

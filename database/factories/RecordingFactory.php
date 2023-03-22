@@ -22,7 +22,7 @@ class RecordingFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'broadcasted_at' => \Carbon\Carbon::now(),

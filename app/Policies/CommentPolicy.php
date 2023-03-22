@@ -20,7 +20,7 @@ class CommentPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return $this->checkBan($user);
     }
@@ -32,7 +32,7 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function view(?User $user, Comment $comment)
+    public function view(?User $user, Comment $comment): bool
     {
         return $this->checkBan($user);
     }
@@ -43,7 +43,7 @@ class CommentPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(?User $user)
+    public function create(?User $user): bool
     {
         return $this->checkBan($user);
     }
@@ -55,7 +55,7 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function update(?User $user, Comment $comment)
+    public function update(?User $user, Comment $comment): Response
     {
         if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
@@ -79,7 +79,7 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function delete(?User $user, Comment $comment)
+    public function delete(?User $user, Comment $comment): Response
     {
         if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
@@ -103,7 +103,7 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function restore(User $user, Comment $comment)
+    public function restore(User $user, Comment $comment): bool
     {
         //
     }
@@ -115,7 +115,7 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function forceDelete(User $user, Comment $comment)
+    public function forceDelete(User $user, Comment $comment): bool
     {
         //
     }

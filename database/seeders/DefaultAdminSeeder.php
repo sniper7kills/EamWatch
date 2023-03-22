@@ -11,7 +11,7 @@ class DefaultAdminSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $user = \App\Models\User::factory()->create([
             'name' => 'Eam.Watch Admin',

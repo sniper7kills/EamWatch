@@ -21,7 +21,7 @@ class MessagePolicy
      * @param  User  $user
      * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return $this->checkBan($user);
     }
@@ -33,7 +33,7 @@ class MessagePolicy
      * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function view(?User $user, Message $message)
+    public function view(?User $user, Message $message): bool
     {
         return $this->checkBan($user);
     }
@@ -44,7 +44,7 @@ class MessagePolicy
      * @param  User  $user
      * @return mixed
      */
-    public function create(?User $user)
+    public function create(?User $user): bool
     {
         return $this->checkBan($user);
     }
@@ -56,7 +56,7 @@ class MessagePolicy
      * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function update(?User $user, Message $message)
+    public function update(?User $user, Message $message): Response
     {
         if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
@@ -87,7 +87,7 @@ class MessagePolicy
      * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function delete(User $user, Message $message)
+    public function delete(User $user, Message $message): Response
     {
         if ($user->can('delete messages')) {
             return Response::allow();
@@ -110,7 +110,7 @@ class MessagePolicy
      * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function restore(User $user, Message $message)
+    public function restore(User $user, Message $message): bool
     {
         return $this->checkBan($user);
     }
@@ -122,7 +122,7 @@ class MessagePolicy
      * @param  \App\Models\Message  $message
      * @return mixed
      */
-    public function forceDelete(User $user, Message $message)
+    public function forceDelete(User $user, Message $message): bool
     {
         return $this->checkBan($user);
     }

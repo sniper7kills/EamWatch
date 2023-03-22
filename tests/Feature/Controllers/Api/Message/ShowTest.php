@@ -17,7 +17,7 @@ class ShowTest extends TestCase
         Permission::create(['name' => 'delete messages']);
     }
 
-    public function test_message_show()
+    public function test_message_show(): void
     {
         $guest = Guest::factory()->create();
         $message = Message::factory()->make();
@@ -48,7 +48,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_unavailable_for_banned_users()
+    public function test_show_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -63,7 +63,7 @@ class ShowTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_show_unavailable_for_banned_guests()
+    public function test_show_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -77,7 +77,7 @@ class ShowTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_show_contains_update_permissions_for_guest_who_created_message()
+    public function test_show_contains_update_permissions_for_guest_who_created_message(): void
     {
         $guest = Guest::current();
         $message = Message::factory()->make();
@@ -112,7 +112,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_contains_update_permissions_for_user_who_created_message()
+    public function test_show_contains_update_permissions_for_user_who_created_message(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -148,7 +148,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_contains_update_permissions_for_admin_with_update_permission()
+    public function test_show_contains_update_permissions_for_admin_with_update_permission(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -186,7 +186,7 @@ class ShowTest extends TestCase
             ]);
     }
 
-    public function test_show_contains_delete_permissions_for_admin_with_delete_permission()
+    public function test_show_contains_delete_permissions_for_admin_with_delete_permission(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();

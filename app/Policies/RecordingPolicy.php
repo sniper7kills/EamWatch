@@ -17,7 +17,7 @@ class RecordingPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): bool
     {
         return $this->checkBan($user);
     }
@@ -29,7 +29,7 @@ class RecordingPolicy
      * @param  \App\Models\Recording  $recording
      * @return mixed
      */
-    public function view(?User $user, Recording $recording)
+    public function view(?User $user, Recording $recording): bool
     {
         return $this->checkBan($user);
     }
@@ -40,7 +40,7 @@ class RecordingPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(?User $user)
+    public function create(?User $user): bool
     {
         return $this->checkBan($user);
     }
@@ -52,7 +52,7 @@ class RecordingPolicy
      * @param  \App\Models\Recording  $recording
      * @return mixed
      */
-    public function update(?User $user, Recording $recording)
+    public function update(?User $user, Recording $recording): bool
     {
         return $this->checkBan($user);
     }
@@ -64,7 +64,7 @@ class RecordingPolicy
      * @param  \App\Models\Recording  $recording
      * @return mixed
      */
-    public function delete(User $user, Recording $recording)
+    public function delete(User $user, Recording $recording): bool
     {
         if ($user->can('delete recordings')) {
             return true;
@@ -88,7 +88,7 @@ class RecordingPolicy
      * @param  \App\Models\Recording  $recording
      * @return mixed
      */
-    public function restore(User $user, Recording $recording)
+    public function restore(User $user, Recording $recording): bool
     {
         //
     }
@@ -100,7 +100,7 @@ class RecordingPolicy
      * @param  \App\Models\Recording  $recording
      * @return mixed
      */
-    public function forceDelete(User $user, Recording $recording)
+    public function forceDelete(User $user, Recording $recording): bool
     {
         //
     }

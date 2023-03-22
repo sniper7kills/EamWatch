@@ -17,7 +17,7 @@ class StoreTest extends TestCase
         Permission::create(['name' => 'create backend message']);
     }
 
-    public function test_store_unavailable_for_banned_users()
+    public function test_store_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -38,7 +38,7 @@ class StoreTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_store_unavailable_for_banned_guests()
+    public function test_store_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -58,7 +58,7 @@ class StoreTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_store_as_guest()
+    public function test_store_as_guest(): void
     {
         $guest = Guest::current();
         $ts = Carbon::now()->toDateTimeString();
@@ -87,7 +87,7 @@ class StoreTest extends TestCase
             ]);
     }
 
-    public function test_store_as_user()
+    public function test_store_as_user(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now()->toDateTimeString();
@@ -120,7 +120,7 @@ class StoreTest extends TestCase
     /**
      * Message Validation Rules.
      */
-    public function test_store_message_can_not_contain_http_link()
+    public function test_store_message_can_not_contain_http_link(): void
     {
         $ts = Carbon::now()->toDateTimeString();
 
@@ -137,7 +137,7 @@ class StoreTest extends TestCase
             ->assertSee('The input appears to be spam.');
     }
 
-    public function test_store_message_can_not_contain_https_link()
+    public function test_store_message_can_not_contain_https_link(): void
     {
         $ts = Carbon::now()->toDateTimeString();
 
@@ -154,7 +154,7 @@ class StoreTest extends TestCase
             ->assertSee('The input appears to be spam.');
     }
 
-    public function test_store_message_can_not_contain_a_href()
+    public function test_store_message_can_not_contain_a_href(): void
     {
         $ts = Carbon::now()->toDateTimeString();
 
@@ -171,7 +171,7 @@ class StoreTest extends TestCase
             ->assertSee('The input appears to be spam.');
     }
 
-    public function test_store_message_can_not_contain_url_tag()
+    public function test_store_message_can_not_contain_url_tag(): void
     {
         $ts = Carbon::now()->toDateTimeString();
 
@@ -191,7 +191,7 @@ class StoreTest extends TestCase
     /**
      * Type Validation.
      */
-    public function test_store_message_type_must_be_valid()
+    public function test_store_message_type_must_be_valid(): void
     {
         $ts = Carbon::now()->toDateTimeString();
 
@@ -208,7 +208,7 @@ class StoreTest extends TestCase
             ->assertSee('Invalid Message Type Selected');
     }
 
-    public function test_store_message_type_can_not_be_backend_for_guests()
+    public function test_store_message_type_can_not_be_backend_for_guests(): void
     {
         $ts = Carbon::now()->toDateTimeString();
 
@@ -225,7 +225,7 @@ class StoreTest extends TestCase
             ->assertSee('Invalid Message Type Selected');
     }
 
-    public function test_store_message_type_can_not_be_backend_for_users()
+    public function test_store_message_type_can_not_be_backend_for_users(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now()->toDateTimeString();
@@ -247,7 +247,7 @@ class StoreTest extends TestCase
     /**
      * Admin Related Tests.
      */
-    public function test_store_message_type_can_be_backend_for_admins()
+    public function test_store_message_type_can_be_backend_for_admins(): void
     {
         $user = User::factory()->create();
         $user->givePermissionTo('create backend message');
@@ -278,7 +278,7 @@ class StoreTest extends TestCase
             ]);
     }
 
-    public function test_radiocheck_does_not_require_a_receiver()
+    public function test_radiocheck_does_not_require_a_receiver(): void
     {
         $guest = Guest::current();
         $ts = Carbon::now()->toDateTimeString();
@@ -306,7 +306,7 @@ class StoreTest extends TestCase
             ]);
     }
 
-    public function test_message_can_not_be_the_same_within_3_min()
+    public function test_message_can_not_be_the_same_within_3_min(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -331,7 +331,7 @@ class StoreTest extends TestCase
         $this->assertCount(1, Message::all());
     }
 
-    public function test_allstation_message_can_not_contain_spaces()
+    public function test_allstation_message_can_not_contain_spaces(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -349,7 +349,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_allstation_message_can_not_contain_0()
+    public function test_allstation_message_can_not_contain_0(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -367,7 +367,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_allstation_message_can_not_contain_1()
+    public function test_allstation_message_can_not_contain_1(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -385,7 +385,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_allstation_message_can_not_contain_8()
+    public function test_allstation_message_can_not_contain_8(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -403,7 +403,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_allstation_message_can_not_contain_9()
+    public function test_allstation_message_can_not_contain_9(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -421,7 +421,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_allstation_message_can_not_contain_dashes()
+    public function test_allstation_message_can_not_contain_dashes(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -439,7 +439,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_skyking_message_must_follow_regex()
+    public function test_skyking_message_must_follow_regex(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -457,7 +457,7 @@ class StoreTest extends TestCase
             ->assertStatus(201);
     }
 
-    public function test_skyking_message_must_only_contain_alpha_numerica_before_time()
+    public function test_skyking_message_must_only_contain_alpha_numerica_before_time(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -475,7 +475,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_skyking_message_must_only_contain_numerica_for_time()
+    public function test_skyking_message_must_only_contain_numerica_for_time(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -493,7 +493,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_skyking_message_must_only_contain_alpha_for_auth()
+    public function test_skyking_message_must_only_contain_alpha_for_auth(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -511,7 +511,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_skyking_message_fails_if_not_proper_format()
+    public function test_skyking_message_fails_if_not_proper_format(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();
@@ -529,7 +529,7 @@ class StoreTest extends TestCase
             ->assertStatus(302);
     }
 
-    public function test_allstation_message_fails_if_containingaspace()
+    public function test_allstation_message_fails_if_containingaspace(): void
     {
         $user = User::factory()->create();
         $ts = Carbon::now();

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
@@ -27,7 +29,7 @@ class MessageController extends Controller
      * @param  Request  $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $messages = Message::where('visible', true)->orderBy('broadcast_ts', 'DESC')->orderBy('created_at', 'DESC')->paginate($request->get('paginate', 15));
 
@@ -40,7 +42,7 @@ class MessageController extends Controller
      * @param  MessageStoreRequest  $request
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function store(MessageStoreRequest $request)
+    public function store(MessageStoreRequest $request): JsonResponse
     {
         $request = $request->validated();
 
@@ -63,7 +65,7 @@ class MessageController extends Controller
      * @param  Message  $message
      * @return MessageResource
      */
-    public function show(Message $message)
+    public function show(Message $message): MessageResource
     {
         return MessageResource::make($message);
     }
@@ -75,7 +77,7 @@ class MessageController extends Controller
      * @param  Message  $message
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function update(MessageUpdateRequest $request, Message $message)
+    public function update(MessageUpdateRequest $request, Message $message): JsonResponse
     {
         $request = $request->validated();
 
@@ -97,7 +99,7 @@ class MessageController extends Controller
      * @param  Message  $message
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Message $message)
+    public function destroy(Message $message): JsonResponse
     {
         $message->delete();
 
@@ -111,7 +113,7 @@ class MessageController extends Controller
      * @param  Message|null  $existingMessage
      * @return Message|null
      */
-    private function getExistingMessage(array $request, Message $existingMessage = null)
+    private function getExistingMessage(array $request, Message $existingMessage = null): ?Message
     {
         $message = Message::query();
 

@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
-    public function test_index_unavailable_for_banned_users()
+    public function test_index_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -24,7 +24,7 @@ class IndexTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_index_unavailable_for_banned_guests()
+    public function test_index_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -38,7 +38,7 @@ class IndexTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_index_displays_paginated_data()
+    public function test_index_displays_paginated_data(): void
     {
         $user = Guest::current();
         $recording = Recording::factory()->make(['automated' => true]);

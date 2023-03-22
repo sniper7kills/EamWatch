@@ -23,7 +23,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return UserResource
      */
-    public function show(User $user)
+    public function show(User $user): UserResource
     {
         return new UserResource($user);
     }
@@ -35,7 +35,7 @@ class UserController extends Controller
      * @param  User  $user
      * @return UserResource
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user): UserResource
     {
         $data = $request->validated();
 

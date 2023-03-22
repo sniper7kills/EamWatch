@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Api\UserController;
 use App\Models\Guest;
@@ -29,7 +30,7 @@ class UserResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         $user = $this->currentUserOrGuest();
 

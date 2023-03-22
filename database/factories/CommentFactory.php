@@ -22,7 +22,7 @@ class CommentFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'message' => $this->faker->paragraph(),

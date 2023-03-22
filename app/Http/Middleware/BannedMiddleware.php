@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 use App\Models\Guest;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,7 @@ class BannedMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guest()) {
             if (Guest::current()->banned) {

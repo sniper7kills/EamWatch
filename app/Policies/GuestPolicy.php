@@ -18,7 +18,7 @@ class GuestPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         //
     }
@@ -30,7 +30,7 @@ class GuestPolicy
      * @param  \App\Models\Guest  $guest
      * @return mixed
      */
-    public function view(?User $user, Guest $guest)
+    public function view(?User $user, Guest $guest): bool
     {
         return $this->checkBan($user);
     }
@@ -41,7 +41,7 @@ class GuestPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         //
     }
@@ -53,7 +53,7 @@ class GuestPolicy
      * @param  \App\Models\Guest  $guest
      * @return mixed
      */
-    public function update(User $user, Guest $guest)
+    public function update(User $user, Guest $guest): Response
     {
         $response = $this->checkBan($user);
         if ($response->denied()) {
@@ -74,7 +74,7 @@ class GuestPolicy
      * @param  \App\Models\Guest  $guest
      * @return mixed
      */
-    public function delete(User $user, Guest $guest)
+    public function delete(User $user, Guest $guest): bool
     {
         //
     }
@@ -86,7 +86,7 @@ class GuestPolicy
      * @param  \App\Models\Guest  $guest
      * @return mixed
      */
-    public function restore(User $user, Guest $guest)
+    public function restore(User $user, Guest $guest): bool
     {
         //
     }
@@ -98,7 +98,7 @@ class GuestPolicy
      * @param  \App\Models\Guest  $guest
      * @return mixed
      */
-    public function forceDelete(User $user, Guest $guest)
+    public function forceDelete(User $user, Guest $guest): bool
     {
         //
     }

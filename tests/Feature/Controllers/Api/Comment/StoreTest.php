@@ -18,7 +18,7 @@ class StoreTest extends TestCase
         Permission::create(['name' => 'delete comments']);
     }
 
-    public function test_banned_guests_can_not_create_comment()
+    public function test_banned_guests_can_not_create_comment(): void
     {
         $guest = Guest::current();
         $guest->banned = true;
@@ -37,7 +37,7 @@ class StoreTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function test_banned_users_can_not_create_comment()
+    public function test_banned_users_can_not_create_comment(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -57,7 +57,7 @@ class StoreTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function test_message_id_or_recording_id_required()
+    public function test_message_id_or_recording_id_required(): void
     {
         $user = User::factory()->create();
 
@@ -70,7 +70,7 @@ class StoreTest extends TestCase
             ->assertStatus(422);
     }
 
-    public function test_guest_can_create_comment_on_message()
+    public function test_guest_can_create_comment_on_message(): void
     {
         $user = Guest::current();
 
@@ -87,7 +87,7 @@ class StoreTest extends TestCase
             ->assertStatus(201);
     }
 
-    public function test_user_can_create_comment_on_message()
+    public function test_user_can_create_comment_on_message(): void
     {
         $user = User::factory()->create();
 
@@ -105,7 +105,7 @@ class StoreTest extends TestCase
             ->assertStatus(201);
     }
 
-    public function test_guest_can_create_comment_on_recording()
+    public function test_guest_can_create_comment_on_recording(): void
     {
         $user = Guest::current();
 
@@ -127,7 +127,7 @@ class StoreTest extends TestCase
             ->assertStatus(201);
     }
 
-    public function test_user_can_create_comment_on_recording()
+    public function test_user_can_create_comment_on_recording(): void
     {
         $user = User::factory()->create();
 

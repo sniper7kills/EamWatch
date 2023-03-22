@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecordingStoreRequest;
@@ -26,7 +27,7 @@ class RecordingController extends Controller
      * @param  RecordingStoreRequest  $request
      * @return RecordingResource
      */
-    public function store(RecordingStoreRequest $request)
+    public function store(RecordingStoreRequest $request): RecordingResource
     {
         $request = $request->validated();
 
@@ -54,7 +55,7 @@ class RecordingController extends Controller
      * @param  Recording  $recording
      * @return RecordingResource
      */
-    public function show(Recording $recording)
+    public function show(Recording $recording): RecordingResource
     {
         return RecordingResource::make($recording);
     }
@@ -77,7 +78,7 @@ class RecordingController extends Controller
      * @param  Recording  $recording
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Recording $recording)
+    public function destroy(Recording $recording): JsonResponse
     {
         $recording->delete();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Stub;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AutomatedRecordingResource extends JsonResource
@@ -12,7 +13,7 @@ class AutomatedRecordingResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return parent::toArray($request);
     }

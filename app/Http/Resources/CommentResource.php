@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Resources\Stub\MessageResource;
 use App\Models\Comment;
@@ -29,7 +30,7 @@ class CommentResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         $canUpdate = false;
 

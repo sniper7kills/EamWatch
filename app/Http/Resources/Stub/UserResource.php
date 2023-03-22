@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Stub;
 
+use Illuminate\Http\Request;
 use App\Models\Guest;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -14,7 +15,7 @@ class UserResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
             $this->mergeWhen($this->resource->getMorphClass() == User::class, [

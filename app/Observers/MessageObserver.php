@@ -14,7 +14,7 @@ class MessageObserver
      * @param  \App\Models\Message  $message
      * @return void
      */
-    public function created(Message $message)
+    public function created(Message $message): void
     {
         dispatch(new RelaySend($message));
     }
@@ -25,7 +25,7 @@ class MessageObserver
      * @param  \App\Models\Message  $message
      * @return void
      */
-    public function updated(Message $message)
+    public function updated(Message $message): void
     {
         //
     }
@@ -36,7 +36,7 @@ class MessageObserver
      * @param  \App\Models\Message  $message
      * @return void
      */
-    public function deleted(Message $message)
+    public function deleted(Message $message): void
     {
         dispatch(new RelayDelete($message));
     }
@@ -47,7 +47,7 @@ class MessageObserver
      * @param  \App\Models\Message  $message
      * @return void
      */
-    public function restored(Message $message)
+    public function restored(Message $message): void
     {
         //
     }
@@ -58,7 +58,7 @@ class MessageObserver
      * @param  \App\Models\Message  $message
      * @return void
      */
-    public function forceDeleted(Message $message)
+    public function forceDeleted(Message $message): void
     {
         //
     }

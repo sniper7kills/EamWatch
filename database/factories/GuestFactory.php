@@ -22,7 +22,7 @@ class GuestFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'ip' => $this->faker->ipv4(),

@@ -50,7 +50,7 @@ class TwitterHandler implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->action == 'create') {
             $this->createPost();

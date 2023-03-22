@@ -13,7 +13,7 @@ class RolesAndPermissionsSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         /**
          * Create Roles.

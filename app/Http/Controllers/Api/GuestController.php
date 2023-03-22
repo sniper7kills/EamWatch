@@ -22,7 +22,7 @@ class GuestController extends Controller
      * @param  \App\Models\Guest  $guest
      * @return UserResource
      */
-    public function show(Guest $guest)
+    public function show(Guest $guest): UserResource
     {
         return new UserResource($guest);
     }
@@ -34,7 +34,7 @@ class GuestController extends Controller
      * @param  \App\Models\Guest  $guest
      * @return UserResource
      */
-    public function update(GuestUpdateRequest $request, Guest $guest)
+    public function update(GuestUpdateRequest $request, Guest $guest): UserResource
     {
         $data = $request->validated();
 

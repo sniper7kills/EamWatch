@@ -52,7 +52,7 @@ class ValidMessageTypeRule implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes(string $attribute, $value): bool
     {
         return in_array(strtoupper($value), $this->validMessageTypes);
     }
@@ -62,7 +62,7 @@ class ValidMessageTypeRule implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'Invalid Message Type Selected';
     }

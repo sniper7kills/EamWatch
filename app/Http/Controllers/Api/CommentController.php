@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentIndexRequest;
@@ -28,7 +30,7 @@ class CommentController extends Controller
      * @param  Request  $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(CommentIndexRequest $request)
+    public function index(CommentIndexRequest $request): AnonymousResourceCollection
     {
         $request = $request->validated();
         $commentable = null;
@@ -53,7 +55,7 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return CommentResource
      */
-    public function store(CommentStoreRequest $request)
+    public function store(CommentStoreRequest $request): CommentResource
     {
         $request = $request->validated();
         $comment = new Comment($request);
@@ -77,7 +79,7 @@ class CommentController extends Controller
      * @param  Comment  $comment
      * @return CommentResource
      */
-    public function show(Comment $comment)
+    public function show(Comment $comment): CommentResource
     {
         return CommentResource::make($comment);
     }
@@ -102,7 +104,7 @@ class CommentController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment): JsonResponse
     {
         $comment->delete();
 
