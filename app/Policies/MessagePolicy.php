@@ -98,7 +98,7 @@ class MessagePolicy
                 return Response::allow();
             }
         } catch (\Exception) {
-            print("Exception");
+            // print("Exception");
         }
 
 
