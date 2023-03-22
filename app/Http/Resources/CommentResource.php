@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Resources\Stub\MessageResource;
 use App\Models\Comment;
 use App\Models\Guest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommentResource extends JsonResource

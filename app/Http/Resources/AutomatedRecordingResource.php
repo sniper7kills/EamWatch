@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AutomatedRecordingController;
 use App\Models\Recording;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AutomatedRecordingResource extends JsonResource

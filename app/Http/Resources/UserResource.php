@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Api\UserController;
 use App\Models\Guest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource

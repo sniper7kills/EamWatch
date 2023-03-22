@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\JsonResponse;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentIndexRequest;
@@ -13,7 +11,8 @@ use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Recording;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CommentController extends Controller
 {

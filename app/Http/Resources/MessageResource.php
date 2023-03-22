@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Resources\Stub\CommentResource as CommentResourceStub;
@@ -11,6 +10,7 @@ use App\Http\Resources\Stub\UserResource as UserResourceStub;
 use App\Models\Guest;
 use App\Models\Message;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MessageResource extends JsonResource

@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\Stub;
 
-use Illuminate\Http\Request;
 use App\Models\Message;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MessageResource extends JsonResource
