@@ -16,8 +16,6 @@ class Comment extends \App\Models\AbstractModels\AbstractComment
 
     /**
      * Set the userable properties for the model using a fake attribute.
-     *
-     * @param  Model  $user
      */
     public function setUserAttribute(Model $user)
     {

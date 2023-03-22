@@ -17,9 +17,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can view any messages.
-     *
-     * @param  User  $user
-     * @return mixed
      */
     public function viewAny(?User $user): bool
     {
@@ -28,10 +25,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can view the message.
-     *
-     * @param  User  $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
     public function view(?User $user, Message $message): bool
     {
@@ -40,9 +33,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can create messages.
-     *
-     * @param  User  $user
-     * @return mixed
      */
     public function create(?User $user): bool
     {
@@ -51,10 +41,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can update the message.
-     *
-     * @param  User  $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
     public function update(?User $user, Message $message): Response
     {
@@ -82,10 +68,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can delete the message.
-     *
-     * @param  User  $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
     public function delete(User $user, Message $message): Response
     {
@@ -105,10 +87,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can restore the message.
-     *
-     * @param  User  $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
     public function restore(User $user, Message $message): bool
     {
@@ -117,10 +95,6 @@ class MessagePolicy
 
     /**
      * Determine whether the user can permanently delete the message.
-     *
-     * @param  User  $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
     public function forceDelete(User $user, Message $message): bool
     {

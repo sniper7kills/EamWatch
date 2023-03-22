@@ -25,9 +25,6 @@ class MessageController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param  Request  $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request): AnonymousResourceCollection
     {
@@ -39,7 +36,6 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  MessageStoreRequest  $request
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
     public function store(MessageStoreRequest $request): JsonResponse
@@ -61,9 +57,6 @@ class MessageController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  Message  $message
-     * @return MessageResource
      */
     public function show(Message $message): MessageResource
     {
@@ -73,8 +66,6 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  MessageUpdateRequest  $request
-     * @param  Message  $message
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
     public function update(MessageUpdateRequest $request, Message $message): JsonResponse
@@ -95,9 +86,6 @@ class MessageController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Message  $message
-     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Message $message): JsonResponse
     {
@@ -108,10 +96,6 @@ class MessageController extends Controller
 
     /**
      * Get an existing message based on the request.
-     *
-     * @param  array  $request
-     * @param  Message|null  $existingMessage
-     * @return Message|null
      */
     private function getExistingMessage(array $request, Message $existingMessage = null): ?Message
     {

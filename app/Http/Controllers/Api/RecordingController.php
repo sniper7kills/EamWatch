@@ -23,9 +23,6 @@ class RecordingController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  RecordingStoreRequest  $request
-     * @return RecordingResource
      */
     public function store(RecordingStoreRequest $request): RecordingResource
     {
@@ -51,9 +48,6 @@ class RecordingController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  Recording  $recording
-     * @return RecordingResource
      */
     public function show(Recording $recording): RecordingResource
     {
@@ -63,8 +57,6 @@ class RecordingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Recording  $recording
      * @return void
      */
     public function update(Request $request, Recording $recording)
@@ -74,9 +66,6 @@ class RecordingController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Recording  $recording
-     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Recording $recording): JsonResponse
     {

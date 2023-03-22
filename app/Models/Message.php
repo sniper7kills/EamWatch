@@ -67,8 +67,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the userable properties for the model using a fake attribute.
-     *
-     * @param  Model  $user
      */
     public function setUserAttribute(Model $user)
     {
@@ -88,8 +86,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Returns the 5 newest comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getLastFiveCommentsAttribute(): Collection
     {
@@ -98,8 +94,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Returns the 5 newest recordings.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getLastFiveRecordingsAttribute(): Collection
     {
