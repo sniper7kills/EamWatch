@@ -79,7 +79,7 @@ class MessagePolicy
                 return Response::allow();
             }
         } catch (\Exception) {
-            echo 'Exception';
+            // print("Exception");
         }
 
         return Response::deny('No Permission to delete messages');
