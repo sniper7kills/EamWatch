@@ -6,11 +6,9 @@ use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecordingStoreRequest;
 use App\Http\Resources\RecordingResource;
-use App\Models\Guest;
 use App\Models\Message;
 use App\Models\Recording;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RecordingController extends Controller
@@ -25,7 +23,7 @@ class RecordingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param RecordingStoreRequest $request
+     * @param  RecordingStoreRequest  $request
      * @return RecordingResource
      */
     public function store(RecordingStoreRequest $request)
@@ -53,7 +51,7 @@ class RecordingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Recording $recording
+     * @param  Recording  $recording
      * @return RecordingResource
      */
     public function show(Recording $recording)
@@ -64,8 +62,8 @@ class RecordingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Recording $recording
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Recording  $recording
      * @return void
      */
     public function update(Request $request, Recording $recording)
@@ -76,7 +74,7 @@ class RecordingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Recording $recording
+     * @param  Recording  $recording
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Recording $recording)

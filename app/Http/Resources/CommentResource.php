@@ -7,7 +7,6 @@ use App\Http\Resources\Stub\MessageResource;
 use App\Models\Comment;
 use App\Models\Guest;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
 class CommentResource extends JsonResource
 {

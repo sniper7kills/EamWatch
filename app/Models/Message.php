@@ -67,7 +67,7 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
     /**
      * Set the userable properties for the model using a fake attribute.
      *
-     * @param Model $user
+     * @param  Model  $user
      */
     public function setUserAttribute(Model $user)
     {

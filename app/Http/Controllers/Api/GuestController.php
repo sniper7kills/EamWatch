@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GuestUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Guest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GuestController extends Controller

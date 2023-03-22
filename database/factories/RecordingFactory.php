@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Recording;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------

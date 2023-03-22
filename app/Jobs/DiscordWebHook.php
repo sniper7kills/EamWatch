@@ -11,7 +11,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class DiscordWebHook implements ShouldQueue
 {
@@ -59,10 +58,10 @@ class DiscordWebHook implements ShouldQueue
                 'tts' => false,
                 'embeds' => [
                     [
-                        'title' => 'New ' . $this->message->type . ' Submitted',
+                        'title' => 'New '.$this->message->type.' Submitted',
                         'type' => 'rich',
                         'description' => $this->getFormattedMessage(),
-                        'url' => 'https://www.eam.watch/view/' . $this->message->id,
+                        'url' => 'https://www.eam.watch/view/'.$this->message->id,
                         'timestamp' => $this->message->time,
                         'color' => hexdec('3366ff'),
                         'author' => $this->getAuthorArray(),
@@ -76,16 +75,16 @@ class DiscordWebHook implements ShouldQueue
     private function getAuthorArray()
     {
         $user = $this->message->userable;
-        if ($user->displayRole() != "Guest") {
+        if ($user->displayRole() != 'Guest') {
             return [
-                'name' => $user->displayRole() . " " . $user->name,
-                'url' => 'https://www.eam.watch/user/' . $user->id,
+                'name' => $user->displayRole().' '.$user->name,
+                'url' => 'https://www.eam.watch/user/'.$user->id,
             ];
         }
 
         return [
-            'name' => 'Guest ' . $user->id,
-            'url' => 'https://www.eam.watch/guest/' . $user->id,
+            'name' => 'Guest '.$user->id,
+            'url' => 'https://www.eam.watch/guest/'.$user->id,
         ];
     }
 
@@ -114,7 +113,7 @@ class DiscordWebHook implements ShouldQueue
             ],
         ];
 
-        if (!is_null($this->message->receiver)) {
+        if (! is_null($this->message->receiver)) {
             $fields[0][] = [
                 'name' => 'Receiver',
                 'value' => $this->message->receiver,

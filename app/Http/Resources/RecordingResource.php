@@ -8,7 +8,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class RecordingResource extends JsonResource
 {
-
     /**
      * @var Recording
      */
@@ -37,9 +36,9 @@ class RecordingResource extends JsonResource
             'message' => \App\Http\Resources\Stub\MessageResource::make($this->recording->message),
             'user' => \App\Http\Resources\Stub\UserResource::make($this->recording->userable),
             'links' => [
-                "show" => action([RecordingController::class, 'show'], $this),
-                "update" => action([RecordingController::class, 'update'], $this),
-                "delete" => action([RecordingController::class, 'destroy'], $this),
+                'show' => action([RecordingController::class, 'show'], $this),
+                'update' => action([RecordingController::class, 'update'], $this),
+                'delete' => action([RecordingController::class, 'destroy'], $this),
             ],
         ];
     }
@@ -48,10 +47,10 @@ class RecordingResource extends JsonResource
     {
         return [
             'links' => [
-                "index" => action([RecordingController::class, 'index']),
-                "create" => action([RecordingController::class, 'create']),
-                "store" => action([RecordingController::class, 'store']),
-            ]
+                'index' => action([RecordingController::class, 'index']),
+                'create' => action([RecordingController::class, 'create']),
+                'store' => action([RecordingController::class, 'store']),
+            ],
         ];
     }
 }

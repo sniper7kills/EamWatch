@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers\Api\Comment;
 
 use App\Models\Comment;
-use App\Models\Guest;
 use App\Models\Message;
 use App\Models\User;
 use Tests\TestCase;

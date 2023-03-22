@@ -35,8 +35,8 @@ class AutomatedRecordingResource extends JsonResource
             'link' => $this->recording->link,
             'user' => \App\Http\Resources\Stub\UserResource::make($this->recording->userable),
             'links' => [
-                "update" => action([AutomatedRecordingController::class, 'update'], $this),
-                "delete" => action([AutomatedRecordingController::class, 'destroy'], $this),
+                'update' => action([AutomatedRecordingController::class, 'update'], $this),
+                'delete' => action([AutomatedRecordingController::class, 'destroy'], $this),
             ],
         ];
     }
@@ -45,10 +45,10 @@ class AutomatedRecordingResource extends JsonResource
     {
         return [
             'links' => [
-                "index" => action([AutomatedRecordingController::class, 'index']),
-                "create" => action([AutomatedRecordingController::class, 'create']),
-                "store" => action([AutomatedRecordingController::class, 'store']),
-            ]
+                'index' => action([AutomatedRecordingController::class, 'index']),
+                'create' => action([AutomatedRecordingController::class, 'create']),
+                'store' => action([AutomatedRecordingController::class, 'store']),
+            ],
         ];
     }
 }

@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\UserController;
 use App\Models\Guest;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Spatie\ResourceLinks\HasLinks;
 
 class UserResource extends JsonResource
 {
@@ -114,8 +113,8 @@ class UserResource extends JsonResource
                 'self' => $this->resource->id == $user->id,
             ],
             'links' => [
-                "show" => action([UserController::class, 'show'], $this),
-                "update" => action([UserController::class, 'update'], $this),
+                'show' => action([UserController::class, 'show'], $this),
+                'update' => action([UserController::class, 'update'], $this),
             ],
         ];
     }
@@ -124,10 +123,10 @@ class UserResource extends JsonResource
     {
         return [
             'links' => [
-                "index" => action([UserController::class, 'index']),
-                "create" => action([UserController::class, 'create']),
-                "store" => action([UserController::class, 'store']),
-            ]
+                'index' => action([UserController::class, 'index']),
+                'create' => action([UserController::class, 'create']),
+                'store' => action([UserController::class, 'store']),
+            ],
         ];
     }
 }

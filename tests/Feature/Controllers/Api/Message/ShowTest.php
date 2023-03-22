@@ -24,7 +24,7 @@ class ShowTest extends TestCase
         $message->user = $guest;
         $message->save();
 
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -58,7 +58,7 @@ class ShowTest extends TestCase
         $message->save();
 
         $this->actingAs($user, 'api');
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -72,7 +72,7 @@ class ShowTest extends TestCase
         $message->user = $user;
         $message->save();
 
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
@@ -84,7 +84,7 @@ class ShowTest extends TestCase
         $message->user = $guest;
         $message->save();
 
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -120,7 +120,7 @@ class ShowTest extends TestCase
         $message->save();
 
         $this->actingAs($user, 'api');
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -158,7 +158,7 @@ class ShowTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('update messages');
         $this->actingAs($admin);
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -196,7 +196,7 @@ class ShowTest extends TestCase
         $admin = User::factory()->create();
         $admin->givePermissionTo('delete messages');
         $this->actingAs($admin);
-        $this->get(route('messages.show', ['message'=>$message]))
+        $this->get(route('messages.show', ['message' => $message]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [

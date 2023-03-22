@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Concerns\GetCurrentUserOrGuest;
-use App\Models\Guest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

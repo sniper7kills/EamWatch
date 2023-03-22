@@ -7,11 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\MessageUpdateRequest;
 use App\Http\Resources\MessageResource;
-use App\Models\Guest;
 use App\Models\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -26,7 +24,7 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
@@ -62,7 +60,7 @@ class MessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Message $message
+     * @param  Message  $message
      * @return MessageResource
      */
     public function show(Message $message)
@@ -96,7 +94,7 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Message $message
+     * @param  Message  $message
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Message $message)
@@ -109,8 +107,8 @@ class MessageController extends Controller
     /**
      * Get an existing message based on the request.
      *
-     * @param array $request
-     * @param Message|null $existingMessage
+     * @param  array  $request
+     * @param  Message|null  $existingMessage
      * @return Message|null
      */
     private function getExistingMessage(array $request, Message $existingMessage = null)

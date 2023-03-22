@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers\Api\AutomatedRecordings;
 
 use App\Models\Guest;
-use App\Models\Message;
 use App\Models\Recording;
 use App\Models\User;
 use Tests\TestCase;
@@ -42,7 +41,7 @@ class IndexTest extends TestCase
     public function test_index_displays_paginated_data()
     {
         $user = Guest::current();
-        $recording = Recording::factory()->make(['automated'=>true]);
+        $recording = Recording::factory()->make(['automated' => true]);
         $recording->user = $user;
         $recording->save();
 

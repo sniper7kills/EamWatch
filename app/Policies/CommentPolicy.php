@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Comment;
-use App\Models\Guest;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
 use App\Policies\Concerns\UserOwnsResource;
@@ -58,15 +57,15 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment)
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (!is_null($user) && $user->can('update comments', 'web')) {
+        if (! is_null($user) && $user->can('update comments', 'web')) {
             return Response::allow();
         }
 
-        if (!$this->userOwnsResource($user, $comment)) {
+        if (! $this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
         }
 
@@ -82,15 +81,15 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment)
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (!is_null($user) && $user->hasPermissionTo('delete comments', 'web')) {
+        if (! is_null($user) && $user->hasPermissionTo('delete comments', 'web')) {
             return Response::allow();
         }
 
-        if (!$this->userOwnsResource($user, $comment)) {
+        if (! $this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
         }
 

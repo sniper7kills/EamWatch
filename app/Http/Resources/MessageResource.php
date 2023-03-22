@@ -11,7 +11,6 @@ use App\Models\Guest;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
 class MessageResource extends JsonResource
 {
