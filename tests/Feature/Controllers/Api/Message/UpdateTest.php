@@ -16,7 +16,7 @@ class UpdateTest extends TestCase
         Permission::create(['name' => 'update messages']);
     }
 
-    public function test_guest_can_not_update_message_created_by_other_guest()
+    public function test_guest_can_not_update_message_created_by_other_guest(): void
     {
         $fakeGuest = Guest::factory()->create();
         $message = Message::factory()->make();
@@ -33,7 +33,7 @@ class UpdateTest extends TestCase
             ->assertSee('You did not create this message');
     }
 
-    public function test_guest_can_not_update_message_created_by_other_user()
+    public function test_guest_can_not_update_message_created_by_other_user(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -50,7 +50,7 @@ class UpdateTest extends TestCase
             ->assertSee('You did not create this message');
     }
 
-    public function test_user_can_not_update_message_created_by_other_guest()
+    public function test_user_can_not_update_message_created_by_other_guest(): void
     {
         $fakeGuest = Guest::factory()->create();
         $message = Message::factory()->make();
@@ -68,7 +68,7 @@ class UpdateTest extends TestCase
             ->assertSee('You did not create this message');
     }
 
-    public function test_user_can_not_update_message_created_by_other_user()
+    public function test_user_can_not_update_message_created_by_other_user(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -86,7 +86,7 @@ class UpdateTest extends TestCase
             ->assertSee('You did not create this message');
     }
 
-    public function test_guest_can_update_message_they_submitted()
+    public function test_guest_can_update_message_they_submitted(): void
     {
         $user = Guest::current();
         $message = Message::factory()->make();
@@ -115,7 +115,7 @@ class UpdateTest extends TestCase
             ]);
     }
 
-    public function test_user_can_update_message_they_submitted()
+    public function test_user_can_update_message_they_submitted(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -145,7 +145,7 @@ class UpdateTest extends TestCase
             ]);
     }
 
-    public function test_guest_can_not_update_message_they_submitted_if_they_are_banned()
+    public function test_guest_can_not_update_message_they_submitted_if_they_are_banned(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -164,7 +164,7 @@ class UpdateTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_user_can_not_update_message_they_submitted_if_they_are_banned()
+    public function test_user_can_not_update_message_they_submitted_if_they_are_banned(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -184,7 +184,7 @@ class UpdateTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_admins_can_update_messages_created_by_other_guests()
+    public function test_admins_can_update_messages_created_by_other_guests(): void
     {
         $user = User::factory()->create();
         $user->givePermissionTo('update messages');
@@ -217,7 +217,7 @@ class UpdateTest extends TestCase
             ]);
     }
 
-    public function test_admins_can_update_messages_created_by_other_users()
+    public function test_admins_can_update_messages_created_by_other_users(): void
     {
         $user = User::factory()->create();
         $user->givePermissionTo('update messages');

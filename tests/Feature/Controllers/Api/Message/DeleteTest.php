@@ -16,7 +16,7 @@ class DeleteTest extends TestCase
         Permission::create(['name' => 'delete messages']);
     }
 
-    public function test_guests_can_not_delete_messages()
+    public function test_guests_can_not_delete_messages(): void
     {
         $fakeGuest = Guest::factory()->create();
         $message = Message::factory()->make();
@@ -27,7 +27,7 @@ class DeleteTest extends TestCase
             ->assertStatus(401);
     }
 
-    public function test_users_can_not_delete_messages()
+    public function test_users_can_not_delete_messages(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -39,7 +39,7 @@ class DeleteTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function test_admins_can_delete_messages()
+    public function test_admins_can_delete_messages(): void
     {
         $user = User::factory()->create();
         $user->givePermissionTo('delete messages');

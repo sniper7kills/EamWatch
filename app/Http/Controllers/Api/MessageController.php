@@ -7,11 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\MessageUpdateRequest;
 use App\Http\Resources\MessageResource;
-use App\Models\Guest;
 use App\Models\Message;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MessageController extends Controller
 {
@@ -25,11 +25,63 @@ class MessageController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function search(Request $request): AnonymousResourceCollection
+    {
+        $query = $request->get('search', "");
+
+        $search_term = [];
+
+        $commands = [
+            "length" => function ($return_query, $subsearch_query) {
+                $length_query = intval($subsearch_query);
+                return $return_query->whereRaw('LENGTH(message) >= ' . $length_query);
+            },
+            "sender" => function ($return_query, $subsearch_query) {
+                return $return_query->where('sender', 'LIKE', '%' . $subsearch_query . '%');
+            },
+            "receiver" => function ($return_query, $subsearch_query) {
+                return $return_query->where('receiver', 'LIKE', '%' . $subsearch_query . '%');
+            }
+
+        ];
+
+        $return_query = Message::where('visible', true);
+
+        if (str_contains($query, ':')) {
+            $split = explode(" ", $query);
+            foreach ($split as $subsearch) {
+                if (!str_contains($subsearch, ":")) {
+                    $search_term[] = $subsearch;
+                } else {
+                    [$command, $subsearch_query] = explode(":", $subsearch);
+                    if (array_key_exists($command, $commands)) {
+                        $return_query = $commands[$command]($return_query, $subsearch_query);
+                    } else {
+                        $search_term[] = $subsearch;
+                    }
+                }
+            }
+        }
+
+        $query = implode(" ", $search_term);
+
+        if (strlen($query) > 1) {
+            $return_query->where('message', 'LIKE', '%' . $query . '%');
+        }
+
+        $messages = $return_query
+            ->orderBy('broadcast_ts', 'DESC')
+            ->orderBy('created_at', 'DESC')
+            ->paginate($request->get('paginate', 15));
+
+        return MessageResource::collection($messages);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request): AnonymousResourceCollection
     {
         $messages = Message::where('visible', true)->orderBy('broadcast_ts', 'DESC')->orderBy('created_at', 'DESC')->paginate($request->get('paginate', 15));
 
@@ -39,15 +91,14 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  MessageStoreRequest  $request
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function store(MessageStoreRequest $request)
+    public function store(MessageStoreRequest $request): MessageResource | \Illuminate\Http\JsonResponse
     {
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request);
-        if (! is_null($existingMessage)) {
+        if (!is_null($existingMessage)) {
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
         }
 
@@ -61,11 +112,8 @@ class MessageController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param Message $message
-     * @return MessageResource
      */
-    public function show(Message $message)
+    public function show(Message $message): MessageResource
     {
         return MessageResource::make($message);
     }
@@ -73,16 +121,14 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  MessageUpdateRequest  $request
-     * @param  Message  $message
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function update(MessageUpdateRequest $request, Message $message)
+    public function update(MessageUpdateRequest $request, Message $message): MessageResource | \Illuminate\Http\JsonResponse
     {
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request, $message);
-        if (! is_null($existingMessage)) {
+        if (!is_null($existingMessage)) {
             $message->delete();
 
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
@@ -95,11 +141,8 @@ class MessageController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param Message $message
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Message $message)
+    public function destroy(Message $message): JsonResponse
     {
         $message->delete();
 
@@ -108,16 +151,12 @@ class MessageController extends Controller
 
     /**
      * Get an existing message based on the request.
-     *
-     * @param array $request
-     * @param Message|null $existingMessage
-     * @return Message|null
      */
-    private function getExistingMessage(array $request, Message $existingMessage = null)
+    private function getExistingMessage(array $request, Message $existingMessage = null): ?Message
     {
         $message = Message::query();
 
-        if (! is_null($existingMessage)) {
+        if (!is_null($existingMessage)) {
             $message->where('id', '!=', $existingMessage->id);
         }
 

@@ -13,7 +13,7 @@
                         This is a staging and test environment. Data will not be persistent! <br/>
                         Env: {{env('APP_ENV','staging')}}
                     </div>
-                @else
+                {{-- @else
                     <div class="alert alert-info alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-alert"></i> Info!</h5>
@@ -21,7 +21,7 @@
                         This is a community log of Emergency Action Messages broadcasted through the High Frequency Global Communication System.<br />
                         Please consider joining the community and adding the messages you capture while monitoring.<br />
                         More details can be gained through our discord server.
-                    </div>
+                    </div> --}}
                 @endif
                 <router-view></router-view>
             </div>

@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    public function test_uuid_is_generated()
+    public function test_uuid_is_generated(): void
     {
         $user = User::factory()->create();
         $this->assertNotNull($user->id);

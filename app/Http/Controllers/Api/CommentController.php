@@ -9,11 +9,10 @@ use App\Http\Requests\CommentStoreRequest;
 use App\Http\Requests\CommentUpdateRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Models\Guest;
 use App\Models\Message;
 use App\Models\Recording;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CommentController extends Controller
 {
@@ -26,11 +25,8 @@ class CommentController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(CommentIndexRequest $request)
+    public function index(CommentIndexRequest $request): AnonymousResourceCollection
     {
         $request = $request->validated();
         $commentable = null;
@@ -40,7 +36,7 @@ class CommentController extends Controller
             $commentable = Recording::find($request['recording_id']);
         }
 
-        if (!array_key_exists('paginate', $request)) {
+        if (! array_key_exists('paginate', $request)) {
             $request['paginate'] = 15;
         }
 
@@ -51,11 +47,8 @@ class CommentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return CommentResource
      */
-    public function store(CommentStoreRequest $request)
+    public function store(CommentStoreRequest $request): CommentResource
     {
         $request = $request->validated();
         $comment = new Comment($request);
@@ -75,11 +68,8 @@ class CommentController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param Comment $comment
-     * @return CommentResource
      */
-    public function show(Comment $comment)
+    public function show(Comment $comment): CommentResource
     {
         return CommentResource::make($comment);
     }
@@ -87,8 +77,6 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Comment $comment
      * @return void
      */
     public function update(CommentUpdateRequest $request, Comment $comment)
@@ -99,11 +87,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Comment $comment
-     * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Exception
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment): JsonResponse
     {
         $comment->delete();
 

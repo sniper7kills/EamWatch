@@ -6,8 +6,8 @@ use App\Concerns\GetCurrentUserOrGuest;
 use App\Http\Controllers\Api\UserController;
 use App\Models\Guest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Spatie\ResourceLinks\HasLinks;
 
 class UserResource extends JsonResource
 {
@@ -26,11 +26,8 @@ class UserResource extends JsonResource
 
     /**
      * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         $user = $this->currentUserOrGuest();
 
@@ -42,7 +39,7 @@ class UserResource extends JsonResource
         } else {
             /* @var $user \App\Models\User */
             if ($this->resource->getMorphClass() == User::class) {
-                $canEdit = $user->hasPermissionTo('edit users');
+                $canEdit = $user->hasPermissionTo('edit users', 'web');
             } else {
                 $canEdit = false;
             }
@@ -55,9 +52,9 @@ class UserResource extends JsonResource
         } else {
             /* @var $user \App\Models\User */
             if ($this->resource->getMorphClass() == User::class) {
-                $canBan = $user->hasPermissionTo('ban users');
+                $canBan = $user->hasPermissionTo('ban users', 'web');
             } else {
-                $canBan = $user->hasPermissionTo('ban guests');
+                $canBan = $user->hasPermissionTo('ban guests', 'web');
             }
         }
         /**
@@ -68,9 +65,9 @@ class UserResource extends JsonResource
         } else {
             /* @var $user \App\Models\User */
             if ($this->resource->getMorphClass() == User::class) {
-                $canUnban = $user->hasPermissionTo('unban users');
+                $canUnban = $user->hasPermissionTo('unban users', 'web');
             } else {
-                $canUnban = $user->hasPermissionTo('unban guests');
+                $canUnban = $user->hasPermissionTo('unban guests', 'web');
             }
         }
 
@@ -80,7 +77,7 @@ class UserResource extends JsonResource
             if (
                 $user->getMorphClass() == User::class &&
                 ($user->id == $this->resource->id
-                    || $user->hasPermissionTo('edit users'))
+                    || $user->hasPermissionTo('edit users', 'web'))
             ) {
                 $email = $this->resource->email;
             }
@@ -114,8 +111,8 @@ class UserResource extends JsonResource
                 'self' => $this->resource->id == $user->id,
             ],
             'links' => [
-                "show" => action([UserController::class, 'show'], $this),
-                "update" => action([UserController::class, 'update'], $this),
+                'show' => action([UserController::class, 'show'], $this),
+                'update' => action([UserController::class, 'update'], $this),
             ],
         ];
     }
@@ -124,10 +121,10 @@ class UserResource extends JsonResource
     {
         return [
             'links' => [
-                "index" => action([UserController::class, 'index']),
-                "create" => action([UserController::class, 'create']),
-                "store" => action([UserController::class, 'store']),
-            ]
+                'index' => action([UserController::class, 'index']),
+                'create' => action([UserController::class, 'create']),
+                'store' => action([UserController::class, 'store']),
+            ],
         ];
     }
 }

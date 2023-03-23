@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Guest;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +19,8 @@ class GuestFactory extends Factory
 {
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'ip' => $this->faker->ipv4(),

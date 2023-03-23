@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\RolesAndPermissionsSeeder;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -11,10 +10,8 @@ class UserRolesAndPermissionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         /**
          * Create Roles.

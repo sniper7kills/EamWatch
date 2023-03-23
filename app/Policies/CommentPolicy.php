@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Comment;
-use App\Models\Guest;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
 use App\Policies\Concerns\UserOwnsResource;
@@ -17,46 +16,32 @@ class CommentPolicy
 
     /**
      * Determine whether the user can view any comments.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can view the comment.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
      */
-    public function view(?User $user, Comment $comment)
+    public function view(?User $user, Comment $comment): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can create comments.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
      */
-    public function create(?User $user)
+    public function create(?User $user): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can update the comment.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
      */
-    public function update(?User $user, Comment $comment)
+    public function update(?User $user, Comment $comment): Response
     {
         if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
@@ -75,12 +60,8 @@ class CommentPolicy
 
     /**
      * Determine whether the user can delete the comment.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
      */
-    public function delete(?User $user, Comment $comment)
+    public function delete(?User $user, Comment $comment): Response
     {
         if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
@@ -99,24 +80,16 @@ class CommentPolicy
 
     /**
      * Determine whether the user can restore the comment.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
      */
-    public function restore(User $user, Comment $comment)
+    public function restore(User $user, Comment $comment): Response
     {
         //
     }
 
     /**
      * Determine whether the user can permanently delete the comment.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
      */
-    public function forceDelete(User $user, Comment $comment)
+    public function forceDelete(User $user, Comment $comment): Response
     {
         //
     }

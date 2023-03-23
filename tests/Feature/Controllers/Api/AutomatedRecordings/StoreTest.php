@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class StoreTest extends TestCase
 {
-    public function test_store_unavailable_for_banned_users()
+    public function test_store_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -30,7 +30,7 @@ class StoreTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_store_unavailable_for_banned_guests()
+    public function test_store_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;

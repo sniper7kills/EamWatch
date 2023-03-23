@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GuestUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Guest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GuestController extends Controller
@@ -19,23 +18,16 @@ class GuestController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Guest  $guest
-     * @return UserResource
      */
-    public function show(Guest $guest)
+    public function show(Guest $guest): UserResource
     {
         return new UserResource($guest);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Guest  $guest
-     * @return UserResource
      */
-    public function update(GuestUpdateRequest $request, Guest $guest)
+    public function update(GuestUpdateRequest $request, Guest $guest): UserResource
     {
         $data = $request->validated();
 

@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Guest;
 use App\Models\Message;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
@@ -18,46 +17,32 @@ class MessagePolicy
 
     /**
      * Determine whether the user can view any messages.
-     *
-     * @param User $user
-     * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can view the message.
-     *
-     * @param User $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
-    public function view(?User $user, Message $message)
+    public function view(?User $user, Message $message): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can create messages.
-     *
-     * @param User $user
-     * @return mixed
      */
-    public function create(?User $user)
+    public function create(?User $user): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can update the message.
-     *
-     * @param User $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
-    public function update(?User $user, Message $message)
+    public function update(?User $user, Message $message): Response
     {
         if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
@@ -83,12 +68,8 @@ class MessagePolicy
 
     /**
      * Determine whether the user can delete the message.
-     *
-     * @param User $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
-    public function delete(User $user, Message $message)
+    public function delete(User $user, Message $message): Response
     {
         if ($user->can('delete messages')) {
             return Response::allow();
@@ -101,30 +82,21 @@ class MessagePolicy
             // print("Exception");
         }
 
-
         return Response::deny('No Permission to delete messages');
     }
 
     /**
      * Determine whether the user can restore the message.
-     *
-     * @param User $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
-    public function restore(User $user, Message $message)
+    public function restore(User $user, Message $message): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can permanently delete the message.
-     *
-     * @param User $user
-     * @param  \App\Models\Message  $message
-     * @return mixed
      */
-    public function forceDelete(User $user, Message $message)
+    public function forceDelete(User $user, Message $message): Response
     {
         return $this->checkBan($user);
     }

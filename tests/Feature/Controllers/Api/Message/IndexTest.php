@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
-    public function test_index_is_paginated()
+    public function test_index_is_paginated(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();
@@ -82,7 +82,7 @@ class IndexTest extends TestCase
             ]);
     }
 
-    public function test_index_unavailable_for_banned_users()
+    public function test_index_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -97,7 +97,7 @@ class IndexTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_index_unavailable_for_banned_guests()
+    public function test_index_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -111,7 +111,7 @@ class IndexTest extends TestCase
             ->assertSee('You are banned.');
     }
 
-    public function test_index_results_are_ordered_by_broadcast_time()
+    public function test_index_results_are_ordered_by_broadcast_time(): void
     {
         $user = User::factory()->create();
         $message = Message::factory()->make();

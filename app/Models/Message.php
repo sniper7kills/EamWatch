@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\GeneratesUuid;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -66,8 +67,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the userable properties for the model using a fake attribute.
-     *
-     * @param Model $user
      */
     public function setUserAttribute(Model $user)
     {
@@ -87,20 +86,16 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Returns the 5 newest comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getLastFiveCommentsAttribute()
+    public function getLastFiveCommentsAttribute(): Collection
     {
         return $this->comments()->orderBy('created_at', 'DESC')->limit(5)->get();
     }
 
     /**
      * Returns the 5 newest recordings.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getLastFiveRecordingsAttribute()
+    public function getLastFiveRecordingsAttribute(): Collection
     {
         return $this->recordings()->orderBy('created_at', 'DESC')->limit(5)->get();
     }

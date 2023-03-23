@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MessageStoreRequest;
-use App\Http\Requests\MessageUpdateRequest;
 use App\Http\Resources\MessageResource;
-use App\Models\Guest;
 use App\Models\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SkykingController extends Controller
 {
@@ -20,10 +17,8 @@ class SkykingController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $messages = Message::where('type', 'SKYKING')->where('visible', true)->orderBy('broadcast_ts', 'DESC')->paginate($request->get('paginate', 15));
 

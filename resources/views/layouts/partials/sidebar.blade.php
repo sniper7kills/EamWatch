@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="/" class="brand-link">
         <img src="{{asset('/images/logo.jpg')}}" alt="Eam.Watch Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">Eam.Watch</span>
@@ -48,12 +48,12 @@
                         <p>Skyking Messages</p>
                     </router-link>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <router-link tag="a" class="nav-link" :to="{ name: 'automated-listing'}">
                         <i class="nav-icon fas fa-microphone-alt"></i>
                         <p>Automated Recordings</p>
                     </router-link>
-                </li>
+                </li> --}}
 
                 @auth
                     <li class="nav-item">
@@ -90,6 +90,12 @@
                         <i class="nav-icon fab fa-discord"></i>
                         <p>Discord</p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <router-link tag="a" class="nav-link" :to="{ name: 'supporter-messages'}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>Supporters and Messages</p>
+                    </router-link>
                 </li>
             </ul>
         </nav>

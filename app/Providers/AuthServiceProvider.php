@@ -36,10 +36,8 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         /**
          * Vapor File Uploads (Allows Guest Uploads).
@@ -48,8 +46,6 @@ class AuthServiceProvider extends ServiceProvider
             return $this->checkBan($user);
         });
 
-        $this->registerPolicies();
-
-        Passport::routes();
+        //Passport::routes();
     }
 }

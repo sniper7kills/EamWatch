@@ -20,8 +20,6 @@ class Recording extends \App\Models\AbstractModels\AbstractRecording
 
     /**
      * Set the message property for the model using a fake attribute.
-     *
-     * @param Message $message
      */
     public function setMessageAttribute(Message $message)
     {
@@ -30,8 +28,6 @@ class Recording extends \App\Models\AbstractModels\AbstractRecording
 
     /**
      * Set the userable properties for the model using a fake attribute.
-     *
-     * @param Model $user
      */
     public function setUserAttribute(Model $user)
     {

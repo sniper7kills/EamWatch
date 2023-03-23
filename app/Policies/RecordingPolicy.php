@@ -6,6 +6,7 @@ use App\Models\Recording;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class RecordingPolicy
 {
@@ -13,58 +14,40 @@ class RecordingPolicy
 
     /**
      * Determine whether the user can view any recordings.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
      */
-    public function viewAny(?User $user)
+    public function viewAny(?User $user): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can view the recording.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Recording  $recording
-     * @return mixed
      */
-    public function view(?User $user, Recording $recording)
+    public function view(?User $user, Recording $recording): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can create recordings.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
      */
-    public function create(?User $user)
+    public function create(?User $user): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can update the recording.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Recording  $recording
-     * @return mixed
      */
-    public function update(?User $user, Recording $recording)
+    public function update(?User $user, Recording $recording): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can delete the recording.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Recording  $recording
-     * @return mixed
      */
-    public function delete(User $user, Recording $recording)
+    public function delete(User $user, Recording $recording): bool
     {
         if ($user->can('delete recordings')) {
             return true;
@@ -83,24 +66,16 @@ class RecordingPolicy
 
     /**
      * Determine whether the user can restore the recording.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Recording  $recording
-     * @return mixed
      */
-    public function restore(User $user, Recording $recording)
+    public function restore(User $user, Recording $recording): Response
     {
         //
     }
 
     /**
      * Determine whether the user can permanently delete the recording.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Recording  $recording
-     * @return mixed
      */
-    public function forceDelete(User $user, Recording $recording)
+    public function forceDelete(User $user, Recording $recording): Response
     {
         //
     }

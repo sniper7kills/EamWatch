@@ -8,6 +8,11 @@ let routes = [
         component: () => import(/* webpackChunkName: "js/chunks/messages/listing" */ './components/messages/listing')
     },
     {
+        path: '/search',
+        name: 'message-search',
+        component: () => import(/* webpackChunkName: "js/chunks/messages/search" */ './components/messages/search')
+    },
+    {
         path: '/skyking',
         name: 'skyking-listing',
         component: () => import(/* webpackChunkName: "js/chunks/messages/skyking" */ './components/messages/skyking')
@@ -91,6 +96,11 @@ let routes = [
         path: '/api-tokens',
         name: 'api-tokens',
         component: () => import(/* webpackChunkName: "js/chunks/api-tokens" */ './components/api-tokens')
+    },
+    {
+        path: '/supporter-messages',
+        name: 'supporter-messages',
+        component: () => import(/* webpackChunkName: "js/chunks/supporter-messages" */ './components/supporter-messages')
     },
 ];
 

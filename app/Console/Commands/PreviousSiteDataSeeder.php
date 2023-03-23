@@ -34,10 +34,8 @@ class PreviousSiteDataSeeder extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $user = \App\Models\User::firstOrCreate(
             ['name' => 'Data Migration User'],
@@ -64,12 +62,10 @@ class PreviousSiteDataSeeder extends Command
             $message->sender = $row[10];
             $message->user = $user;
             $message->save();
-            echo 'Record: '.$recordNumber.' EAM_ID: '.$row[0].' Message ID: '.$message->id."\n";
+            echo 'Record: ' . $recordNumber . ' EAM_ID: ' . $row[0] . ' Message ID: ' . $message->id . "\n";
             $recordNumber++;
         }
         $user->banned = true;
         $user->save();
-
-        return null;
     }
 }

@@ -25,10 +25,8 @@ class User extends \App\Models\AbstractModels\AbstractUser
 
     /**
      * Return the role to display.
-     *
-     * @return string
      */
-    public function displayRole()
+    public function displayRole(): string
     {
         if ($this->hasRole('admin')) {
             return 'Admin';

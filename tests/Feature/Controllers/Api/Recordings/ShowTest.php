@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class ShowTest extends TestCase
 {
-    public function test_show_unavailable_for_banned_users()
+    public function test_show_unavailable_for_banned_users(): void
     {
         $user = User::factory()->create();
         $user->banned = true;
@@ -24,12 +24,12 @@ class ShowTest extends TestCase
         $recording->save();
 
         $this->actingAs($user, 'api');
-        $this->json('get', route('recordings.show', ['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording' => $recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
 
-    public function test_show_unavailable_for_banned_guests()
+    public function test_show_unavailable_for_banned_guests(): void
     {
         $user = Guest::current();
         $user->banned = true;
@@ -42,12 +42,12 @@ class ShowTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->json('get', route('recordings.show', ['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording' => $recording]))
             ->assertStatus(403)
             ->assertSee('You are banned.');
     }
 
-    public function test_recording_show()
+    public function test_recording_show(): void
     {
         $user = Guest::current();
         $message = Message::factory()->make();
@@ -58,7 +58,7 @@ class ShowTest extends TestCase
         $recording->user = $user;
         $recording->save();
 
-        $this->json('get', route('recordings.show', ['recording'=>$recording]))
+        $this->json('get', route('recordings.show', ['recording' => $recording]))
             ->assertStatus(200)
             ->assertJson([
                 'data' => [

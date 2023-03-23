@@ -16,7 +16,7 @@ trait GetCurrentUserOrGuest
         if (Auth::guest() && Auth::guard('api')->guest()) {
             return Guest::current();
         } else {
-            if (! Auth::guest()) {
+            if (!Auth::guest()) {
                 return Auth::user();
             } else {
                 return Auth::guard('api')->user();

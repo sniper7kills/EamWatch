@@ -14,46 +14,32 @@ class GuestPolicy
 
     /**
      * Determine whether the user can view any guests.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response
     {
         //
     }
 
     /**
      * Determine whether the user can view the guest.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Guest  $guest
-     * @return mixed
      */
-    public function view(?User $user, Guest $guest)
+    public function view(?User $user, Guest $guest): Response
     {
         return $this->checkBan($user);
     }
 
     /**
      * Determine whether the user can create guests.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): Response
     {
         //
     }
 
     /**
      * Determine whether the user can update the guest.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Guest  $guest
-     * @return mixed
      */
-    public function update(User $user, Guest $guest)
+    public function update(User $user, Guest $guest): Response
     {
         $response = $this->checkBan($user);
         if ($response->denied()) {
@@ -69,36 +55,24 @@ class GuestPolicy
 
     /**
      * Determine whether the user can delete the guest.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Guest  $guest
-     * @return mixed
      */
-    public function delete(User $user, Guest $guest)
+    public function delete(User $user, Guest $guest): Response
     {
         //
     }
 
     /**
      * Determine whether the user can restore the guest.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Guest  $guest
-     * @return mixed
      */
-    public function restore(User $user, Guest $guest)
+    public function restore(User $user, Guest $guest): Response
     {
         //
     }
 
     /**
      * Determine whether the user can permanently delete the guest.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Guest  $guest
-     * @return mixed
      */
-    public function forceDelete(User $user, Guest $guest)
+    public function forceDelete(User $user, Guest $guest): Response
     {
         //
     }

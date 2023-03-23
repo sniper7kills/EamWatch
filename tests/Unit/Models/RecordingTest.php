@@ -22,7 +22,7 @@ class RecordingTest extends TestCase
         return $message;
     }
 
-    public function test_recording_has_id_generated()
+    public function test_recording_has_id_generated(): void
     {
         $recording = Recording::factory()->make();
         $recording->message = $this->get_message();
