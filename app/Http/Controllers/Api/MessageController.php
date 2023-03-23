@@ -26,6 +26,61 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function search(Request $request): AnonymousResourceCollection
+    {
+        $query = $request->get('search', "");
+
+        $search_term = [];
+
+        $commands = [
+            "length" => function ($return_query, $subsearch_query) {
+                $length_query = intval($subsearch_query);
+                return $return_query->whereRaw('LENGTH(message) >= ' . $length_query);
+            },
+            "sender" => function ($return_query, $subsearch_query) {
+                return $return_query->where('sender', 'LIKE', '%' . $subsearch_query . '%');
+            },
+            "receiver" => function ($return_query, $subsearch_query) {
+                return $return_query->where('receiver', 'LIKE', '%' . $subsearch_query . '%');
+            }
+
+        ];
+
+        $return_query = Message::where('visible', true);
+
+        if (str_contains($query, ':')) {
+            $split = explode(" ", $query);
+            foreach ($split as $subsearch) {
+                if (!str_contains($subsearch, ":")) {
+                    $search_term[] = $subsearch;
+                } else {
+                    [$command, $subsearch_query] = explode(":", $subsearch);
+                    if (array_key_exists($command, $commands)) {
+                        $return_query = $commands[$command]($return_query, $subsearch_query);
+                    } else {
+                        $search_term[] = $subsearch;
+                    }
+                }
+            }
+        }
+
+        $query = implode(" ", $search_term);
+
+        if (strlen($query) > 1) {
+            $return_query->where('message', 'LIKE', '%' . $query . '%');
+        }
+
+        $messages = $return_query
+            ->orderBy('broadcast_ts', 'DESC')
+            ->orderBy('created_at', 'DESC')
+            ->paginate($request->get('paginate', 15));
+
+        return MessageResource::collection($messages);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request): AnonymousResourceCollection
     {
         $messages = Message::where('visible', true)->orderBy('broadcast_ts', 'DESC')->orderBy('created_at', 'DESC')->paginate($request->get('paginate', 15));
@@ -38,12 +93,12 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function store(MessageStoreRequest $request): JsonResponse
+    public function store(MessageStoreRequest $request): MessageResource | \Illuminate\Http\JsonResponse
     {
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request);
-        if (! is_null($existingMessage)) {
+        if (!is_null($existingMessage)) {
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
         }
 
@@ -68,12 +123,12 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function update(MessageUpdateRequest $request, Message $message): JsonResponse
+    public function update(MessageUpdateRequest $request, Message $message): MessageResource | \Illuminate\Http\JsonResponse
     {
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request, $message);
-        if (! is_null($existingMessage)) {
+        if (!is_null($existingMessage)) {
             $message->delete();
 
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
@@ -101,7 +156,7 @@ class MessageController extends Controller
     {
         $message = Message::query();
 
-        if (! is_null($existingMessage)) {
+        if (!is_null($existingMessage)) {
             $message->where('id', '!=', $existingMessage->id);
         }
 

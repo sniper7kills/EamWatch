@@ -6,7 +6,7 @@ use Illuminate\Validation\Validator;
 
 class MessageValidForTypeValidator extends Validator
 {
-    public function validateMessageValidForType($attribute, $value, $parameters)
+    public function validateMessageValidForType($attribute, $value, $parameters): bool
     {
         $regexRules = [
             'ALLSTATIONS' => [
@@ -25,13 +25,13 @@ class MessageValidForTypeValidator extends Validator
         $messageType = strtoupper($this->data['type']);
         $message = $this->data['message'];
 
-        if (! array_key_exists($messageType, $regexRules)) {
+        if (!array_key_exists($messageType, $regexRules)) {
             return true;
         }
 
         foreach ($regexRules[$messageType] as $rule => $passes) {
             $results = preg_match_all($rule, $message);
-            if (! $passes && $results > 0) {
+            if (!$passes && $results > 0) {
                 return false;
             }
             if ($passes && $results == 0) {

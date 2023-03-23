@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -35,28 +36,26 @@ class UserController extends Controller
         /**
          * Ban & Unban.
          */
-        if (Auth::user()->hasAnyPermission(['ban users', 'unban users']) && array_key_exists('banned', $data)) {
-            if (Auth::user()->hasPermissionTo('ban users') && $data['banned'] == true) {
+        if (array_key_exists('banned', $data)) {
+            if (Auth::user()->hasPermissionTo('ban users', 'web') && $data['banned'] == true) {
                 $user->banned = true;
                 $user->save();
             }
-            if (Auth::user()->hasPermissionTo('unban users') && $data['banned'] == false) {
+            if (Auth::user()->hasPermissionTo('unban users', 'web') && $data['banned'] == false) {
                 $user->banned = false;
                 $user->save();
             }
-        }
-        if (array_key_exists('banned', $data)) {
             unset($data['banned']);
         }
 
         /**
          * Change Roles.
          */
-        if (Auth::user()->hasPermissionTo('edit users') && array_key_exists('role', $data)) {
+        if (Auth::user()->hasPermissionTo('edit users', 'web') && array_key_exists('role', $data)) {
             $user->syncRoles([]);
             $role = strtolower($data['role']);
             if ($role != 'member') {
-                $user->syncRoles($role);
+                $user->syncRoles(Role::findByName($role, "web"));
             }
         }
         if (array_key_exists('role', $data)) {
@@ -67,11 +66,11 @@ class UserController extends Controller
          * Change Password.
          */
         if (array_key_exists('password', $data)) {
-            if (! is_null($data['password'])) {
+            if (!is_null($data['password'])) {
                 $user->password = Hash::make($data['password']);
                 $user->save();
             }
-            unset($data['password'],$data['password_confirm']);
+            unset($data['password'], $data['password_confirm']);
         }
 
         /**

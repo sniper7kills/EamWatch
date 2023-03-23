@@ -18,7 +18,7 @@ class MessagePolicy
     /**
      * Determine whether the user can view any messages.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(?User $user): Response
     {
         return $this->checkBan($user);
     }
@@ -26,7 +26,7 @@ class MessagePolicy
     /**
      * Determine whether the user can view the message.
      */
-    public function view(?User $user, Message $message): bool
+    public function view(?User $user, Message $message): Response
     {
         return $this->checkBan($user);
     }
@@ -34,7 +34,7 @@ class MessagePolicy
     /**
      * Determine whether the user can create messages.
      */
-    public function create(?User $user): bool
+    public function create(?User $user): Response
     {
         return $this->checkBan($user);
     }
@@ -44,22 +44,22 @@ class MessagePolicy
      */
     public function update(?User $user, Message $message): Response
     {
-        if (is_null($user) && ! Auth::guard('api')->guest()) {
+        if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (! is_null($user) && $user->can('update messages')) {
+        if (!is_null($user) && $user->can('update messages')) {
             return Response::allow();
         }
         try {
-            if (! is_null($user) && $user->hasPermissionTo('update messages', 'web')) {
+            if (!is_null($user) && $user->hasPermissionTo('update messages', 'web')) {
                 return Response::allow();
             }
         } catch (\Exception) {
             //print("Exception");
         }
 
-        if (! $this->userOwnsResource($user, $message)) {
+        if (!$this->userOwnsResource($user, $message)) {
             return Response::deny('You did not create this message');
         }
 
@@ -88,7 +88,7 @@ class MessagePolicy
     /**
      * Determine whether the user can restore the message.
      */
-    public function restore(User $user, Message $message): bool
+    public function restore(User $user, Message $message): Response
     {
         return $this->checkBan($user);
     }
@@ -96,7 +96,7 @@ class MessagePolicy
     /**
      * Determine whether the user can permanently delete the message.
      */
-    public function forceDelete(User $user, Message $message): bool
+    public function forceDelete(User $user, Message $message): Response
     {
         return $this->checkBan($user);
     }

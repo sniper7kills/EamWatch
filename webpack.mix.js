@@ -39,7 +39,7 @@ mix.webpackConfig({
 mix.js('resources/js/app.js', 'public/js').vue()
    .sass('resources/sass/app.scss', 'public/css');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ExtractTextPlugin = require('mini-css-extract-plugin');
 
 if (mix.inProduction()) {
     const ASSET_URL = process.env.ASSET_URL + "/";
@@ -49,7 +49,8 @@ if (mix.inProduction()) {
             plugins: [
                 new webpack.DefinePlugin({
                     "process.env.ASSET_PATH": JSON.stringify(ASSET_URL)
-                })
+                }),
+                new ExtractTextPlugin()
             ],
             output: {
                 publicPath: ASSET_URL

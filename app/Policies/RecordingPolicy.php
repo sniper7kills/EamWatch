@@ -6,6 +6,7 @@ use App\Models\Recording;
 use App\Models\User;
 use App\Policies\Concerns\BanCheck;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class RecordingPolicy
 {
@@ -14,7 +15,7 @@ class RecordingPolicy
     /**
      * Determine whether the user can view any recordings.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(?User $user): Response
     {
         return $this->checkBan($user);
     }
@@ -22,7 +23,7 @@ class RecordingPolicy
     /**
      * Determine whether the user can view the recording.
      */
-    public function view(?User $user, Recording $recording): bool
+    public function view(?User $user, Recording $recording): Response
     {
         return $this->checkBan($user);
     }
@@ -30,7 +31,7 @@ class RecordingPolicy
     /**
      * Determine whether the user can create recordings.
      */
-    public function create(?User $user): bool
+    public function create(?User $user): Response
     {
         return $this->checkBan($user);
     }
@@ -38,7 +39,7 @@ class RecordingPolicy
     /**
      * Determine whether the user can update the recording.
      */
-    public function update(?User $user, Recording $recording): bool
+    public function update(?User $user, Recording $recording): Response
     {
         return $this->checkBan($user);
     }
@@ -66,7 +67,7 @@ class RecordingPolicy
     /**
      * Determine whether the user can restore the recording.
      */
-    public function restore(User $user, Recording $recording): bool
+    public function restore(User $user, Recording $recording): Response
     {
         //
     }
@@ -74,7 +75,7 @@ class RecordingPolicy
     /**
      * Determine whether the user can permanently delete the recording.
      */
-    public function forceDelete(User $user, Recording $recording): bool
+    public function forceDelete(User $user, Recording $recording): Response
     {
         //
     }

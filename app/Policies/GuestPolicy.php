@@ -15,7 +15,7 @@ class GuestPolicy
     /**
      * Determine whether the user can view any guests.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user): Response
     {
         //
     }
@@ -23,7 +23,7 @@ class GuestPolicy
     /**
      * Determine whether the user can view the guest.
      */
-    public function view(?User $user, Guest $guest): bool
+    public function view(?User $user, Guest $guest): Response
     {
         return $this->checkBan($user);
     }
@@ -31,7 +31,7 @@ class GuestPolicy
     /**
      * Determine whether the user can create guests.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
         //
     }
@@ -56,7 +56,7 @@ class GuestPolicy
     /**
      * Determine whether the user can delete the guest.
      */
-    public function delete(User $user, Guest $guest): bool
+    public function delete(User $user, Guest $guest): Response
     {
         //
     }
@@ -64,7 +64,7 @@ class GuestPolicy
     /**
      * Determine whether the user can restore the guest.
      */
-    public function restore(User $user, Guest $guest): bool
+    public function restore(User $user, Guest $guest): Response
     {
         //
     }
@@ -72,7 +72,7 @@ class GuestPolicy
     /**
      * Determine whether the user can permanently delete the guest.
      */
-    public function forceDelete(User $user, Guest $guest): bool
+    public function forceDelete(User $user, Guest $guest): Response
     {
         //
     }

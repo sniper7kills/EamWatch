@@ -17,7 +17,7 @@ class CommentPolicy
     /**
      * Determine whether the user can view any comments.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(?User $user): Response
     {
         return $this->checkBan($user);
     }
@@ -25,7 +25,7 @@ class CommentPolicy
     /**
      * Determine whether the user can view the comment.
      */
-    public function view(?User $user, Comment $comment): bool
+    public function view(?User $user, Comment $comment): Response
     {
         return $this->checkBan($user);
     }
@@ -33,7 +33,7 @@ class CommentPolicy
     /**
      * Determine whether the user can create comments.
      */
-    public function create(?User $user): bool
+    public function create(?User $user): Response
     {
         return $this->checkBan($user);
     }
@@ -43,15 +43,15 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment): Response
     {
-        if (is_null($user) && ! Auth::guard('api')->guest()) {
+        if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (! is_null($user) && $user->can('update comments', 'web')) {
+        if (!is_null($user) && $user->can('update comments', 'web')) {
             return Response::allow();
         }
 
-        if (! $this->userOwnsResource($user, $comment)) {
+        if (!$this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
         }
 
@@ -63,15 +63,15 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment): Response
     {
-        if (is_null($user) && ! Auth::guard('api')->guest()) {
+        if (is_null($user) && !Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (! is_null($user) && $user->hasPermissionTo('delete comments', 'web')) {
+        if (!is_null($user) && $user->hasPermissionTo('delete comments', 'web')) {
             return Response::allow();
         }
 
-        if (! $this->userOwnsResource($user, $comment)) {
+        if (!$this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
         }
 
@@ -81,7 +81,7 @@ class CommentPolicy
     /**
      * Determine whether the user can restore the comment.
      */
-    public function restore(User $user, Comment $comment): bool
+    public function restore(User $user, Comment $comment): Response
     {
         //
     }
@@ -89,7 +89,7 @@ class CommentPolicy
     /**
      * Determine whether the user can permanently delete the comment.
      */
-    public function forceDelete(User $user, Comment $comment): bool
+    public function forceDelete(User $user, Comment $comment): Response
     {
         //
     }
