@@ -1,16 +1,41 @@
 <template>
-  <bar :options="chartOptions" :data="chartData" />
+  <bar :options="options" :data="chartData" />
 </template>
 
 <script>
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+import zoomPlugin from 'chartjs-plugin-zoom';
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, zoomPlugin)
 
 export default {
   name: "BarChart",
   components: { Bar },
   props: ["chartData", "chartOptions"],
+  data: () => ({
+    options: {
+        plugins: {
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'xy',
+                },
+                pan: {
+                    enabled: true
+                },
+                limits: {
+                    y: {min: 0}
+                },
+            }
+        }
+    }
+  })
 };
 </script>
