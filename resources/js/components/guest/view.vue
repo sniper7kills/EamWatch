@@ -72,7 +72,7 @@
                                         <tbody>
                                         <tr>
                                             <td>Messages</td>
-                                            <td>{{this.guest.submissions.messages}}</td>
+                                            <td><a :href='"/search?q=user:" + this.guest_id'>{{this.guest.submissions.messages}}</a></td>
                                         </tr>
                                         <tr>
                                             <td>Recordings</td>

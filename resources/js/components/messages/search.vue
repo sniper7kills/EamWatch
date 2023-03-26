@@ -7,6 +7,9 @@
             <b>length:{message_length}</b> To search for messages greater than or equal to the desired message length</br>
             <b>sender:{sender}</b> To search for messages sent from the specified callsign</br>
             <b>receiver:{receiver}</b> To search for messages sent to the specified callsign</br>
+            <b>type:{message_type}</b> To search for messages of a specific type. Valid types ['BACKEND', 'SKYKING', 'ALLSTATIONS', 'RADIOCHECK', 'SKYMASTER', 'SKYBIRD', 'DISREGARDED', 'OTHER']</br>
+            <b>date:{YYYY-MM-DDTHH:MM}</b> to search for messages by date and time. (Note the T is required to seperate the date and time.)</br>
+            <b>user:{user_id}</b> to search for messages by submitter based on their ID.</br>
         </div>
         <div class="row">
             <div class="col-12">

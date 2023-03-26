@@ -38,6 +38,7 @@ class ChartController extends Controller
         // Build the query to select code words from messages of type "SKYKING"
         $codeWords = DB::table((new Message)->getTable())
             ->where('type', 'SKYKING')
+            ->where('message', 'not like', "%DISREGARD%")
             ->selectRaw("TRIM(SUBSTRING_INDEX(message, 'TIME', 1)) AS code_word")
             ->get();
 

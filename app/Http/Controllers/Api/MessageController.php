@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\MessageUpdateRequest;
 use App\Http\Resources\MessageResource;
+use App\Models\Guest;
 use App\Models\Message;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,7 +44,17 @@ class MessageController extends Controller
             },
             "receiver" => function ($return_query, $subsearch_query) {
                 return $return_query->where('receiver', 'LIKE', '%' . $subsearch_query . '%');
-            }
+            },
+            "type" => function ($return_query, $subsearch_query) {
+                return $return_query->where('type', 'LIKE', '%' . $subsearch_query . '%');
+            },
+            "date" => function ($return_query, $subsearch_query) {
+                $subsearch_query = str_replace("T", " ", $subsearch_query);
+                return $return_query->where('broadcast_ts', 'LIKE', $subsearch_query . "%");
+            },
+            "user" => function ($return_query, $subsearch_query) {
+                return $return_query->where('userable_id', $subsearch_query);
+            },
 
         ];
 
@@ -62,9 +74,10 @@ class MessageController extends Controller
                     }
                 }
             }
+            $query = implode(" ", $search_term);
         }
 
-        $query = implode(" ", $search_term);
+
 
         if (strlen($query) > 1) {
             $return_query->where('message', 'LIKE', '%' . $query . '%');
