@@ -102,6 +102,11 @@ let routes = [
         name: 'supporter-messages',
         component: () => import(/* webpackChunkName: "js/chunks/supporter-messages" */ './components/supporter-messages')
     },
+    {
+        path: '/charts',
+        name: 'charts',
+        component: () => import(/* webpackChunkName: "js/chunks/charts" */ './components/charts/charts')
+    },
 ];
 
 

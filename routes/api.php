@@ -35,4 +35,10 @@ Route::middleware(BannedMiddleware::class)->group(function () {
     Route::get('/supporter-messages', function (Request $request) {
         return SupporterMessageResource::collection(SupporterMessage::paginate($request->get('paginate', 15)));
     })->name('supporter-messages');
+
+    Route::prefix('charts')->group(function () {
+        Route::get('/character-count', [Api\ChartController::class, 'characterCount'])->name('character-count');
+        Route::get('/codeword-count', [Api\ChartController::class, 'codewordCount'])->name('codeword-count');
+        Route::get('/daily-count', [Api\ChartController::class, 'dailyCount'])->name('daily-count');
+    });
 });

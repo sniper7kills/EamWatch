@@ -7,6 +7,7 @@
     "/js/js/chunks/comment/stub/view.js": "/js/js/chunks/comment/stub/view.js",
     "/js/js/chunks/comment/stub/add.js": "/js/js/chunks/comment/stub/add.js",
     "/js/js/chunks/messages/listing.js": "/js/js/chunks/messages/listing.js",
+    "/js/js/chunks/messages/search.js": "/js/js/chunks/messages/search.js",
     "/js/js/chunks/messages/skyking.js": "/js/js/chunks/messages/skyking.js",
     "/js/js/chunks/messages/view.js": "/js/js/chunks/messages/view.js",
     "/js/js/chunks/messages/edit.js": "/js/js/chunks/messages/edit.js",
@@ -24,5 +25,7 @@
     "/js/js/chunks/user/ban.js": "/js/js/chunks/user/ban.js",
     "/js/js/chunks/user/unban.js": "/js/js/chunks/user/unban.js",
     "/js/js/chunks/api-tokens.js": "/js/js/chunks/api-tokens.js",
+    "/js/js/chunks/supporter-messages.js": "/js/js/chunks/supporter-messages.js",
+    "/js/js/chunks/charts.js": "/js/js/chunks/charts.js",
     "/css/app.css": "/css/app.css"
 }

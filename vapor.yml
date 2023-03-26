@@ -7,13 +7,14 @@ environments:
         storage: eamwatch-production
         memory: 1024
         cli-memory: 512
+        warm: 1
         runtime: php-8.2:al2
         build:
             - 'composer install --no-dev'
             - 'php artisan event:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
         deploy:
-            - 'php artisan migrate'
+            - 'php artisan migrate --force'
     staging:
         database: EamWatch-DB
         storage: eamwatch-staging

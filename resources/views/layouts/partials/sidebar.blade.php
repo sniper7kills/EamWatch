@@ -97,6 +97,12 @@
                         <p>Supporters and Messages</p>
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link tag="a" class="nav-link" :to="{ name: 'charts'}">
+                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <p>Charts</p>
+                    </router-link>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

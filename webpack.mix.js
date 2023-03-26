@@ -5,7 +5,7 @@ const mix = require('laravel-mix');
  */
 mix.options({
     hmrOptions: {
-        host: 'eamwatch.test',  // site's host name
+        host: 'localhost',  // site's host name
         port: 8080,
     }
 });
@@ -17,10 +17,10 @@ mix.webpackConfig({
             host: '0.0.0.0',  // host machine ip
             port: 8080,
         },
-        watchOptions:{
-            aggregateTimeout:200,
-            poll:5000
-        },
+        // watchOptions:{
+        //     aggregateTimeout:200,
+        //     poll:5000
+        // },
 
     }
 });
