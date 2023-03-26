@@ -60,9 +60,9 @@ class ChartController extends Controller
     {
         // Assuming you have a 'created_at' timestamp column in your table
         $dailyMessageCounts = DB::table((new Message)->getTable())
-            ->selectRaw("DATE(created_at) AS date, type, COUNT(*) AS count")
+            ->selectRaw("DATE(broadcast_ts) AS date, type, COUNT(*) AS count")
             ->whereIn('type', ['BACKEND', 'SKYKING', 'ALLSTATIONS', 'RADIOCHECK', 'SKYMASTER', 'SKYBIRD', 'DISREGARDED', 'OTHER'])
-            ->groupBy(DB::raw("DATE(created_at)"), 'type')
+            ->groupBy(DB::raw("DATE(broadcast_ts)"), 'type')
             ->orderBy('date', 'asc')
             ->get();
 
