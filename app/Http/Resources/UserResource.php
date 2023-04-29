@@ -83,6 +83,18 @@ class UserResource extends JsonResource
             }
         }
 
+        $IP = '[REDACTED]';
+        if ($this->resource->getMorphClass() == Guest::class) {
+            $IP = '[REDACTED]';
+            if (
+                $user->getMorphClass() == User::class &&
+                ($user->id == $this->resource->id
+                    || $user->hasPermissionTo('edit users', 'web'))
+            ) {
+                $IP = $this->resource->ip;
+            }
+        }
+
         return [
             $this->mergeWhen($this->resource->getMorphClass() == User::class, [
                 'name' => $this->resource->name,
@@ -95,6 +107,7 @@ class UserResource extends JsonResource
                 'id' => $this->resource->id,
                 'type' => 'guest',
                 'role' => 'Guest',
+                'ip' => $IP,
             ]),
             'email' => $email,
             'banned' => $this->resource->banned,

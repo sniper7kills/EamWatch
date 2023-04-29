@@ -16,6 +16,16 @@ export default {
   props: ["chartData", "chartOptions"],
   data: () => ({
     options: {
+        scales: {
+            x: {
+                stacked: true,
+            },
+            yAxes: [{
+                ticks: {
+                    stepSize: 1
+                }
+            }]
+        },
         plugins: {
             zoom: {
                 zoom: {
@@ -25,7 +35,7 @@ export default {
                     pinch: {
                         enabled: true
                     },
-                    mode: 'xy',
+                    mode: 'x',
                 },
                 pan: {
                     enabled: true

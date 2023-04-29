@@ -17,6 +17,7 @@ class ChartController extends Controller
 
         // Build the query to count the occurrences of each letter
         $query = DB::table((new Message())->getTable())
+            ->whereNull('deleted_at')
             ->where('type', 'ALLSTATIONS');
 
         foreach ($letterCounts as $letter => $count) {
@@ -37,6 +38,7 @@ class ChartController extends Controller
     {
         // Build the query to select code words from messages of type "SKYKING"
         $codeWords = DB::table((new Message)->getTable())
+            ->whereNull('deleted_at')
             ->where('type', 'SKYKING')
             ->where('message', 'not like', "%DISREGARD%")
             ->selectRaw("TRIM(SUBSTRING_INDEX(message, 'TIME', 1)) AS code_word")
@@ -61,6 +63,7 @@ class ChartController extends Controller
     {
         // Assuming you have a 'created_at' timestamp column in your table
         $dailyMessageCounts = DB::table((new Message)->getTable())
+            ->whereNull('deleted_at')
             ->selectRaw("DATE(broadcast_ts) AS date, type, COUNT(*) AS count")
             ->whereIn('type', ['BACKEND', 'SKYKING', 'ALLSTATIONS', 'RADIOCHECK', 'SKYMASTER', 'SKYBIRD', 'DISREGARDED', 'OTHER'])
             ->groupBy(DB::raw("DATE(broadcast_ts)"), 'type')

@@ -41,7 +41,11 @@ axios.interceptors.response.use(function (response) {
             console.log("You are not authorized to preform that action!");
         }
     }
-    return Promise.reject(error);
+    if (error.response && error.response.data && error.response.data.location) {
+        window.location = error.response.data.location;
+    } else {
+        return Promise.reject(error);
+    }
 });
 
 /**

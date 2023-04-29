@@ -1,11 +1,59 @@
 <template>
   <div>
-    <h2>Letter Counts</h2>
-    <bar-chart v-if="charLoaded" :chart-data="letterCountsChart" />
-    <h2>Code Word Counts</h2>
-    <bar-chart v-if="codeLoaded === true" :chart-data="codewordChart" />
-    <h2>Messages Per Day</h2>
-    <bar-chart v-if="perdayLoaded === true" :chart-data="dailyChart" />
+    <div class="row">
+        <div class="col-1">
+          &nbsp;
+        </div>
+        <div class="col-10">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    Letter Counts
+                </div>
+                <div class="card-body">
+                    <bar-chart v-if="charLoaded" :chart-data="letterCountsChart" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+          &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+          &nbsp;
+        </div>
+        <div class="col-10">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    Code Word Counts
+                </div>
+                <div class="card-body">
+                    <bar-chart v-if="codeLoaded === true" :chart-data="codewordChart" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+          &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+          &nbsp;
+        </div>
+        <div class="col-10">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    Messages Per Day
+                </div>
+                <div class="card-body">
+                    <bar-chart v-if="perdayLoaded === true" :chart-data="dailyChart" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+          &nbsp;
+        </div>
+    </div>
   </div>
 </template>
 

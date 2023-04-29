@@ -53,6 +53,10 @@
                                             <td v-if="this.guest.banned">Banned</td>
                                             <td v-if="!this.guest.banned">Active</td>
                                         </tr>
+                                        <tr>
+                                            <td>IP</td>
+                                            <td>{{this.guest.ip}}</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

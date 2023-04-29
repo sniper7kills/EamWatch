@@ -21,15 +21,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('messages', Api\MessageController::class);
-Route::apiResource('recordings', Api\RecordingController::class);
-Route::apiResource('comments', Api\CommentController::class);
-Route::apiResource('skykings', Api\SkykingController::class)->only('index');
-Route::apiResource('automatedRecordings', Api\AutomatedRecordingController::class)->except(['delete', 'show']);
-Route::apiResource('users', Api\UserController::class)->only(['show', 'update']);
-Route::apiResource('guests', Api\GuestController::class)->only(['show', 'update']);
-
 Route::middleware(BannedMiddleware::class)->group(function () {
+
+    Route::apiResource('messages', Api\MessageController::class);
+    Route::apiResource('recordings', Api\RecordingController::class);
+    Route::apiResource('comments', Api\CommentController::class);
+    Route::apiResource('skykings', Api\SkykingController::class)->only('index');
+    Route::apiResource('automatedRecordings', Api\AutomatedRecordingController::class)->except(['delete', 'show']);
+    Route::apiResource('users', Api\UserController::class)->only(['show', 'update']);
+    Route::apiResource('guests', Api\GuestController::class)->only(['show', 'update']);
+
+
     Route::get('/search', [Api\MessageController::class, 'search'])->name('search');
 
     Route::get('/supporter-messages', function (Request $request) {

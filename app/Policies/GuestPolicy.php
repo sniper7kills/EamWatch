@@ -46,7 +46,10 @@ class GuestPolicy
             return $response;
         }
 
-        if ($user->hasAnyPermission(['ban guests', 'unban guests'])) {
+        if ($user->hasPermissionTo('ban guests', 'web')) {
+            return Response::allow();
+        }
+        if ($user->hasPermissionTo('unban guests', 'web')) {
             return Response::allow();
         }
 
