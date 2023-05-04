@@ -69,7 +69,7 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <span style="font-family: monospace" v-html="formatMessage(message.message, message.type)"></span>
+                                        <span style="font-family: monospace" v-html="formatMessage(message.message, message.type, message.repeats)"></span>
                                     </td>
                                     <td>
                                         <p class="text-muted text-sm">
@@ -161,15 +161,19 @@
                         this.loading = false;
                     });
             },
-            formatMessage: function(message, type) {
+            formatMessage: function(message, type, repeats) {
                 if(type === "ALLSTATIONS") {
                     var messageLength = message.length;
                     var chunks = message.match(/.{1,30}/g);
                     var formatted =  chunks.join("<br />")
+                    var returnContent = formatted;
                     if(messageLength !== 30){
-                        return "["+messageLength+" CHAR]<br />"+formatted;
+                        returnContent = "["+messageLength+" CHAR]<br />"+returnContent;
                     }
-                    return formatted;
+                    if(repeats > 0){
+                        returnContent = "["+ repeats +" REPEATS]<br />"+returnContent;
+                    }
+                    return returnContent;
                 }else if(type === "OTHER") {
                     return message.replace(/(?:\r\n|\r|\n)/g, '<br />');
                 }

@@ -44,7 +44,7 @@
                             <div class="info-box bg-light">
                                 <div class="info-box-content">
                                     <span class="info-box-number text-center text-muted mb-0">
-                                        <pre style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;" v-html="formatMessage(message.message, message.type)"></pre>
+                                        <pre style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;" v-html="formatMessage(message.message, message.type, message.repeats)"></pre>
                                     </span>
                                 </div>
                             </div>
@@ -120,16 +120,18 @@
                         this.loading = false;
                     });
             },
-            formatMessage: function(message, type) {
+            formatMessage: function(message, type, repeats) {
                 if(type === "ALLSTATIONS") {
                     var messageLength = message.length;
                     var chunks = message.match(/.{1,30}/g);
-                    var formatted =  chunks.join('\r\n');
-
+                    var returnContent = formatted;
                     if(messageLength !== 30){
-                        return "["+messageLength+" CHAR]"+'\r\n'+formatted;
+                        returnContent = "["+messageLength+" CHAR]<br />"+returnContent;
                     }
-                    return formatted;
+                    if(repeats > 0){
+                        returnContent = "["+ repeats +" REPEATS]<br />"+returnContent;
+                    }
+                    return returnContent;
                 }
                 return message;
             }

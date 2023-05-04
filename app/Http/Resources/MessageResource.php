@@ -51,6 +51,12 @@ class MessageResource extends JsonResource
             $canDelete = $user->can('delete', $this->message);
         }
 
+        $repeats = 0;
+
+        if ($this->message->type == "ALLSTATIONS") {
+            $repeats = Message::where('type', $this->message->type)->where('message', $this->message->message)->where('broadcast_ts', '<', $this->message->time)->count();
+        }
+
         return [
             'id' => $this->message->id,
             'type' => $this->message->type,
@@ -68,6 +74,7 @@ class MessageResource extends JsonResource
                 'update' => $canUpdate,
                 'delete' => $canDelete,
             ],
+            'repeats' => $repeats
         ];
     }
 
