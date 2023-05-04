@@ -124,6 +124,7 @@
                 if(type === "ALLSTATIONS") {
                     var messageLength = message.length;
                     var chunks = message.match(/.{1,30}/g);
+                    var formatted =  chunks.join('\r\n');
                     var returnContent = formatted;
                     if(messageLength !== 30){
                         returnContent = "["+messageLength+" CHAR]<br />"+returnContent;
