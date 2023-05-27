@@ -83,6 +83,22 @@
                     </div>
                 </div>
                 <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Automated Recordings Within 4 Minutes
+                        </div>
+                        <div class="card-body">
+                            <vue-loading v-if="this.loading" type="bubbles" color="#d9544e" :size="{ width: '50px', height: '50px' }" />
+                            <div v-if="!this.loading">
+                                <recording-list-stub  :recordings="message.automated_recordings" />
+                            </div>
+                        </div>
+                        <div class="card-footer clearfix">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
                     <recording-add-stub v-if="!this.loading" v-bind:message_id="message.id" />
                 </div>
             </div>

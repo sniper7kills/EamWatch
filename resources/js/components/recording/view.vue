@@ -24,13 +24,16 @@
                                             <td>Receiver</td>
                                             <td>{{this.recording.receiver}}</td>
                                         </tr>
-                                        <tr v-if="this.recording.message.length !== 0">
+                                        <tr v-if="this.recording.message != null && this.recording.message.length !== 0">
                                             <td>Message</td>
                                             <td>
                                                 <router-link tag="a" :to="{ name: 'message-view', params: { message_id: this.recording.message.id } }">
                                                     {{this.recording.message.id}}
                                                 </router-link>
                                             </td>
+                                        </tr>
+                                        <tr v-if="this.recording.message == null">
+                                            AUTOMATED RECORDING
                                         </tr>
                                     </tbody>
                                 </table>

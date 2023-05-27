@@ -9,6 +9,7 @@ use App\Http\Resources\Stub\RecordingResource as RecordingResourceStub;
 use App\Http\Resources\Stub\UserResource as UserResourceStub;
 use App\Models\Guest;
 use App\Models\Message;
+use App\Models\Recording;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -70,6 +71,7 @@ class MessageResource extends JsonResource
             'user' => UserResourceStub::make($this->message->userable),
             'comments' => CommentResourceStub::collection($this->message->lastFiveComments),
             'recordings' => RecordingResourceStub::collection($this->message->recordings()->paginate()),
+            'automated_recordings' => RecordingResourceStub::collection(Recording::where('automated', true)->whereBetween('broadcasted_at', [$this->message->broadcast_ts->subMinutes(2), $this->message->broadcast_ts->addMinutes(2)])->paginate()),
             'permissions' => [
                 'update' => $canUpdate,
                 'delete' => $canDelete,

@@ -54,6 +54,10 @@ class UserController extends Controller
         if (Auth::user()->hasPermissionTo('edit users', 'web') && array_key_exists('role', $data)) {
             $user->syncRoles([]);
             $role = strtolower($data['role']);
+            // Only Allow Admins to change role to Admin
+            if ($user->displayRole() != "Admin" && $role == "admin")
+                $role = strtolower($user->displayRole());
+
             if ($role != 'member') {
                 $user->syncRoles(Role::findByName($role, "web"));
             }

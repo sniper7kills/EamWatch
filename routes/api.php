@@ -23,6 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware(BannedMiddleware::class)->group(function () {
 
+    Route::post(
+        config('vapor.signed_storage.url', '/vapor/signed-storage-url'),
+        Laravel\Vapor\Contracts\SignedStorageUrlController::class . '@store'
+    )->middleware('auth:api');
+
     Route::apiResource('messages', Api\MessageController::class);
     Route::apiResource('recordings', Api\RecordingController::class);
     Route::apiResource('comments', Api\CommentController::class);

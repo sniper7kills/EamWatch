@@ -48,13 +48,12 @@
                         <p>Skyking Messages</p>
                     </router-link>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <router-link tag="a" class="nav-link" :to="{ name: 'automated-listing'}">
                         <i class="nav-icon fas fa-microphone-alt"></i>
                         <p>Automated Recordings</p>
                     </router-link>
-                </li> --}}
-
+                </li>
                 @auth
                     <li class="nav-item">
                         <router-link tag="a" class="nav-link" :to="{ name: 'user-edit', params: { user_id: '{{ Auth::user()->id }}' }}">

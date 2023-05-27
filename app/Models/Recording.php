@@ -48,8 +48,8 @@ class Recording extends \App\Models\AbstractModels\AbstractRecording
     public function getLinkAttribute()
     {
         $rootPath = '';
-        if (! $this->automated) {
-            $rootPath .= 'recordings/'.$this->message_id.'/';
+        if (!$this->automated) {
+            $rootPath .= 'recordings/' . $this->message_id . '/';
         } else {
             $rootPath .= 'automated/';
         }
