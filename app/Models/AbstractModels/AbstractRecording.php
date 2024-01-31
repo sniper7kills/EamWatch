@@ -7,10 +7,10 @@
 
 namespace App\Models\AbstractModels;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRecording extends Model
 {
