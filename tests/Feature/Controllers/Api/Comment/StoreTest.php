@@ -34,7 +34,8 @@ class StoreTest extends TestCase
         ];
 
         $this->json('post', route('comments.store'), $messageData)
-            ->assertStatus(403);
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_banned_users_can_not_create_comment(): void
@@ -54,7 +55,8 @@ class StoreTest extends TestCase
 
         $this->actingAs($user, 'api');
         $this->json('post', route('comments.store'), $messageData)
-            ->assertStatus(403);
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_message_id_or_recording_id_required(): void

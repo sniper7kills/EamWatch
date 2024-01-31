@@ -59,8 +59,8 @@ class ShowTest extends TestCase
 
         $this->actingAs($user, 'api');
         $this->get(route('messages.show', ['message' => $message]))
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_show_unavailable_for_banned_guests(): void
@@ -73,8 +73,8 @@ class ShowTest extends TestCase
         $message->save();
 
         $this->get(route('messages.show', ['message' => $message]))
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_show_contains_update_permissions_for_guest_who_created_message(): void

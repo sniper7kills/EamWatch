@@ -93,8 +93,8 @@ class IndexTest extends TestCase
 
         $this->actingAs($user, 'api');
         $this->get(route('messages.index'))
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_index_unavailable_for_banned_guests(): void
@@ -107,8 +107,8 @@ class IndexTest extends TestCase
         $message->save();
 
         $this->get(route('messages.index'))
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_index_results_are_ordered_by_broadcast_time(): void

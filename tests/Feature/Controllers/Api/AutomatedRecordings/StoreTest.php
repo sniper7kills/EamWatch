@@ -26,8 +26,8 @@ class StoreTest extends TestCase
 
         $this->actingAs($user, 'api');
         $this->post(route('automatedRecordings.store'), $recordingData)
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_store_unavailable_for_banned_guests(): void
@@ -46,7 +46,7 @@ class StoreTest extends TestCase
         ];
 
         $this->post(route('automatedRecordings.store'), $recordingData)
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/login');
     }
 }
