@@ -7,6 +7,9 @@
 
 namespace App\Models\AbstractModels;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRecording extends Model
@@ -67,22 +70,22 @@ abstract class AbstractRecording extends Model
         'receiver',
     ];
 
-    public function message()
+    public function message(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Message::class, 'message_id', 'id');
     }
 
-    public function userable()
+    public function userable(): MorphTo
     {
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
 
-    public function comments()
+    public function comments(): MorphToMany
     {
         return $this->morphToMany(\App\Models\Comment::class, 'commentable', 'commentables', 'commentable_id', 'comment_id', 'id', 'id');
     }
 
-    public function ratings()
+    public function ratings(): MorphToMany
     {
         return $this->morphToMany(\App\Models\Rating::class, 'ratingable', 'ratingables', 'ratingable_id', 'rating_id', 'id', 'id');
     }

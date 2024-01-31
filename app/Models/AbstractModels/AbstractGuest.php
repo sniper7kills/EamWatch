@@ -6,6 +6,7 @@
 
 namespace App\Models\AbstractModels;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractGuest extends Model
@@ -51,22 +52,22 @@ abstract class AbstractGuest extends Model
      */
     protected $fillable = ['ip'];
 
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany(\App\Models\Comment::class, 'userable', 'userable_type', 'userable_id');
     }
 
-    public function messages()
+    public function messages(): MorphMany
     {
         return $this->morphMany(\App\Models\Message::class, 'userable', 'userable_type', 'userable_id');
     }
 
-    public function recordings()
+    public function recordings(): MorphMany
     {
         return $this->morphMany(\App\Models\Recording::class, 'userable', 'userable_type', 'userable_id');
     }
 
-    public function ratings()
+    public function ratings(): MorphMany
     {
         return $this->morphMany(\App\Models\Rating::class, 'userable', 'userable_type', 'userable_id');
     }
