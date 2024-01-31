@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphedByMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 abstract class AbstractComment extends Model
 {
@@ -66,7 +67,7 @@ abstract class AbstractComment extends Model
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
 
-    public function messages(): MorphedByMany
+    public function messages(): MorphToMany
     {
         return $this->morphedByMany(\App\Models\Message::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }
