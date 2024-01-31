@@ -48,6 +48,13 @@ axios.interceptors.response.use(function (response) {
     }
 });
 
+import VueMatomo from 'vue-matomo'
+
+Vue.use(VueMatomo, {
+    host: 'https://tracking.sniper7kills.com',
+    siteId: 3
+});
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -92,3 +99,5 @@ const app = new Vue({
     el: '#app',
     router
 });
+
+window._paq.push(['trackPageView']);

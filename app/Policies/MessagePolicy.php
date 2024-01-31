@@ -36,7 +36,16 @@ class MessagePolicy
      */
     public function create(?User $user): Response
     {
+        if (is_null($user) && !Auth::guard('api')->guest()) {
+            $user = Auth::guard('api')->user();
+        }
+
         return $this->checkBan($user);
+
+        // if (!is_null($user))
+        //     return $this->checkBan($user);
+        // else
+        //     return Response::deny('Guest Submissions Disabled');
     }
 
     /**
