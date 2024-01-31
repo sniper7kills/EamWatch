@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MessagePolicy
 {
-    use HandlesAuthorization, BanCheck, UserOwnsResource;
+    use BanCheck, HandlesAuthorization, UserOwnsResource;
 
     /**
      * Determine whether the user can view any messages.
@@ -44,22 +44,22 @@ class MessagePolicy
      */
     public function update(?User $user, Message $message): Response
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (!is_null($user) && $user->can('update messages')) {
+        if (! is_null($user) && $user->can('update messages')) {
             return Response::allow();
         }
         try {
-            if (!is_null($user) && $user->hasPermissionTo('update messages', 'web')) {
+            if (! is_null($user) && $user->hasPermissionTo('update messages', 'web')) {
                 return Response::allow();
             }
         } catch (\Exception) {
             //print("Exception");
         }
 
-        if (!$this->userOwnsResource($user, $message)) {
+        if (! $this->userOwnsResource($user, $message)) {
             return Response::deny('You did not create this message');
         }
 

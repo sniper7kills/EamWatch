@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SupporterMessage extends Model
 {
-    protected  $fillable = ["name", "message"];
+    protected $fillable = ['name', 'message'];
 }

@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api;
-use Illuminate\Http\Request;
 use App\Http\Middleware\BannedMiddleware;
 use App\Http\Resources\SupporterMessageResource;
 use App\Models\SupporterMessage;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +25,7 @@ Route::middleware(BannedMiddleware::class)->group(function () {
 
     Route::post(
         config('vapor.signed_storage.url', '/vapor/signed-storage-url'),
-        Laravel\Vapor\Contracts\SignedStorageUrlController::class . '@store'
+        Laravel\Vapor\Contracts\SignedStorageUrlController::class.'@store'
     )->middleware('auth:api');
 
     Route::apiResource('messages', Api\MessageController::class);
@@ -35,7 +35,6 @@ Route::middleware(BannedMiddleware::class)->group(function () {
     Route::apiResource('automatedRecordings', Api\AutomatedRecordingController::class)->except(['delete', 'show']);
     Route::apiResource('users', Api\UserController::class)->only(['show', 'update']);
     Route::apiResource('guests', Api\GuestController::class)->only(['show', 'update']);
-
 
     Route::get('/search', [Api\MessageController::class, 'search'])->name('search');
 

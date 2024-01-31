@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
-    use HandlesAuthorization, BanCheck;
+    use BanCheck, HandlesAuthorization;
 
     /**
      * Determine whether the user can view any models.

@@ -11,13 +11,13 @@ trait BanCheck
 {
     private function checkBan(?User $user): Response
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (!is_null($user) && $user->banned) {
+        if (! is_null($user) && $user->banned) {
             return Response::deny('You are banned.');
-            //return false;
+        //return false;
         } elseif (is_null($user) && Guest::current()->banned) {
             return Response::deny('You are banned.');
             //return false;

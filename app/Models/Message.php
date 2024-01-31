@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Message extends \App\Models\AbstractModels\AbstractMessage
 {
-    use HasFactory;
     use GeneratesUuid, SoftDeletes;
+    use HasFactory;
 
     public function __construct(array $attributes = [])
     {
@@ -27,8 +27,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the type to Upper Case.
-     *
-     * @param $type
      */
     public function setTypeAttribute($type)
     {
@@ -37,8 +35,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the message to upper case.
-     *
-     * @param $message
      */
     public function setMessageAttribute($message)
     {
@@ -47,8 +43,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the Sender to upper case.
-     *
-     * @param $sender
      */
     public function setSenderAttribute($sender)
     {
@@ -57,8 +51,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the Receiver to upper case.
-     *
-     * @param $receiver
      */
     public function setReceiverAttribute($receiver)
     {
@@ -76,8 +68,6 @@ class Message extends \App\Models\AbstractModels\AbstractMessage
 
     /**
      * Set the broadcast_ts attribute using a fake attribute.
-     *
-     * @param $time
      */
     public function setTimeAttribute($time)
     {

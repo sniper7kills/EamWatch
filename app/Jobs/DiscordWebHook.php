@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Http;
 
 class DiscordWebHook implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, MessageManipulation;
+    use Dispatchable, InteractsWithQueue, MessageManipulation, Queueable, SerializesModels;
 
     protected $provider;
 

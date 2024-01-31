@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Recording extends \App\Models\AbstractModels\AbstractRecording
 {
-    use HasFactory;
     use GeneratesUuid;
+    use HasFactory;
 
     public function getTimeAttribute()
     {
@@ -37,8 +37,6 @@ class Recording extends \App\Models\AbstractModels\AbstractRecording
 
     /**
      * Set the broadcast_ts attribute using a fake attribute.
-     *
-     * @param $time
      */
     public function setTimeAttribute($time)
     {
@@ -48,8 +46,8 @@ class Recording extends \App\Models\AbstractModels\AbstractRecording
     public function getLinkAttribute()
     {
         $rootPath = '';
-        if (!$this->automated) {
-            $rootPath .= 'recordings/' . $this->message_id . '/';
+        if (! $this->automated) {
+            $rootPath .= 'recordings/'.$this->message_id.'/';
         } else {
             $rootPath .= 'automated/';
         }

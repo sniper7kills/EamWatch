@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends \App\Models\AbstractModels\AbstractComment
 {
-    use HasFactory;
     use GeneratesUuid;
+    use HasFactory;
     use SoftDeletes;
 
     /**

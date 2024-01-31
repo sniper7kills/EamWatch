@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentPolicy
 {
-    use HandlesAuthorization, BanCheck, UserOwnsResource;
+    use BanCheck, HandlesAuthorization, UserOwnsResource;
 
     /**
      * Determine whether the user can view any comments.
@@ -43,15 +43,15 @@ class CommentPolicy
      */
     public function update(?User $user, Comment $comment): Response
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (!is_null($user) && $user->can('update comments', 'web')) {
+        if (! is_null($user) && $user->can('update comments', 'web')) {
             return Response::allow();
         }
 
-        if (!$this->userOwnsResource($user, $comment)) {
+        if (! $this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
         }
 
@@ -63,15 +63,15 @@ class CommentPolicy
      */
     public function delete(?User $user, Comment $comment): Response
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
-        if (!is_null($user) && $user->hasPermissionTo('delete comments', 'web')) {
+        if (! is_null($user) && $user->hasPermissionTo('delete comments', 'web')) {
             return Response::allow();
         }
 
-        if (!$this->userOwnsResource($user, $comment)) {
+        if (! $this->userOwnsResource($user, $comment)) {
             return Response::deny('You did not create this comment');
         }
 

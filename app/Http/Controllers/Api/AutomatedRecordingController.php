@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AutomatedRecordingResource;
 use App\Http\Requests\AutomatedRecordingStoreRequest;
+use App\Http\Resources\AutomatedRecordingResource;
 use App\Models\Recording;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Storage;
 
 class AutomatedRecordingController extends Controller
@@ -47,10 +46,10 @@ class AutomatedRecordingController extends Controller
 
         Storage::copy(
             $request['key'],
-            '/automated/' . $recording->id
+            '/automated/'.$recording->id
         );
 
-        Storage::setVisibility('/automated/' . $recording->id, 'public');
+        Storage::setVisibility('/automated/'.$recording->id, 'public');
 
         return AutomatedRecordingResource::make($recording);
     }
