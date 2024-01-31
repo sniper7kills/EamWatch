@@ -12,7 +12,7 @@
         "doctrine/dbal": "^3.5",
         "guzzlehttp/guzzle": "^7.2",
         "j7mbo/twitter-api-php": "^1.0",
-        "laravel/framework": "^10.4",
+        "laravel/framework": "^10.43",
         "laravel/passport": "^11.5",
         "laravel/telescope": "^4.12",
         "laravel/tinker": "^2.8",
