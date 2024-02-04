@@ -15,13 +15,12 @@ class BannedMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guest() && Guest::current()->banned) {
+        if (! Auth::guest() && Guest::current()->banned) {
             $user = Auth::user();
             $user->banned = true;
             $user->save();
             Auth::logout();
         }
-
 
         if (Auth::guest()) {
             if (Guest::current()->banned) {

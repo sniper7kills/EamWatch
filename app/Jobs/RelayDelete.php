@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class RelayDelete implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ProviderDecider;
+    use Dispatchable, InteractsWithQueue, ProviderDecider, Queueable, SerializesModels;
 
     protected $message;
 

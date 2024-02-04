@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\Response;
 
 class RecordingPolicy
 {
-    use HandlesAuthorization, BanCheck;
+    use BanCheck, HandlesAuthorization;
 
     /**
      * Determine whether the user can view any recordings.

@@ -7,6 +7,8 @@
 namespace App\Models\AbstractModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 abstract class AbstractRelayProvider extends Model
 {
@@ -54,12 +56,12 @@ abstract class AbstractRelayProvider extends Model
         'enabled',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    public function relays()
+    public function relays(): HasMany
     {
         return $this->hasMany(\App\Models\Relay::class, 'relay_provider_id', 'id');
     }

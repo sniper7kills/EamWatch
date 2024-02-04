@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Guest extends \App\Models\AbstractModels\AbstractGuest
 {
-    use HasFactory;
     use GeneratesUuid;
+    use HasFactory;
 
     public static function current()
     {

@@ -11,8 +11,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends \App\Models\AbstractModels\AbstractUser
 {
+    use GeneratesUuid, HasApiTokens, HasRoles, MustVerifyEmail, Notifiable;
     use HasFactory;
-    use Notifiable, MustVerifyEmail, HasRoles, GeneratesUuid, HasApiTokens;
 
     /**
      * The attributes that should be hidden for arrays.

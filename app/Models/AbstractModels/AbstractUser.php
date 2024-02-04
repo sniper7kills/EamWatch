@@ -6,6 +6,9 @@
 
 namespace App\Models\AbstractModels;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+
 abstract class AbstractUser extends \Illuminate\Foundation\Auth\User
 {
     /**
@@ -57,27 +60,27 @@ abstract class AbstractUser extends \Illuminate\Foundation\Auth\User
         'password',
     ];
 
-    public function relayProviders()
+    public function relayProviders(): HasMany
     {
         return $this->hasMany(\App\Models\RelayProvider::class, 'user_id', 'id');
     }
 
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany(\App\Models\Comment::class, 'userable', 'userable_type', 'userable_id');
     }
 
-    public function messages()
+    public function messages(): MorphMany
     {
         return $this->morphMany(\App\Models\Message::class, 'userable', 'userable_type', 'userable_id');
     }
 
-    public function recordings()
+    public function recordings(): MorphMany
     {
         return $this->morphMany(\App\Models\Recording::class, 'userable', 'userable_type', 'userable_id');
     }
 
-    public function ratings()
+    public function ratings(): MorphMany
     {
         return $this->morphMany(\App\Models\Rating::class, 'userable', 'userable_type', 'userable_id');
     }

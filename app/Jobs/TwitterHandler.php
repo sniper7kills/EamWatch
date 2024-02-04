@@ -15,7 +15,7 @@ use TwitterAPIExchange;
 
 class TwitterHandler implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, MessageManipulation;
+    use Dispatchable, InteractsWithQueue, MessageManipulation, Queueable, SerializesModels;
 
     protected $provider;
 

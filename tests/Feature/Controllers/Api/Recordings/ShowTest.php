@@ -25,8 +25,8 @@ class ShowTest extends TestCase
 
         $this->actingAs($user, 'api');
         $this->json('get', route('recordings.show', ['recording' => $recording]))
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_show_unavailable_for_banned_guests(): void
@@ -43,8 +43,8 @@ class ShowTest extends TestCase
         $recording->save();
 
         $this->json('get', route('recordings.show', ['recording' => $recording]))
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_recording_show(): void

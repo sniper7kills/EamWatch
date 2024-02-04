@@ -181,8 +181,8 @@ class UpdateTest extends TestCase
 
         $this->actingAs($user, 'api');
         $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
-            ->assertStatus(403)
-            ->assertSee('You are banned.');
+            ->assertStatus(302)
+            ->assertSee('/banned');
     }
 
     public function test_admins_can_update_messages_created_by_other_guests(): void

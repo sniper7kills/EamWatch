@@ -54,7 +54,7 @@ class MessageResource extends JsonResource
 
         $repeats = 0;
 
-        if ($this->message->type == "ALLSTATIONS") {
+        if ($this->message->type == 'ALLSTATIONS') {
             $repeats = Message::where('type', $this->message->type)->where('message', $this->message->message)->where('broadcast_ts', '<', $this->message->time)->count();
         }
 
@@ -76,7 +76,7 @@ class MessageResource extends JsonResource
                 'update' => $canUpdate,
                 'delete' => $canDelete,
             ],
-            'repeats' => $repeats
+            'repeats' => $repeats,
         ];
     }
 

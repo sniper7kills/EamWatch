@@ -24,7 +24,6 @@ class ChartController extends Controller
             $query->selectRaw("SUM(CHAR_LENGTH(message) - CHAR_LENGTH(REPLACE(LOWER(message), ?, ''))) as {$letter}_letter", [$letter]);
         }
 
-
         // Execute the query and fetch the result
         $result = $query->first();
 
@@ -40,7 +39,7 @@ class ChartController extends Controller
         $codeWords = DB::table((new Message)->getTable())
             ->whereNull('deleted_at')
             ->where('type', 'SKYKING')
-            ->where('message', 'not like', "%DISREGARD%")
+            ->where('message', 'not like', '%DISREGARD%')
             ->selectRaw("TRIM(SUBSTRING_INDEX(message, 'TIME', 1)) AS code_word")
             ->get();
 
@@ -64,9 +63,9 @@ class ChartController extends Controller
         // Assuming you have a 'created_at' timestamp column in your table
         $dailyMessageCounts = DB::table((new Message)->getTable())
             ->whereNull('deleted_at')
-            ->selectRaw("DATE(broadcast_ts) AS date, type, COUNT(*) AS count")
+            ->selectRaw('DATE(broadcast_ts) AS date, type, COUNT(*) AS count')
             ->whereIn('type', ['BACKEND', 'SKYKING', 'ALLSTATIONS', 'RADIOCHECK', 'SKYMASTER', 'SKYBIRD', 'DISREGARDED', 'OTHER'])
-            ->groupBy(DB::raw("DATE(broadcast_ts)"), 'type')
+            ->groupBy(DB::raw('DATE(broadcast_ts)'), 'type')
             ->orderBy('date', 'asc')
             ->get();
 

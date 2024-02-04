@@ -57,6 +57,7 @@ class UserController extends Controller
             // Only Allow Admins to change role to Admin
             if (Auth::user()->displayRole() != "Admin" && $role == "admin")
                 $role = strtolower($user->displayRole());
+            }
 
             if (Auth::user()->displayRole() != "Admin" && Auth::user()->displayRole() != "Moderator" && $role == "moderator")
                 $role = strtolower($user->displayRole());
@@ -64,7 +65,7 @@ class UserController extends Controller
             $user->syncRoles([]);
 
             if ($role != 'member') {
-                $user->syncRoles(Role::findByName($role, "web"));
+                $user->syncRoles(Role::findByName($role, 'web'));
             }
         }
         if (array_key_exists('role', $data)) {
@@ -75,7 +76,7 @@ class UserController extends Controller
          * Change Password.
          */
         if (array_key_exists('password', $data)) {
-            if (!is_null($data['password'])) {
+            if (! is_null($data['password'])) {
                 $user->password = Hash::make($data['password']);
                 $user->save();
             }

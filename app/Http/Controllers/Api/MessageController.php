@@ -7,9 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\MessageUpdateRequest;
 use App\Http\Resources\MessageResource;
-use App\Models\Guest;
 use App\Models\Message;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,29 +28,31 @@ class MessageController extends Controller
      */
     public function search(Request $request): AnonymousResourceCollection
     {
-        $query = $request->get('search', "");
+        $query = $request->get('search', '');
 
         $search_term = [];
 
         $commands = [
-            "length" => function ($return_query, $subsearch_query) {
+            'length' => function ($return_query, $subsearch_query) {
                 $length_query = intval($subsearch_query);
-                return $return_query->whereRaw('LENGTH(message) >= ' . $length_query);
+
+                return $return_query->whereRaw('LENGTH(message) >= '.$length_query);
             },
-            "sender" => function ($return_query, $subsearch_query) {
-                return $return_query->where('sender', 'LIKE', '%' . $subsearch_query . '%');
+            'sender' => function ($return_query, $subsearch_query) {
+                return $return_query->where('sender', 'LIKE', '%'.$subsearch_query.'%');
             },
-            "receiver" => function ($return_query, $subsearch_query) {
-                return $return_query->where('receiver', 'LIKE', '%' . $subsearch_query . '%');
+            'receiver' => function ($return_query, $subsearch_query) {
+                return $return_query->where('receiver', 'LIKE', '%'.$subsearch_query.'%');
             },
-            "type" => function ($return_query, $subsearch_query) {
-                return $return_query->where('type', 'LIKE', '%' . $subsearch_query . '%');
+            'type' => function ($return_query, $subsearch_query) {
+                return $return_query->where('type', 'LIKE', '%'.$subsearch_query.'%');
             },
-            "date" => function ($return_query, $subsearch_query) {
-                $subsearch_query = str_replace("T", " ", $subsearch_query);
-                return $return_query->where('broadcast_ts', 'LIKE', $subsearch_query . "%");
+            'date' => function ($return_query, $subsearch_query) {
+                $subsearch_query = str_replace('T', ' ', $subsearch_query);
+
+                return $return_query->where('broadcast_ts', 'LIKE', $subsearch_query.'%');
             },
-            "user" => function ($return_query, $subsearch_query) {
+            'user' => function ($return_query, $subsearch_query) {
                 return $return_query->where('userable_id', $subsearch_query);
             },
 
@@ -61,12 +61,12 @@ class MessageController extends Controller
         $return_query = Message::where('visible', true);
 
         if (str_contains($query, ':')) {
-            $split = explode(" ", $query);
+            $split = explode(' ', $query);
             foreach ($split as $subsearch) {
-                if (!str_contains($subsearch, ":")) {
+                if (! str_contains($subsearch, ':')) {
                     $search_term[] = $subsearch;
                 } else {
-                    [$command, $subsearch_query] = explode(":", $subsearch);
+                    [$command, $subsearch_query] = explode(':', $subsearch);
                     if (array_key_exists($command, $commands)) {
                         $return_query = $commands[$command]($return_query, $subsearch_query);
                     } else {
@@ -74,13 +74,11 @@ class MessageController extends Controller
                     }
                 }
             }
-            $query = implode(" ", $search_term);
+            $query = implode(' ', $search_term);
         }
 
-
-
         if (strlen($query) > 1) {
-            $return_query->where('message', 'LIKE', '%' . $query . '%');
+            $return_query->where('message', 'LIKE', '%'.$query.'%');
         }
 
         $messages = $return_query
@@ -103,15 +101,13 @@ class MessageController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function store(MessageStoreRequest $request): MessageResource | \Illuminate\Http\JsonResponse
+    public function store(MessageStoreRequest $request): MessageResource|JsonResponse
     {
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request);
-        if (!is_null($existingMessage)) {
+        if (! is_null($existingMessage)) {
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
         }
 
@@ -133,15 +129,13 @@ class MessageController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\JsonResponse | MessageResource
      */
-    public function update(MessageUpdateRequest $request, Message $message): MessageResource | \Illuminate\Http\JsonResponse
+    public function update(MessageUpdateRequest $request, Message $message): MessageResource|JsonResponse
     {
         $request = $request->validated();
 
         $existingMessage = $this->getExistingMessage($request, $message);
-        if (!is_null($existingMessage)) {
+        if (! is_null($existingMessage)) {
             $message->delete();
 
             return MessageResource::make($existingMessage)->response()->setStatusCode(303);
@@ -165,11 +159,11 @@ class MessageController extends Controller
     /**
      * Get an existing message based on the request.
      */
-    private function getExistingMessage(array $request, Message $existingMessage = null): ?Message
+    private function getExistingMessage(array $request, ?Message $existingMessage = null): ?Message
     {
         $message = Message::query();
 
-        if (!is_null($existingMessage)) {
+        if (! is_null($existingMessage)) {
             $message->where('id', '!=', $existingMessage->id);
         }
 

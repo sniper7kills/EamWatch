@@ -7,7 +7,7 @@ use App\Models\Concerns\GeneratesUuid;
 
 class RelayProvider extends \App\Models\AbstractModels\AbstractRelayProvider
 {
-    use GeneratesUuid, Encryptable;
+    use Encryptable, GeneratesUuid;
 
     protected $encryptable = [
         'details',

@@ -7,6 +7,7 @@
 namespace App\Models\AbstractModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 abstract class AbstractRelay extends Model
 {
@@ -46,12 +47,12 @@ abstract class AbstractRelay extends Model
      */
     protected $fillable = ['response'];
 
-    public function message()
+    public function message(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Message::class, 'message_id', 'id');
     }
 
-    public function relayProvider()
+    public function relayProvider(): BelongsTo
     {
         return $this->belongsTo(\App\Models\RelayProvider::class, 'relay_provider_id', 'id');
     }

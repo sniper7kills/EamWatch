@@ -16,3 +16,5 @@ yarn-error.log
 /database.sqlite
 /.idea
 .editorconfig
+storage/minio
+storage/mysql

@@ -7,6 +7,11 @@
 namespace App\Models\AbstractModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphedByMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 abstract class AbstractComment extends Model
 {
@@ -47,27 +52,27 @@ abstract class AbstractComment extends Model
      */
     protected $fillable = ['message'];
 
-    public function comment()
+    public function comment(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Comment::class, 'parent_comment_id', 'id');
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(\App\Models\Comment::class, 'parent_comment_id', 'id');
     }
 
-    public function userable()
+    public function userable(): MorphTo
     {
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
 
-    public function messages()
+    public function messages(): MorphToMany
     {
         return $this->morphedByMany(\App\Models\Message::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }
 
-    public function recordings()
+    public function recordings(): MorphedByMany
     {
         return $this->morphedByMany(\App\Models\Recording::class, 'commentable', 'commentables', 'comment_id', 'commentable_id', 'id', 'id');
     }

@@ -7,6 +7,8 @@
 namespace App\Models\AbstractModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphedByMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 abstract class AbstractRating extends Model
 {
@@ -46,17 +48,17 @@ abstract class AbstractRating extends Model
      */
     protected $fillable = ['score'];
 
-    public function userable()
+    public function userable(): MorphTo
     {
         return $this->morphTo('userable', 'userable_type', 'userable_id');
     }
 
-    public function messages()
+    public function messages(): MorphedByMany
     {
         return $this->morphedByMany(\App\Models\Message::class, 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
     }
 
-    public function recordings()
+    public function recordings(): MorphedByMany
     {
         return $this->morphedByMany(\App\Models\Recording::class, 'ratingable', 'ratingables', 'rating_id', 'ratingable_id', 'id', 'id');
     }
