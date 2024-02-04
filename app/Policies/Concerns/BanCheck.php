@@ -17,7 +17,7 @@ trait BanCheck
 
         if (! is_null($user) && $user->banned) {
             return Response::deny('You are banned.');
-        //return false;
+            //return false;
         } elseif (is_null($user) && Guest::current()->banned) {
             return Response::deny('You are banned.');
             //return false;

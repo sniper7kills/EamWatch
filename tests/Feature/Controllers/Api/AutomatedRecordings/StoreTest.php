@@ -27,7 +27,7 @@ class StoreTest extends TestCase
         $this->actingAs($user, 'api');
         $this->post(route('automatedRecordings.store'), $recordingData)
             ->assertStatus(302)
-            ->assertRedirectContains("/banned");
+            ->assertRedirectContains('/banned');
     }
 
     public function test_store_unavailable_for_banned_guests_redirects_to_login(): void
@@ -47,6 +47,6 @@ class StoreTest extends TestCase
 
         $this->post(route('automatedRecordings.store'), $recordingData)
             ->assertStatus(302)
-            ->assertRedirectContains("/login");
+            ->assertRedirectContains('/login');
     }
 }

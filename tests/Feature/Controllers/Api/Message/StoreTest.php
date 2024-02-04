@@ -35,7 +35,7 @@ class StoreTest extends TestCase
         $this->actingAs($user, 'api');
         $this->post(route('messages.store'), $messageData)
             ->assertStatus(302)
-            ->assertRedirectContains("/banned");
+            ->assertRedirectContains('/banned');
     }
 
     public function test_store_unavailable_for_banned_guests(): void
@@ -55,7 +55,7 @@ class StoreTest extends TestCase
 
         $this->post(route('messages.store'), $messageData)
             ->assertStatus(302)
-            ->assertRedirectContains("/banned");
+            ->assertRedirectContains('/banned');
     }
 
     public function test_store_as_guest(): void

@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 trait GetCurrentUserOrGuest
 {
-    /**
-     * @return User | Guest
-     */
-    protected function currentUserOrGuest(): User | Guest
+    protected function currentUserOrGuest(): User|Guest
     {
         if (Auth::guest() && Auth::guard('api')->guest()) {
             return Guest::current();

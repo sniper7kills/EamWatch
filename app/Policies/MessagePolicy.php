@@ -36,7 +36,7 @@ class MessagePolicy
      */
     public function create(?User $user): Response
     {
-        if (is_null($user) && !Auth::guard('api')->guest()) {
+        if (is_null($user) && ! Auth::guard('api')->guest()) {
             $user = Auth::guard('api')->user();
         }
 
