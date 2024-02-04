@@ -18,3 +18,4 @@ yarn-error.log
 .editorconfig
 storage/minio
 storage/mysql
+.phpunit.cache
