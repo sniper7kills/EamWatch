@@ -21,7 +21,7 @@ class IndexTest extends TestCase
         $this->actingAs($user, 'api');
         $this->json('get', route('automatedRecordings.index'))
             ->assertStatus(302)
-            ->assertSee('/banned');
+            ->assertRedirectContains("/banned");
     }
 
     public function test_index_unavailable_for_banned_guests(): void
@@ -35,7 +35,7 @@ class IndexTest extends TestCase
 
         $this->json('get', route('automatedRecordings.index'))
             ->assertStatus(302)
-            ->assertSee('/banned');
+            ->assertRedirectContains("/banned");
     }
 
     public function test_index_displays_paginated_data(): void
@@ -58,8 +58,8 @@ class IndexTest extends TestCase
                     ],
                 ],
                 'links' => [
-                    'first' => route('automatedRecordings.index').'?page=1',
-                    'last' => route('automatedRecordings.index').'?page=1',
+                    'first' => route('automatedRecordings.index') . '?page=1',
+                    'last' => route('automatedRecordings.index') . '?page=1',
                     'next' => null,
                     'prev' => null,
 

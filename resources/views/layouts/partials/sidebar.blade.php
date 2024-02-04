@@ -36,12 +36,14 @@
                         <p>Message Listing</p>
                     </router-link>
                 </li>
+                {{-- @auth --}}
                 <li class="nav-item">
                     <router-link tag="a" class="nav-link" :to="{ name: 'message-add'}">
                         <i class="nav-icon fas fa-plus-square"></i>
                         <p>Add Message</p>
                     </router-link>
                 </li>
+                {{-- @endauth --}}
                 <li class="nav-item">
                     <router-link tag="a" class="nav-link" :to="{ name: 'skyking-listing'}">
                         <i class="nav-icon fas fa-fighter-jet"></i>

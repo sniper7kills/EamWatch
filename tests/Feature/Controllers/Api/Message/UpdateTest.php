@@ -161,7 +161,8 @@ class UpdateTest extends TestCase
 
         $this->json('put', route('messages.update', ['message' => $message]), $updateRequest)
             ->assertStatus(302)
-            ->assertSee('/banned');
+            ->assertRedirectContains("/banned");
+        //->assertSee('You are banned.');
     }
 
     public function test_user_can_not_update_message_they_submitted_if_they_are_banned(): void

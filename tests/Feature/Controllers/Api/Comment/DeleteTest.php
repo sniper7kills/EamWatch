@@ -31,7 +31,7 @@ class DeleteTest extends TestCase
 
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(302)
-            ->assertSee('/banned');
+            ->assertRedirectContains("/banned");
     }
 
     public function test_banned_users_can_not_delete_comments(): void
@@ -49,7 +49,7 @@ class DeleteTest extends TestCase
         $this->actingAs($user, 'api');
         $this->json('delete', route('comments.destroy', ['comment' => $comment]))
             ->assertStatus(302)
-            ->assertSee('/banned');
+            ->assertRedirectContains("/banned");
     }
 
     public function test_guests_can_not_delete_comments_made_by_other_users(): void
